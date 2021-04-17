@@ -1,12 +1,13 @@
-from abc import ABC
+from gym.models import Model
 
 
-class Item(ABC):
+class Item(Model):
     _id = ''
     _name = ''
     _price = 0
 
-    def __init__(self, id, name, price):
+    def __init__(self, id, name, price, db=None):
+        super().__init__(db)
         self._id = id
         self._name = name
         self._price = price
