@@ -1,7 +1,8 @@
 from os import path
-from abc import ABC
+from abc import ABC, abstractmethod
 from gym.db.db import database
 from decouple import config
+from pprint import pprint
 
 
 class Model(ABC):
@@ -9,7 +10,7 @@ class Model(ABC):
     statement = ''
     _attributes = {}
 
-    def __init__(self, attributes, db=None):
+    def __init__(self, attributes={}, db=None):
         if db is None:
             db = database(config('DB_DATABASE'))
 
@@ -25,17 +26,18 @@ class Model(ABC):
         return self
 
     def where(self, column, value):
-        self.statement + ' ' + f'WHERE {column}={value}'
+        self.statement = self.statement + ' ' + f"WHERE {column}='{value}'"
 
         return self
 
     def first(self):
-        return (
-            self._db
-            .executeStatement(self.statement)
-            .getConnection()
-            .fetchfirst()
-        )
+        self.setAttributes(self._db.execute(self.statement).fetchfirst())
+
+        return self
+
+    @abstractmethod
+    def setAttributes(self, attributes=()):
+        pass
 
     def getAttribute(self, attribute):
         return self._attribute.get(attribute)

@@ -10,4 +10,14 @@ class AuthTest(unittest.TestCase):
         db = database('data/database.db')
         auth = Auth(db)
 
-        self.assertIsNone(auth.getUser('test@example.com'))
+        user = auth.getUser('test@example.com')
+
+        self.assertEqual('test@example.com', user.email)
+
+    def testAuthenticateUser(self):
+        db = database('data/database.db')
+        auth = Auth(db)
+        self.assertTrue(auth.authenticate({
+            'email': 'test@example.com',
+            'password': 'password'
+        }))

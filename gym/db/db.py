@@ -1,5 +1,6 @@
 import os
 import sqlite3
+import itertools
 from sqlite3 import Error
 
 
@@ -31,31 +32,12 @@ class Connection:
 
         return self._connection
 
-    def cursor(self):
-        return self._connection.cursor()
-
-    def execute(self, query):
-        self.cursor().execute(query)
-
-        return self
-
-    def fetchall(self):
-        return self.cursor().fetchall()
-
-    def fetchfirst(self):
-        self.cursor().fetchone()
-
-    def commit(self):
-        self._connection.commit()
-        self.close()
-
-        return self
-
     def close(self):
         self._connection.close()
 
 
 class Manager:
+    _cursor = None
     _connection = None
     _database = 'database.db'
 
@@ -66,21 +48,30 @@ class Manager:
         if database is None:
             database = self._database
 
-        self._connection.connect(database)
+        if self._connection.connect(database):
+            self.setCursor(self._connection.connection())
+
+    def setCursor(self, connection):
+        self._cursor = connection.cursor()
 
     def getConnection(self):
         return self._connection
 
-    def executeStatement(self, statement):
-        try:
-            self._connection.execute(statement)
-        except Error as e:
-            print(e)
+    def execute(self, query):
+        self._cursor.execute(query)
 
         return self
 
+    def fetchall(self):
+        return self._cursor.fetchall()
+
+    def fetchfirst(self):
+        return self._cursor.fetchone()
+
     def commit(self):
         self._connection.commit()
+
+        return self
 
     def close(self):
         self._connection.close()

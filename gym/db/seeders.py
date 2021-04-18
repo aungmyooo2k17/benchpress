@@ -1,5 +1,4 @@
-seed_users = """
-INSERT INTO users (
+seed_users = """INSERT INTO users (
     name,
     email,
     password

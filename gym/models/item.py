@@ -15,6 +15,9 @@ class Item(Model):
     def price(self):
         return self._attributes.get('price')
 
+    def setAttributes(self, attributes=()):
+        pass
+
     def assertIs(self, id):
         if self.id != id:
             return self.name == id
