@@ -13,7 +13,7 @@ class Auth:
         self.hash = hash if hash is not None else self.createHasher()
 
     def createHasher(self):
-        return Hash(config('APP_KEY').encode('utf-8'))
+        return Hash(config('APP_KEY'))
 
     def getUser(self, email):
         user = User(self.db)
