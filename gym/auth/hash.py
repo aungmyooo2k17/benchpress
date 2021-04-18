@@ -12,10 +12,12 @@ class Hash:
         return self.key(value)
 
     def check(self, value, hashedValue):
-        key = hashedValue[32:]
-        salt = hashedValue[:32]
+        [key, salt] = self.parse(hashedValue)
 
-        return self.key(value, salt) == salt + key
+        return self.key(value, salt) == hashedValue
+
+    def parse(self, hashedValue):
+        return [hashedValue[32:], hashedValue[:32]]
 
     def key(self, value, salt=None):
         if salt is None:

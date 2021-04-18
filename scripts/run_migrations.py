@@ -7,10 +7,9 @@ import sqlite3
 
 def runMigrations():
     import gym.db.migrations as migrations
-    from gym.db.db import Connection, Manager
+    from gym.db.db import database
 
-    db = Manager(Connection(sqlite3))
-    db.make(os.path.abspath(config('DB_DATABASE')))
+    db = database(config('DB_DATABASE'))
 
     for name, migration in vars(migrations).items():
         if not name.startswith('__'):

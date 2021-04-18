@@ -1,6 +1,6 @@
+import os
 import sqlite3
 from sqlite3 import Error
-from importlib import import_module
 
 
 class Connection:
@@ -39,6 +39,12 @@ class Connection:
 
         return self
 
+    def fetchall(self):
+        return self.cursor().fetchall()
+
+    def fetchfirst(self):
+        self.cursor().fetchone()
+
     def commit(self):
         self._connection.commit()
         self.close()
@@ -71,5 +77,17 @@ class Manager:
         except Error as e:
             print(e)
 
+        return self
+
     def close(self):
         self._connection.close()
+
+
+def database(database, connection=None):
+    if connection is None:
+        connection = Connection(sqlite3)
+
+    manager = Manager(connection)
+    manager.make(os.path.abspath(database))
+
+    return manager

@@ -16,17 +16,13 @@ class Auth:
         return Hash(config('APP_KEY'))
 
     def getUser(self, email):
-        user = (
-            self.db
-            .table('users')
-            .where('email', email)
-            .first()
-        )
+        user = User(self.db)
+        user = user.where('email', email).first()
 
         if user is None:
             return None
 
-        return User(user)
+        return user
 
     def authenticate(self, credentials):
         user = self.getUser(credentials['email'])
