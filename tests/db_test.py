@@ -1,7 +1,9 @@
 import sqlite3
 from os import path
+from pprint import pprint
+import sys
 import unittest
-from gym.db.db import Connection
+from gym.db.db import Connection, Manager
 
 
 class ConnectionTest(unittest.TestCase):
@@ -32,3 +34,16 @@ class ConnectionTest(unittest.TestCase):
 
         self.assertIsInstance(connection.cursor(), sqlite3.Cursor)
         connection.close()
+
+
+class ManagerTest(unittest.TestCase):
+
+    def getDatabaseLocation(self):
+        return path.abspath('./data/database.db')
+
+    def testMakeConnection(self):
+        filepath = self.getDatabaseLocation()
+        connection = Connection(sqlite3)
+        db = Manager(connection)
+        db.make(filepath)
+        self.assertIsInstance(db.getConnection(), Connection)

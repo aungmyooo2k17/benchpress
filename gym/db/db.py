@@ -1,5 +1,6 @@
 import sqlite3
 from sqlite3 import Error
+from importlib import import_module
 
 
 class Connection:
@@ -59,17 +60,16 @@ class Manager:
         if database is None:
             database = self._database
 
-        self.connection.connect(database)
+        self._connection.connect(database)
 
-    def getStatement(statement, *args):
-        return statement
+    def getConnection(self):
+        return self._connection
 
-    def createTable(self, name):
+    def executeStatement(self, statement):
         try:
-            self._connection.execute(
-                self.getStatement('create_table', name)
-            )
+            self._connection.execute(statement)
         except Error as e:
             print(e)
 
-        self._connection.commit()
+    def close(self):
+        self._connection.close()
