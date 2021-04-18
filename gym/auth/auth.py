@@ -10,10 +10,10 @@ class Auth:
 
     def __init__(self, db, hash=None):
         self.db = db
-        self.hash = hash if hash is not None else self.makeHash()
+        self.hash = hash if hash is not None else self.createHasher()
 
-    def makeHash(self):
-        return Hash(config('APP_KEY'))
+    def createHasher(self):
+        return Hash(config('APP_KEY').encode('utf-8'))
 
     def getUser(self, email):
         user = User(self.db)
@@ -30,7 +30,7 @@ class Auth:
         if user is None:
             raise UserNotFoundException('No user was found for that email')
 
-        if not self.hash.check(credentials['password'], user.password):
+        if not self.hash.check(credentials['password'], user.password.encode('utf-8')):
             raise AuthenticationException('Password does not match')
 
         self._user = user

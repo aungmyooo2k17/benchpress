@@ -79,6 +79,9 @@ class Manager:
 
         return self
 
+    def commit(self):
+        self._connection.commit()
+
     def close(self):
         self._connection.close()
 

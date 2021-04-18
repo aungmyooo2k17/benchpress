@@ -16,7 +16,7 @@ def seedDatabase():
         if not name.startswith('__'):
             db.executeStatement(seeder)
 
-    db.close()
+    db.commit()
 
 
 if __name__ == '__main__':
