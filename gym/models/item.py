@@ -15,6 +15,10 @@ class Item(Model):
     def price(self):
         return self._attributes.get('price')
 
+    @property
+    def units(self):
+        return self._attributes.get('units')
+
     def setAttributes(self, attributes=()):
         pass
 

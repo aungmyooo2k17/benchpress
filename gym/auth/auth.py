@@ -18,12 +18,8 @@ class Auth:
 
     def getUser(self, email):
         user = User(db=self._db)
-        user = user.where('email', email).first()
 
-        if user is None:
-            return None
-
-        return user
+        return user.where('email', email).first()
 
     def authenticate(self, credentials):
         user = self.getUser(credentials['email'])
