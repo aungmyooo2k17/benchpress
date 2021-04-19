@@ -22,6 +22,18 @@ class BascketTest(unittest.TestCase):
 
         self.assertTrue(bascket.get())
 
+    def testAddMultipleToBascket(self):
+        bascket = Bascket({})
+        package = Package({
+            'id': 1,
+            'name': 'Sample Package',
+            'price': 1500,
+        })
+
+        bascket.add(package, 2)
+
+        self.assertTrue(bascket.get())
+
     def testRemoveFromBascket(self):
         bascket = Bascket({})
         package = Package({
