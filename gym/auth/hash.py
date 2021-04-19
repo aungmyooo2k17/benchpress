@@ -1,4 +1,6 @@
 import hashlib
+import binascii
+import os
 
 
 class Hash:
@@ -6,27 +8,33 @@ class Hash:
     _length = 128
 
     def __init__(self, salt):
-        self._salt = salt
+        self._salt = salt.encode('ascii')
 
-    def make(self, value):
-        return self.key(value)
+    def make(self, password):
+        hashed = binascii.hexlify(hashlib.pbkdf2_hmac(
+            'sha512',
+            password.encode('utf-8'),
+            self._salt,
+            self._rounds
+        ))
 
-    def check(self, value, hashedValue):
-        key = hashedValue[32:]
-        salt = hashedValue[:32]
+        return (self._salt + hashed).decode('ascii')
 
-        return self.key(value, salt) == salt + key
+    def check(self, hashedValue, value):
+        salt = self.extractSaltValue(hashedValue)
+        hashedValue = self.extractKeyalue(hashedValue)
 
-    def key(self, value, salt=None):
-        if salt is None:
-            salt = self._salt
-
-        key = hashlib.pbkdf2_hmac(
-            'sha256',
+        hashed = binascii.hexlify(hashlib.pbkdf2_hmac(
+            'sha512',
             value.encode('utf-8'),
-            salt,
-            self._rounds,
-            dklen=self._length
-        )
+            salt.encode('ascii'),
+            self._rounds
+        )).decode('ascii')
 
-        return salt + key
+        return hashed == hashedValue
+
+    def extractSaltValue(self, hashed):
+        return hashed[:64]
+
+    def extractKeyalue(self, hashed):
+        return hashed[64:]

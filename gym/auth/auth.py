@@ -5,28 +5,21 @@ from decouple import config
 
 
 class Auth:
+    _db = None
     _user = None
     _authenticated = False
 
     def __init__(self, db, hash=None):
-        self.db = db
-        self.hash = hash if hash is not None else self.makeHash()
+        self._db = db
+        self.hash = hash if hash is not None else self.createHasher()
 
-    def makeHash(self):
+    def createHasher(self):
         return Hash(config('APP_KEY'))
 
     def getUser(self, email):
-        user = (
-            self.db
-            .table('users')
-            .where('email', email)
-            .first()
-        )
+        user = User(db=self._db)
 
-        if user is None:
-            return None
-
-        return User(user)
+        return user.where('email', email).first()
 
     def authenticate(self, credentials):
         user = self.getUser(credentials['email'])
@@ -34,7 +27,7 @@ class Auth:
         if user is None:
             raise UserNotFoundException('No user was found for that email')
 
-        if not self.hash.check(credentials['password'], user.password):
+        if not self.hash.check(user.password, credentials['password']):
             raise AuthenticationException('Password does not match')
 
         self._user = user

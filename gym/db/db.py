@@ -1,4 +1,6 @@
+import os
 import sqlite3
+import itertools
 from sqlite3 import Error
 
 
@@ -30,25 +32,12 @@ class Connection:
 
         return self._connection
 
-    def cursor(self):
-        return self._connection.cursor()
-
-    def execute(self, query):
-        self.cursor().execute(query)
-
-        return self
-
-    def commit(self):
-        self._connection.commit()
-        self.close()
-
-        return self
-
     def close(self):
         self._connection.close()
 
 
 class Manager:
+    _cursor = None
     _connection = None
     _database = 'database.db'
 
@@ -59,17 +48,40 @@ class Manager:
         if database is None:
             database = self._database
 
-        self.connection.connect(database)
+        if self._connection.connect(database):
+            self.setCursor(self._connection.connection())
 
-    def getStatement(statement, *args):
-        return statement
+    def setCursor(self, connection):
+        self._cursor = connection.cursor()
 
-    def createTable(self, name):
-        try:
-            self._connection.execute(
-                self.getStatement('create_table', name)
-            )
-        except Error as e:
-            print(e)
+    def getConnection(self):
+        return self._connection
 
+    def execute(self, query):
+        self._cursor.execute(query)
+
+        return self
+
+    def fetchall(self):
+        return self._cursor.fetchall()
+
+    def fetchfirst(self):
+        return self._cursor.fetchone()
+
+    def commit(self):
         self._connection.commit()
+
+        return self
+
+    def close(self):
+        self._connection.close()
+
+
+def database(database, connection=None):
+    if connection is None:
+        connection = Connection(sqlite3)
+
+    manager = Manager(connection)
+    manager.make(os.path.abspath(database))
+
+    return manager

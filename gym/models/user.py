@@ -1,24 +1,29 @@
-from gym.models import Model
+from gym.models.model import Model
 
 
 class User(Model):
-    _attributes = {}
-
-    def __init__(self, attributes, db=None):
-        super().__init__(db)
-        self._attributes = attributes
 
     @property
     def name(self):
-        return self._attrbutes.get('name')
+        return self._attributes.get('name')
 
     @property
     def email(self):
-        return self._attrbutes.get('email')
+        return self._attributes.get('email')
 
     @property
     def password(self):
-        return self._attrbutes.get('password')
+        return self._attributes.get('password')
 
-    def get(self, attribute):
-        return self._attribute.get(attribute)
+    def setAttributes(self, attributes=()):
+        self._attributes = {
+            'name': attributes[1],
+            'email': attributes[2],
+            'password': attributes[3],
+        }
+
+    def where(self, column, value):
+        self.table('users')
+        super().where(column, value)
+
+        return self
