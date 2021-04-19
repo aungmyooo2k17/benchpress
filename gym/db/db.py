@@ -1,6 +1,5 @@
 import os
 import sqlite3
-import itertools
 from sqlite3 import Error
 
 

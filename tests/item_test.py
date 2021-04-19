@@ -25,6 +25,12 @@ class PackageTest(unittest.TestCase):
 
         self.assertTrue(package.assertIs(package.id))
 
+    def testCanBeFoundInDatabase(self):
+        package = Package()
+        package = package.find(1)
+
+        self.assertEqual('DAY WORKOUT', package.name)
+
 
 class SupplementTest(unittest.TestCase):
 
@@ -47,3 +53,9 @@ class SupplementTest(unittest.TestCase):
         })
 
         self.assertTrue(supplement.assertIs(supplement.id))
+
+    def testCanBeFoundInDatabase(self):
+        supplement = Supplement()
+        supplement = supplement.find(1)
+
+        self.assertEqual('BEAST SUPER SAUNA', supplement.name)

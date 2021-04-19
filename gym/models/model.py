@@ -20,10 +20,31 @@ class Model(ABC):
     def getDatabaseLocation(self):
         return path.abspath(config('DB_DATABASE'))
 
-    def table(self, name):
+    def table(self, name=None):
+        if name is None:
+            name = self.tableName
+
         self.statement = f'SELECT * FROM {name}'
 
         return self
+
+    def all(self):
+        items = {}
+
+        results = self.table()._db.execute(self.statement).fetchall()
+
+        for item in results:
+            item = self.reproduce(item)
+            items[item.id] = item
+
+        return items
+
+    @classmethod
+    def reproduce(cls, attributes=()):
+        instance = cls()
+        instance.setAttributes(attributes)
+
+        return instance
 
     def where(self, column, value):
         self.statement = self.statement + ' ' + f"WHERE {column}='{value}'"

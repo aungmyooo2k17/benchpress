@@ -1,6 +1,5 @@
 import hashlib
 import binascii
-import os
 
 
 class Hash:
@@ -11,30 +10,27 @@ class Hash:
         self._salt = salt.encode('ascii')
 
     def make(self, password):
-        hashed = binascii.hexlify(hashlib.pbkdf2_hmac(
-            'sha512',
-            password.encode('utf-8'),
-            self._salt,
-            self._rounds
-        ))
-
-        return (self._salt + hashed).decode('ascii')
+        return (self._salt + self.hash(password)).decode('ascii')
 
     def check(self, hashedValue, value):
         salt = self.extractSaltValue(hashedValue)
-        hashedValue = self.extractKeyalue(hashedValue)
+        hashedValue = self.extractKey(hashedValue)
 
-        hashed = binascii.hexlify(hashlib.pbkdf2_hmac(
-            'sha512',
-            value.encode('utf-8'),
-            salt.encode('ascii'),
-            self._rounds
-        )).decode('ascii')
-
-        return hashed == hashedValue
+        return self.hash(value, salt).decode('ascii') == hashedValue
 
     def extractSaltValue(self, hashed):
         return hashed[:64]
 
-    def extractKeyalue(self, hashed):
+    def extractKey(self, hashed):
         return hashed[64:]
+
+    def hash(self, value, salt=None):
+        if salt is None:
+            salt = self._salt
+
+        if type(salt) is not bytes:
+            salt = salt.encode('utf-8')
+
+        return binascii.hexlify(hashlib.pbkdf2_hmac(
+            'sha512', value.encode('utf-8'), salt, self._rounds
+        ))

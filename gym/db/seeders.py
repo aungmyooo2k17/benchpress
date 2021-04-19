@@ -14,3 +14,11 @@ seed_packages = """INSERT INTO packages (
     ('EXECUTIVE PACK', 5000),
     ('MONTHLY', 4000);
 """
+
+seed_supplements = """INSERT INTO supplements (
+    name, price
+) VALUES
+    ('BEAST SUPER SAUNA', 3000),
+    ('ON FISH OIL', 5000),
+    ('CREATINE 5000', 4000);
+"""

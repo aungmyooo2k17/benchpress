@@ -15,18 +15,12 @@ class Item(Model):
     def price(self):
         return self._attributes.get('price')
 
-    @property
-    def units(self):
-        return self._attributes.get('units')
-
-    def increment(self):
-        ++self._attributes['units']
-
-    def decrement(self):
-        --self._attributes['units']
-
     def setAttributes(self, attributes=()):
-        pass
+        self._attributes = {
+            'id': attributes[0],
+            'name': attributes[1],
+            'price': attributes[2],
+        }
 
     def assertIs(self, id):
         if self.id != id:
@@ -35,12 +29,12 @@ class Item(Model):
         return True
 
     def find(self, id):
-        return self.table(self.table).where('id', id).first()
+        return self.table(self.tableName).where('id', id).first()
 
 
 class Package(Item):
-    table = 'packages'
+    tableName = 'packages'
 
 
 class Supplement(Item):
-    table = 'supplements'
+    tableName = 'supplements'

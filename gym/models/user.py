@@ -2,6 +2,7 @@ from gym.models.model import Model
 
 
 class User(Model):
+    tableName = 'users'
 
     @property
     def name(self):

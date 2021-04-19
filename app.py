@@ -1,13 +1,13 @@
-import os
-import hashlib
 from pprint import pprint
-from gym.auth.hash import Hash
-from decouple import config
+from gym.models.item import Package
 
 
 def run():
-    hash = Hash(config('APP_KEY'))
-    pprint(hash.make('password'))
+    package = Package()
+    packages = package.all()
+
+    for id, item in packages.items():
+        pprint(item.name)
 
 
 if __name__ == '__main__':
