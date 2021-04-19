@@ -7,11 +7,13 @@ class BillTest(unittest.TestCase):
 
     def testCalculatePurchaseBill(self):
         purchases = {
-            'PKGDT001': Package({
-                'name': 'Sample Package',
-                'price': 1500,
+            'PKGDT001': {
+                'item': Package({
+                    'name': 'Sample Package',
+                    'price': 1500,
+                }),
                 'units': 2
-            })
+            }
         }
 
         bill = Bill(purchases)
@@ -23,11 +25,13 @@ class BillTest(unittest.TestCase):
 
     def testCalculatePurchaseBillWithDiscount(self):
         purchases = {
-            'PKGDT001': Package({
-                'name': 'Sample Package',
-                'price': 3000,
+            'PKGDT001': {
+                'item': Package({
+                    'name': 'Sample Package',
+                    'price': 3000,
+                }),
                 'units': 2
-            })
+            }
         }
 
         bill = Bill(purchases)
@@ -39,11 +43,13 @@ class BillTest(unittest.TestCase):
 
     def testSetBillDiscountThreshold(self):
         purchases = {
-            'PKGDT001': Package({
-                'name': 'Sample Package',
-                'price': 1500,
+            'PKGDT001': {
+                'item': Package({
+                    'name': 'Sample Package',
+                    'price': 1500,
+                }),
                 'units': 2
-            })
+            }
         }
 
         bill = Bill(purchases)
@@ -56,11 +62,13 @@ class BillTest(unittest.TestCase):
 
     def testSetBillDiscountPercentage(self):
         purchases = {
-            'PKGDT001': Package({
-                'name': 'Sample Package',
-                'price': 3000,
+            'PKGDT001': {
+                'item': Package({
+                    'name': 'Sample Package',
+                    'price': 3000,
+                }),
                 'units': 2
-            })
+            }
         }
 
         bill = Bill(purchases)
@@ -75,10 +83,15 @@ class BillTest(unittest.TestCase):
         package = Package({
             'name': 'Sample Package',
             'price': 1500,
-            'units': 2
         })
         purchases = {
-            'PKGDT001': package
+            'PKGDT001': {
+                'item': Package({
+                    'name': 'Sample Package',
+                    'price': 1500,
+                }),
+                'units': 2
+            }
         }
 
         bill = Bill(purchases)
@@ -89,4 +102,4 @@ class BillTest(unittest.TestCase):
         self.assertEqual(3000, details['Total'])
         self.assertEqual(3000, details['Due'])
         self.assertEqual(0, details['Discount'])
-        self.assertTrue(package.assertIs(details['PKGDT001'].id))
+        self.assertTrue(package.assertIs(details['PKGDT001']['item'].id))

@@ -13,7 +13,7 @@ def runMigrations():
 
     for name, migration in vars(migrations).items():
         if not name.startswith('__'):
-            db.executeStatement(migration)
+            db.execute(migration)
 
     db.close()
 

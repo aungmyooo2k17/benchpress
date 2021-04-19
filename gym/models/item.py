@@ -19,6 +19,12 @@ class Item(Model):
     def units(self):
         return self._attributes.get('units')
 
+    def increment(self):
+        ++self._attributes['units']
+
+    def decrement(self):
+        --self._attributes['units']
+
     def setAttributes(self, attributes=()):
         pass
 
@@ -28,10 +34,13 @@ class Item(Model):
 
         return True
 
+    def find(self, id):
+        return self.table(self.table).where('id', id).first()
+
 
 class Package(Item):
-    pass
+    table = 'packages'
 
 
 class Supplement(Item):
-    pass
+    table = 'supplements'

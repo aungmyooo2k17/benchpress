@@ -14,7 +14,7 @@ def seedDatabase():
 
     for name, seeder in vars(seeders).items():
         if not name.startswith('__'):
-            db.executeStatement(seeder)
+            db.execute(seeder)
 
     db.commit()
 

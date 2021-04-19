@@ -11,7 +11,7 @@ class Bill:
 
     def calculate(self):
         for itemId, item in self._purchases.items():
-            self.total += item.price * item.units
+            self.total += item['item'].price * item['units']
 
         if self.hasDiscount():
             self.discount = self.total * self.discountPercentage
