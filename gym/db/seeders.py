@@ -8,17 +8,17 @@ seed_users = """INSERT INTO users (
 );"""
 
 seed_packages = """INSERT INTO packages (
-    name, price
+    id, name, price
 ) VALUES
-    ('DAY WORKOUT', 3000),
-    ('EXECUTIVE PACK', 5000),
-    ('MONTHLY', 4000);
+    ('PKGDT001', 'DAY WORKOUT', 3000),
+    ('PKGDT002', 'EXECUTIVE PACK', 5000),
+    ('PKGDT003', 'MONTHLY', 4000);
 """
 
 seed_supplements = """INSERT INTO supplements (
-    name, price
+    id, name, price
 ) VALUES
-    ('BEAST SUPER SAUNA', 3000),
-    ('ON FISH OIL', 5000),
-    ('CREATINE 5000', 4000);
+    ('ITMST001', 'BEAST SUPER SAUNA', 3000),
+    ('ITMST002', 'ON FISH OIL', 5000),
+    ('ITMST003', 'CREATINE 5000', 4000);
 """

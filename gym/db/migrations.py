@@ -6,13 +6,13 @@ create_users_table = """CREATE TABLE IF NOT EXISTS users (
 );"""
 
 create_packages_table = """CREATE TABLE IF NOT EXISTS packages (
-	id integer PRIMARY KEY,
+	id text PRIMARY KEY,
 	name text NOT NULL,
 	price double NOT NULL
 );"""
 
 create_supplements_table = """CREATE TABLE IF NOT EXISTS supplements (
-	id integer PRIMARY KEY,
+	id text PRIMARY KEY,
 	name text NOT NULL,
 	price double NOT NULL
 );"""
