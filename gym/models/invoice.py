@@ -2,6 +2,10 @@ from gym.models.model import Model
 
 
 class Invoice(Model):
+
+    def show(self):
+        return self.get()
+
     @property
     def id(self):
         return self._attributes.get('id')
@@ -25,6 +29,3 @@ class Invoice(Model):
             'customer': attributes[2],
             'items': attributes[3],
         }
-
-    def find(self, id):
-        return self.table().where('id', id).first()

@@ -54,6 +54,9 @@ class Model(ABC):
 
         return self
 
+    def find(self, id):
+        return self.where('id', id).first()
+
     def first(self):
         self.setAttributes(self._db.execute(self.statement).fetchfirst())
 

@@ -28,9 +28,6 @@ class Item(Model):
 
         return True
 
-    def find(self, id):
-        return self.table().where('id', id).first()
-
 
 class Package(Item):
     pass

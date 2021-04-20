@@ -1,6 +1,5 @@
 import os
 import sqlite3
-from sqlite3 import Error
 
 
 class Connection:
@@ -18,7 +17,7 @@ class Connection:
             self._connection = self._driver.connect(
                 database, check_same_thread=False
             )
-        except Error as e:
+        except sqlite3.Error as e:
             print(e)
 
             return False
