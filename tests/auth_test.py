@@ -1,7 +1,6 @@
-from pprint import pprint
 import unittest
-from gym.auth.auth import Auth
 from gym.db.db import database
+from gym.auth.auth import Auth
 
 
 class AuthTest(unittest.TestCase):

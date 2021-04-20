@@ -1,7 +1,7 @@
-from gym.exceptions.auth import AuthenticationException, UserNotFoundException
-from gym.models.user import User
-from gym.auth.hash import Hash
 from decouple import config
+from gym.auth.hash import Hash
+from gym.models.user import User
+from gym.exceptions.auth import AuthenticationException, UserNotFoundException
 
 
 class Auth:

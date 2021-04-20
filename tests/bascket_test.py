@@ -13,7 +13,7 @@ class BascketTest(unittest.TestCase):
     def testAddToBascket(self):
         bascket = Bascket({})
         package = Package({
-            'id': 1,
+            'id': 'PKGDT001',
             'name': 'Sample Package',
             'price': 1500,
         })
@@ -25,7 +25,7 @@ class BascketTest(unittest.TestCase):
     def testAddMultipleToBascket(self):
         bascket = Bascket({})
         package = Package({
-            'id': 1,
+            'id': 'PKGDT001',
             'name': 'Sample Package',
             'price': 1500,
         })
@@ -37,7 +37,7 @@ class BascketTest(unittest.TestCase):
     def testRemoveFromBascket(self):
         bascket = Bascket({})
         package = Package({
-            'id': 1,
+            'id': 'PKGDT001',
             'name': 'Sample Package',
             'price': 1500,
         })
@@ -50,7 +50,7 @@ class BascketTest(unittest.TestCase):
     def testGetFromBascket(self):
         bascket = Bascket({})
         package = Package({
-            'id': 1,
+            'id': 'PKGDT001',
             'name': 'Sample Package',
             'price': 1500,
         })

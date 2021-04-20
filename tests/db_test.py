@@ -1,8 +1,6 @@
 import sqlite3
-from os import path
-from pprint import pprint
-import sys
 import unittest
+from os import path
 from gym.db.db import Connection, Manager, database
 
 

@@ -1,4 +1,3 @@
-from pprint import pprint
 import unittest
 from gym.models.user import User
 

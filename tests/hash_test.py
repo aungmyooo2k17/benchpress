@@ -1,4 +1,3 @@
-import os
 import unittest
 from decouple import config
 from gym.auth.hash import Hash
