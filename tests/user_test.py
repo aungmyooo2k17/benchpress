@@ -15,3 +15,8 @@ class UserTest(unittest.TestCase):
         self.assertEqual('Test User', user.name)
         self.assertEqual('test@example.com', user.email)
         self.assertEqual('password', user.password)
+
+    def testGetTableName(self):
+        user = User()
+
+        self.assertEqual('users', user.getTable())

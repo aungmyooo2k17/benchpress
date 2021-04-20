@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 from gym.db.db import database
 from decouple import config
 from pprint import pprint
+import inflect
 
 
 class Model(ABC):
@@ -22,7 +23,7 @@ class Model(ABC):
 
     def table(self, name=None):
         if name is None:
-            name = self.tableName
+            name = self.getTable()
 
         self.statement = f'SELECT * FROM {name}'
 
@@ -47,6 +48,8 @@ class Model(ABC):
         return instance
 
     def where(self, column, value):
+        self.table()
+
         self.statement = self.statement + ' ' + f"WHERE {column}='{value}'"
 
         return self
@@ -62,3 +65,8 @@ class Model(ABC):
 
     def getAttribute(self, attribute):
         return self._attribute.get(attribute)
+
+    def getTable(self):
+        inflector = inflect.engine()
+
+        return inflector.plural(type(self).__name__.lower())

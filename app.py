@@ -1,13 +1,5 @@
-from pprint import pprint
-from gym.models.item import Package
-
-
 def run():
-    package = Package()
-    packages = package.all()
-
-    for id, item in packages.items():
-        pprint(item.name)
+    pass
 
 
 if __name__ == '__main__':

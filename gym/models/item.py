@@ -29,12 +29,12 @@ class Item(Model):
         return True
 
     def find(self, id):
-        return self.table(self.tableName).where('id', id).first()
+        return self.table().where('id', id).first()
 
 
 class Package(Item):
-    tableName = 'packages'
+    pass
 
 
 class Supplement(Item):
-    tableName = 'supplements'
+    pass

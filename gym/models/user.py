@@ -2,7 +2,6 @@ from gym.models.model import Model
 
 
 class User(Model):
-    tableName = 'users'
 
     @property
     def name(self):
@@ -22,9 +21,3 @@ class User(Model):
             'email': attributes[2],
             'password': attributes[3],
         }
-
-    def where(self, column, value):
-        self.table('users')
-        super().where(column, value)
-
-        return self
