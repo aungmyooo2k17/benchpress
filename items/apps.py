@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from csv import DictReader
 
 
 class ItemsConfig(AppConfig):

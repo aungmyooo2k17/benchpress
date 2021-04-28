@@ -1,5 +1,4 @@
 from django.apps import AppConfig
-from items.models import Item
 
 
 class BillConfig(AppConfig):
@@ -35,14 +34,15 @@ class Bill:
     due = 0
     discount_threshold = 5000
     discount_percentage = 0.05
-    _purchases = {}
+    bascket = None
 
-    def __init__(self, purchases={}):
-        self._purchases = purchases
+    def __init__(self, bascket):
+        self.bascket = bascket
 
     def calculate(self):
-        for id, item in self._purchases.items():
+        for item in self.bascket.get():
             self.total += item['item'].price * item['units']
+
         if self.has_discount():
             self.discount = self.total * self.discount_percentage
         self.due = self.total - self.discount
@@ -56,7 +56,7 @@ class Bill:
             'Discount': self.discount,
             'Due': self.due,
         }
-        details.update(self._purchases)
+        details.update(self.bascket)
         return details
 
     def set_discount_threshold(self, amount):
