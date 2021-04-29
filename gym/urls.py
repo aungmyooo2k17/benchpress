@@ -15,7 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from gym.views import home
+from items import views as item_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home),
+    path('items', item_views.index, name='items_index'),
+    path('items/<str:uid>/', item_views.show, name='items_show'),
 ]

@@ -18,7 +18,8 @@ class CSV:
                 item = Item(
                     uid=item['UID'],
                     name=item['Name'],
-                    price=item['Price']
+                    price=item['Price'],
+                    type=item['Type']
                 )
                 item.save()
 
