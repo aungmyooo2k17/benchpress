@@ -1,31 +1,11 @@
 from django.apps import AppConfig
+from django.apps import apps
+from pprint import pprint
 
 
 class BillConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'bill'
-
-
-class Bascket:
-    _bascket = {}
-
-    def __init__(self, bascket={}):
-        self._bascket = bascket
-
-    def add(self, item, units):
-        self._bascket[item.id] = {
-            'item': item,
-            'units': units
-        }
-
-    def remove(self, id):
-        del self._bascket[id]
-
-    def get_item(self, id):
-        return self._bascket[id]
-
-    def get(self):
-        return self._bascket
 
 
 class Bill:
@@ -43,7 +23,6 @@ class Bill:
     def calculate(self):
         for item in self.bascket.get():
             self.total += item['item'].price * item['units']
-
         if self.has_discount():
             self.discount = self.total * self.discount_percentage
         self.due = self.total - self.discount
@@ -56,6 +35,7 @@ class Bill:
             'total': self.total,
             'discount': self.discount,
             'due': self.due,
+            'customer': self.customer
         }
         details.update({'purchases': self.bascket})
         return details

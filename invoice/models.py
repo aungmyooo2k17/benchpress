@@ -9,9 +9,8 @@ class Invoice(models.Model):
     total = models.DecimalField(max_digits=100, decimal_places=2, default=0)
     discount = models.DecimalField(max_digits=100, decimal_places=2, default=0)
     due = models.DecimalField(max_digits=100, decimal_places=2, default=0)
-    created_at = models.DateTimeField(auto_now=True, auto_now_add=True)
+    created_at = models.DateTimeField(auto_now=True)
     purchases = models.JSONField()
 
     def has_discount(self):
         return self.discount > 0
-
