@@ -35,6 +35,7 @@ class Bill:
     discount_threshold = 5000
     discount_percentage = 0.05
     bascket = None
+    customer = None
 
     def __init__(self, bascket):
         self.bascket = bascket
@@ -52,11 +53,11 @@ class Bill:
 
     def details(self):
         details = {
-            'Total': self.total,
-            'Discount': self.discount,
-            'Due': self.due,
+            'total': self.total,
+            'discount': self.discount,
+            'due': self.due,
         }
-        details.update(self.bascket)
+        details.update({'purchases': self.bascket})
         return details
 
     def set_discount_threshold(self, amount):
@@ -64,3 +65,6 @@ class Bill:
 
     def set_discount_percentage(self, amount):
         self.discount_percentage = amount
+
+    def set_customer(self, name):
+        self.customer = name
