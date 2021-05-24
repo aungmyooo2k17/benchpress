@@ -2,16 +2,20 @@
 
 namespace App\Actions\Auth;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Actions\Team\CreateNewTeam;
 use Illuminate\Support\Facades\Hash;
 use Cratespace\Sentinel\Support\Util;
 use Cratespace\Sentinel\Support\Traits\Fillable;
 use Cratespace\Sentinel\Contracts\Actions\CreatesNewUsers;
+use Cratespace\Sentinel\Support\Concerns\InteractsWithContainer;
 
 class CreateNewUser implements CreatesNewUsers
 {
     use Fillable;
+    use InteractsWithContainer;
 
     /**
      * Create a newly registered user.
@@ -22,8 +26,9 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $data, ?array $options = null)
     {
-        return DB::transaction(function () use ($data) {
-            return $this->createUser(
+        return DB::transaction(function () use ($data, $options) {
+            return $this->createUserForTeam(
+                $this->resolve(CreateNewTeam::class)->create($data, $options),
                 $this->filterFillable($data, User::class)
             );
         });
@@ -32,19 +37,21 @@ class CreateNewUser implements CreatesNewUsers
     /**
      * Create new user profile.
      *
-     * @param array $data
+     * @param \App\Models\Team $team
+     * @param array            $data
      *
      * @return \App\Models\User
      */
-    protected function createUser(array $data): User
+    protected function createUserForTeam(Team $team, array $data): User
     {
-        return User::create([
+        return $team->users()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'username' => Util::makeUsername($data['name']),
             'password' => Hash::make($data['password']),
-            'settings' => $this->setDefaultSettings(),
+            'settings' => $this->defaultSettings(),
+            'address' => [],
         ]);
     }
 
@@ -53,7 +60,7 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @return array
      */
-    protected function setDefaultSettings(): array
+    protected function defaultSettings(): array
     {
         return config('defaults.users.settings', []);
     }

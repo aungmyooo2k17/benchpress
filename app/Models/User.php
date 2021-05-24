@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Cratespace\Sentinel\Models\Traits\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Preflight\Models\Concerns\ManagesRoles;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,6 +39,7 @@ class User extends Authenticatable
         'profile_photo_path',
         'two_factor_secret',
         'two_factor_recovery_codes',
+        'team_id',
     ];
 
     /**
@@ -74,4 +76,21 @@ class User extends Authenticatable
         'sessions',
         'two_factor_enabled',
     ];
+
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['team'];
+
+    /**
+     * Get the team the user belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
 }

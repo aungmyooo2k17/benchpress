@@ -24,6 +24,7 @@ return [
      */
     'register' => [
         'name' => ['required', 'string', 'max:255'],
+        'team' => ['required', 'string'],
         'email' => [
             'required',
             'string',
