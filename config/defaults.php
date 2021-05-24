@@ -35,6 +35,22 @@ return [
         'settings' => [
             'notifications' => ['mail', 'database', 'sms'],
         ],
+
+        'roles' => [
+            [
+                'name' => 'Administrator',
+                'slug' => 'administrator',
+                'description' => 'An administrator can do anything.',
+                'permissions' => ['*']
+            ],
+
+            [
+                'name' => 'Staff',
+                'slug' => 'staff',
+                'description' => 'A staff can only update details.',
+                'permissions' => ['update']
+            ],
+        ]
     ],
 
     /*

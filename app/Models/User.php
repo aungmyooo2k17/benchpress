@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Cratespace\Sentinel\Models\Traits\HasApiTokens;
+use Cratespace\Preflight\Models\Concerns\ManagesRoles;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +15,7 @@ class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
+    use ManagesRoles;
     use HasApiTokens;
     use HasProfilePhoto;
     use InteractsWithSessions;
