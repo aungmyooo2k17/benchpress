@@ -1,11 +1,11 @@
 {
-    "name": "laravel/laravel",
+    "name": "thavarshan/benchpress",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "Gym management system.",
+    "keywords": ["gym", "benchpress"],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4|^8.0",
         "cratespace/preflight": "^3.6",
         "cratespace/sentinel": "^3.1.4",
         "fideloper/proxy": "^4.4",
@@ -22,7 +22,7 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {

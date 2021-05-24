@@ -52,10 +52,6 @@
                             <app-button type="submit" mode="primary" :class="{ 'opacity-25': form.processing }" :loading="form.processing">
                                 Create account <span class="ml-1">&rarr;</span>
                             </app-button>
-
-                            <app-button href="#" :link="true" mode="secondary" class="ml-3">
-                                Request invite
-                            </app-button>
                         </div>
 
                         <div class="mt-6 lg:mt-0 col-span-full">
