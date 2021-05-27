@@ -91,6 +91,16 @@ class Team extends Model
     }
 
     /**
+     * Get all the products that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class, 'team_id', 'id');
+    }
+
+    /**
      * Determine if the user belongs to the given team.
      *
      * @param \App\Models\User $user

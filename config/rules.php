@@ -90,4 +90,14 @@ return [
         ],
         'role' => ['required', 'exists:roles,id'],
     ],
+
+    'product' => [
+        'name' => ['required', 'string', 'max:255'],
+        'code' => ['nullable', 'string', 'max:255', 'unique:products,code'],
+        'price' => ['required', 'numeric', 'max:255'],
+        'description' => ['nullable', 'string'],
+        'dimensions' => ['nullable', 'array'],
+        'metadata' => ['nullable', 'array'],
+        'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+    ],
 ];

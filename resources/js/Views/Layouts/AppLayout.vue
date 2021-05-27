@@ -19,6 +19,10 @@
                     </navbar-link>
 
                     <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
+                        Subscriptions
+                    </navbar-link>
+
+                    <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
                         Products
                     </navbar-link>
 
@@ -30,7 +34,7 @@
                 <template #linksright>
                     <dropdown v-if="$page.props.isAdmin" align="right">
                         <template #trigger>
-                            <button class="flex items-center px-3 py-1.5 rounded-xl opacity-75 bg-opacity-0 text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900 hover:bg-opacity-75 focus:bg-opacity-100 hover:opacity-100 focus:outline-none transition ease-in-out duration-150 ml-2">
+                            <button class="inline-flex items-center px-3 py-2 rounded-xl opacity-75 bg-opacity-0 text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900 hover:bg-opacity-75 focus:bg-opacity-100 hover:opacity-100 focus:outline-none transition ease-in-out duration-150">
                                 <span class="font-semibold text-sm">
                                     {{ $page.props.user.team.name }}
                                 </span>

@@ -17,7 +17,7 @@ class InvitationRequest extends Request
             return $this->isAllowed('manage', $this->invitation, false);
         }
 
-        return $this->isAuthenticated();
+        return $this->isAuthenticated('Administrator');
     }
 
     /**

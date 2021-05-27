@@ -13,7 +13,11 @@ class ProductRequest extends Request
      */
     public function authorize(): bool
     {
-        return false;
+        if ($this->product) {
+            return $this->isAllowed('manage', $this->product, false);
+        }
+
+        return $this->isAuthenticated('Administrator');
     }
 
     /**
@@ -23,6 +27,6 @@ class ProductRequest extends Request
      */
     public function rules(): array
     {
-        return [];
+        return $this->getRulesFor('product');
     }
 }
