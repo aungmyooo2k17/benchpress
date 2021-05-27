@@ -18658,17 +18658,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Views_Components_Sections_SectionBorder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Views/Components/Sections/SectionBorder */ "./resources/js/Views/Components/Sections/SectionBorder.vue");
 /* harmony import */ var _InviteForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./InviteForm */ "./resources/js/Views/Staff/InviteForm.vue");
 /* harmony import */ var _MembersList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./MembersList.vue */ "./resources/js/Views/Staff/MembersList.vue");
+/* harmony import */ var _PendingInvitationsList_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./PendingInvitationsList.vue */ "./resources/js/Views/Staff/PendingInvitationsList.vue");
+
 
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['members', 'roles'],
+  props: ['team', 'roles'],
   components: {
     AppLayout: _Views_Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_0__.default,
     InviteForm: _InviteForm__WEBPACK_IMPORTED_MODULE_2__.default,
     SectionBorder: _Views_Components_Sections_SectionBorder__WEBPACK_IMPORTED_MODULE_1__.default,
-    MembersList: _MembersList_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    MembersList: _MembersList_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    PendingInvitationsList: _PendingInvitationsList_vue__WEBPACK_IMPORTED_MODULE_4__.default
   }
 });
 
@@ -18755,6 +18758,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Views_Components_Alerts_ActionMessage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @/Views/Components/Alerts/ActionMessage */ "./resources/js/Views/Components/Alerts/ActionMessage.vue");
 /* harmony import */ var _Views_Components_Base_Link__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @/Views/Components/Base/Link */ "./resources/js/Views/Components/Base/Link.vue");
 /* harmony import */ var _Views_Components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @/Views/Components/Cards/Card.vue */ "./resources/js/Views/Components/Cards/Card.vue");
+/* harmony import */ var _Views_Components_Modals_DialogModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @/Views/Components/Modals/DialogModal */ "./resources/js/Views/Components/Modals/DialogModal.vue");
+
 
 
 
@@ -18765,7 +18770,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['members', 'roles'],
+  props: ['team', 'roles'],
   components: {
     ActionSection: _Views_Components_Sections_ActionSection__WEBPACK_IMPORTED_MODULE_0__.default,
     AppTextarea: _Views_Components_Inputs_Textarea__WEBPACK_IMPORTED_MODULE_1__.default,
@@ -18775,26 +18780,87 @@ __webpack_require__.r(__webpack_exports__);
     AppButton: _Views_Components_Buttons_Button__WEBPACK_IMPORTED_MODULE_5__.default,
     ActionMessage: _Views_Components_Alerts_ActionMessage__WEBPACK_IMPORTED_MODULE_6__.default,
     Card: _Views_Components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_8__.default,
-    AppLink: _Views_Components_Base_Link__WEBPACK_IMPORTED_MODULE_7__.default
+    AppLink: _Views_Components_Base_Link__WEBPACK_IMPORTED_MODULE_7__.default,
+    DialogModal: _Views_Components_Modals_DialogModal__WEBPACK_IMPORTED_MODULE_9__.default
   },
   data: function data() {
     return {
       inviteStaffMemberForm: this.$inertia.form({
         email: null,
         role: null
-      })
+      }),
+      removeStaffMemberForm: this.$inertia.form(),
+      staffMemberBeingRemoved: null
     };
   },
   methods: {
     inviteStaffMemeber: function inviteStaffMemeber() {
       var _this = this;
 
-      this.inviteStaffMemberForm.post(route('staff.store', this.team), {
+      this.inviteStaffMemberForm.post(this.route('staff.store', this.team), {
         errorBag: 'inviteStaffMemeber',
         preserveScroll: true,
         onSuccess: function onSuccess() {
           return _this.inviteStaffMemeberForm.reset();
         }
+      });
+    },
+    confirmStaffMemberRemoval: function confirmStaffMemberRemoval(staffMember) {
+      this.staffMemberBeingRemoved = staffMember;
+    },
+    removeStaffMember: function removeStaffMember() {
+      var _this2 = this;
+
+      this.removeStaffMemberForm["delete"](route('staff.destroy', [this.team, this.staffMemberBeingRemoved]), {
+        errorBag: 'removeStaffMember',
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: function onSuccess() {
+          return _this2.staffMemberBeingRemoved = null;
+        }
+      });
+    },
+    displayableRole: function displayableRole(role) {
+      return this.roles.find(function (r) {
+        return r.name === role;
+      }).name;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Views_Components_Sections_ActionSection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Views/Components/Sections/ActionSection */ "./resources/js/Views/Components/Sections/ActionSection.vue");
+/* harmony import */ var _Views_Components_Base_Link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/Views/Components/Base/Link */ "./resources/js/Views/Components/Base/Link.vue");
+/* harmony import */ var _Views_Components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/Views/Components/Cards/Card.vue */ "./resources/js/Views/Components/Cards/Card.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['team'],
+  components: {
+    ActionSection: _Views_Components_Sections_ActionSection__WEBPACK_IMPORTED_MODULE_0__.default,
+    Card: _Views_Components_Cards_Card_vue__WEBPACK_IMPORTED_MODULE_2__.default,
+    AppLink: _Views_Components_Base_Link__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  data: function data() {
+    return {};
+  },
+  methods: {
+    cancelTeamInvitation: function cancelTeamInvitation(invitation) {
+      this.$inertia["delete"](this.route('invitations.destroy', invitation), {
+        preserveScroll: true
       });
     }
   }
@@ -22108,7 +22174,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })];
     }),
     linksright: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown, {
+      return [_ctx.$page.props.isAdmin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_dropdown, {
+        key: 0,
         align: "right"
       }, {
         trigger: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22148,7 +22215,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         _: 1
         /* STABLE */
 
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown, {
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown, {
         align: "right"
       }, {
         trigger: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22172,7 +22239,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown_link, {
+          , ["href"]), _ctx.$page.props.isAdmin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_dropdown_link, {
+            key: 0,
             href: _ctx.route('api-tokens.index')
           }, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -22183,7 +22251,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
           }, 8
           /* PROPS */
-          , ["href"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown_link, {
+          , ["href"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dropdown_link, {
             href: "#",
             onClicked: $options.logout
           }, {
@@ -23528,6 +23596,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_section_border = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("section-border");
 
+  var _component_pending_invitations_list = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("pending-invitations-list");
+
   var _component_members_list = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("members-list");
 
   var _component_app_layout = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-layout");
@@ -23535,16 +23605,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_invite_form, {
-        team: _ctx.$page.props.user.team,
+        team: $props.team,
         roles: $props.roles
       }, null, 8
       /* PROPS */
-      , ["team", "roles"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_section_border), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_members_list, {
-        members: $props.members,
+      , ["team", "roles"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_section_border), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_pending_invitations_list, {
+        team: $props.team
+      }, null, 8
+      /* PROPS */
+      , ["team"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_section_border), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_members_list, {
+        team: $props.team,
         roles: $props.roles
       }, null, 8
       /* PROPS */
-      , ["members", "roles"])])];
+      , ["team", "roles"])])];
     }),
     _: 1
     /* STABLE */
@@ -23759,7 +23833,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Team Members ");
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Staff Members ");
 
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" All of the people that are part of this team. ");
 
@@ -23799,10 +23873,26 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Remove Staff Member ");
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
+  "class": "text-sm text-gray-600"
+}, " Are you sure you would like to remove this person from the team? ", -1
+/* HOISTED */
+);
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Cancel ");
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Remove ");
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_app_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-link");
 
   var _component_card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("card");
+
+  var _component_app_button = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("app-button");
+
+  var _component_dialog_modal = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("dialog-modal");
 
   var _component_action_section = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("action-section");
 
@@ -23814,7 +23904,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_2];
     }),
     content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [$props.members.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.members, function (member) {
+      return [$props.team.members.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.team.members, function (member) {
         return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_card, {
           "class": "shadow-none",
           "has-action": false,
@@ -23843,12 +23933,154 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
             }, 1032
             /* PROPS, DYNAMIC_SLOTS */
-            , ["href"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Manage Team Member Role "), $props.roles.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(member.role), 1
+            , ["href"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Manage Team Member Role "), $props.roles.length ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.displayableRole(member.role)), 1
             /* TEXT */
-            )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Remove Team Member "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+            )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Remove Team Member "), _ctx.$page.props.user.id !== member.id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("button", {
+              key: 1,
               "class": "cursor-pointer ml-6 text-sm text-red-500",
-              onClick: member
+              onClick: function onClick($event) {
+                return $options.confirmStaffMemberRemoval(member);
+              }
             }, " Remove ", 8
+            /* PROPS */
+            , ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])];
+          }),
+          _: 2
+          /* DYNAMIC */
+
+        }, 1024
+        /* DYNAMIC_SLOTS */
+        );
+      }), 128
+      /* KEYED_FRAGMENT */
+      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_11, [_hoisted_12])), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_dialog_modal, {
+        show: $data.staffMemberBeingRemoved,
+        hasActions: true,
+        onClose: _cache[2] || (_cache[2] = function ($event) {
+          return $data.staffMemberBeingRemoved = null;
+        })
+      }, {
+        title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_13];
+        }),
+        content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [_hoisted_14];
+        }),
+        actions: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+          return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button, {
+            mode: "secondary",
+            onClicked: _cache[1] || (_cache[1] = function ($event) {
+              return $data.staffMemberBeingRemoved = null;
+            })
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_15];
+            }),
+            _: 1
+            /* STABLE */
+
+          }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button, {
+            mode: "danger",
+            "class": ["ml-2", {
+              'opacity-25': $data.removeStaffMemberForm.processing
+            }],
+            onClicked: $options.removeStaffMember,
+            disabled: $data.removeStaffMemberForm.processing
+          }, {
+            "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+              return [_hoisted_16];
+            }),
+            _: 1
+            /* STABLE */
+
+          }, 8
+          /* PROPS */
+          , ["onClicked", "class", "disabled"])];
+        }),
+        _: 1
+        /* STABLE */
+
+      }, 8
+      /* PROPS */
+      , ["show"])];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Pending Staff Invitations ");
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" These people have been invited to your team and have been sent an invitation email. They may join the team by accepting the email invitation. ");
+
+var _hoisted_3 = {
+  key: 0,
+  "class": "space-y-6"
+};
+var _hoisted_4 = {
+  "class": "flex items-center justify-between"
+};
+var _hoisted_5 = {
+  "class": "text-gray-600"
+};
+var _hoisted_6 = {
+  "class": "flex items-center"
+};
+var _hoisted_7 = {
+  key: 1
+};
+
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("p", {
+  "class": "text-sm text-gray-600"
+}, " No pending invites found. ", -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_card = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("card");
+
+  var _component_action_section = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("action-section");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_action_section, null, {
+    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    description: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_2];
+    }),
+    content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [$props.team.invitations.length > 0 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_3, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.team.invitations, function (invitation) {
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_card, {
+          "class": "shadow-none",
+          "has-action": false,
+          key: invitation.id
+        }, {
+          content: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+            return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(invitation.email), 1
+            /* TEXT */
+            ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Cancel Team Invitation "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+              "class": "cursor-pointer ml-6 text-sm text-red-500 focus:outline-none",
+              onClick: function onClick($event) {
+                return _ctx.cancelStaffInvitation(invitation);
+              }
+            }, " Cancel ", 8
             /* PROPS */
             , ["onClick"])])])];
           }),
@@ -23860,7 +24092,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         );
       }), 128
       /* KEYED_FRAGMENT */
-      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_11, [_hoisted_12]))];
+      ))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_7, [_hoisted_8]))];
     }),
     _: 1
     /* STABLE */
@@ -59194,10 +59426,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-const script = {}
-script.__file = "resources/js/Views/Staff/PendingInvitationsList.vue"
+/* harmony import */ var _PendingInvitationsList_vue_vue_type_template_id_6880100f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PendingInvitationsList.vue?vue&type=template&id=6880100f */ "./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f");
+/* harmony import */ var _PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PendingInvitationsList.vue?vue&type=script&lang=js */ "./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js");
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (script);
+
+
+_PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.render = _PendingInvitationsList_vue_vue_type_template_id_6880100f__WEBPACK_IMPORTED_MODULE_0__.render
+/* hot reload */
+if (false) {}
+
+_PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default.__file = "resources/js/Views/Staff/PendingInvitationsList.vue"
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__.default);
 
 /***/ }),
 
@@ -60095,6 +60335,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__.default)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PendingInvitationsList_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PendingInvitationsList.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=script&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Views/Teams/Show.vue?vue&type=script&lang=js":
 /*!*******************************************************************!*\
   !*** ./resources/js/Views/Teams/Show.vue?vue&type=script&lang=js ***!
@@ -60955,6 +61211,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MembersList_vue_vue_type_template_id_c6fe854e__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_MembersList_vue_vue_type_template_id_c6fe854e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./MembersList.vue?vue&type=template&id=c6fe854e */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/MembersList.vue?vue&type=template&id=c6fe854e");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PendingInvitationsList_vue_vue_type_template_id_6880100f__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_PendingInvitationsList_vue_vue_type_template_id_6880100f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./PendingInvitationsList.vue?vue&type=template&id=6880100f */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Staff/PendingInvitationsList.vue?vue&type=template&id=6880100f");
 
 
 /***/ }),

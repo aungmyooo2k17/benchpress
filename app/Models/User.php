@@ -116,4 +116,14 @@ class User extends Authenticatable
     {
         return optional($this->roles->first())->name;
     }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Administrator');
+    }
 }

@@ -63,7 +63,7 @@ class Invitation extends Model implements BusinessInvitation
     public function accept(): bool
     {
         if (! is_null($this->rejected_at)) {
-            return;
+            return false;
         }
 
         return $this->forceFill([

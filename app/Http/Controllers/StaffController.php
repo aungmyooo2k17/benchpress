@@ -7,6 +7,8 @@ use App\Models\User;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Cratespace\Preflight\Models\Role;
+use App\Http\Requests\InviteStaffRequest;
+use App\Http\Responses\InviteStaffResponse;
 
 class StaffController extends Controller
 {
@@ -18,8 +20,8 @@ class StaffController extends Controller
     public function index(Team $team)
     {
         return Inertia::render('Staff/Index', [
+            'team' => $team->load('invitations', 'members'),
             'roles' => Role::all(),
-            'members' => $team->members,
         ]);
     }
 
@@ -39,8 +41,11 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InviteStaffRequest $request, Team $team)
     {
+        $invitation = $team->inviteStaff($request->validated());
+
+        return InviteStaffResponse::dispatch($invitation);
     }
 
     /**
@@ -84,7 +89,12 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Team $team, User $user)
     {
+        if ($user->belongsToTeam($team)) {
+            $user->delete();
+        }
+
+        return $this->response()->back(303);
     }
 }

@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cratespace\Preflight\Models\Traits\Sluggable;
-use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Team extends Model

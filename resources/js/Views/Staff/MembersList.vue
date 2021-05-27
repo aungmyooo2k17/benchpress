@@ -1,7 +1,7 @@
 <template>
     <action-section>
         <template #title>
-            Team Members
+            Staff Members
         </template>
 
         <template #description>
@@ -9,8 +9,8 @@
         </template>
 
         <template #content>
-            <div class="space-y-6" v-if="members.length > 0">
-                <card class="shadow-none" :has-action="false" v-for="member in members" :key="member.id">
+            <div class="space-y-6" v-if="team.members.length > 0">
+                <card class="shadow-none" :has-action="false" v-for="member in team.members" :key="member.id">
                     <template #content>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
@@ -29,13 +29,13 @@
                                 <!-- Manage Team Member Role -->
                                 <div class="ml-2" v-if="roles.length">
                                     <span class="rounded-full px-3 py-1 text-xs font-semibold text-emerald-800 bg-emerald-100">
-                                        {{ member.role }}
+                                        {{ displayableRole(member.role) }}
                                     </span>
                                 </div>
 
                                 <!-- Remove Team Member -->
-                                <button class="cursor-pointer ml-6 text-sm text-red-500"
-                                    @click="member">
+                                <button v-if="$page.props.user.id !== member.id" class="cursor-pointer ml-6 text-sm text-red-500"
+                                    @click="confirmStaffMemberRemoval(member)">
                                     Remove
                                 </button>
                             </div>
@@ -49,6 +49,28 @@
                     No staff members added yet.
                 </p>
             </div>
+
+            <dialog-modal :show="staffMemberBeingRemoved" :hasActions="true" @close="staffMemberBeingRemoved = null">
+                <template #title>
+                    Remove Staff Member
+                </template>
+
+                <template #content>
+                    <p class="text-sm text-gray-600">
+                        Are you sure you would like to remove this person from the team?
+                    </p>
+                </template>
+
+                <template #actions>
+                    <app-button mode="secondary" @clicked="staffMemberBeingRemoved = null">
+                        Cancel
+                    </app-button>
+
+                    <app-button mode="danger" class="ml-2" @clicked="removeStaffMember" :class="{ 'opacity-25': removeStaffMemberForm.processing }" :disabled="removeStaffMemberForm.processing">
+                        Remove
+                    </app-button>
+                </template>
+            </dialog-modal>
         </template>
     </action-section>
 </template>
@@ -63,9 +85,10 @@ import AppButton from '@/Views/Components/Buttons/Button';
 import ActionMessage from '@/Views/Components/Alerts/ActionMessage';
 import AppLink from '@/Views/Components/Base/Link';
 import Card from '@/Views/Components/Cards/Card.vue';
+import DialogModal from '@/Views/Components/Modals/DialogModal';
 
 export default {
-    props: ['members', 'roles'],
+    props: ['team', 'roles'],
 
     components: {
         ActionSection,
@@ -77,6 +100,7 @@ export default {
         ActionMessage,
         Card,
         AppLink,
+        DialogModal,
     },
 
     data() {
@@ -85,16 +109,37 @@ export default {
                 email: null,
                 role: null,
             }),
+
+            removeStaffMemberForm: this.$inertia.form(),
+
+            staffMemberBeingRemoved: null
         }
     },
 
     methods: {
         inviteStaffMemeber() {
-            this.inviteStaffMemberForm.post(route('staff.store', this.team), {
+            this.inviteStaffMemberForm.post(this.route('staff.store', this.team), {
                 errorBag: 'inviteStaffMemeber',
                 preserveScroll: true,
                 onSuccess: () => this.inviteStaffMemeberForm.reset(),
             });
+        },
+
+        confirmStaffMemberRemoval(staffMember) {
+            this.staffMemberBeingRemoved = staffMember
+        },
+
+        removeStaffMember() {
+            this.removeStaffMemberForm.delete(route('staff.destroy', [this.team, this.staffMemberBeingRemoved]), {
+                errorBag: 'removeStaffMember',
+                preserveScroll: true,
+                preserveState: true,
+                onSuccess: () => (this.staffMemberBeingRemoved = null),
+            })
+        },
+
+        displayableRole(role) {
+            return this.roles.find(r => r.name === role).name
         },
     }
 }

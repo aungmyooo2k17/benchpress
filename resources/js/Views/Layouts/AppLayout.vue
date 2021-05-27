@@ -26,7 +26,7 @@
                 </template>
 
                 <template #linksright>
-                    <dropdown align="right">
+                    <dropdown v-if="$page.props.isAdmin" align="right">
                         <template #trigger>
                             <button class="flex items-center px-3 py-1.5 rounded-xl opacity-75 bg-opacity-0 text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900 hover:bg-opacity-75 focus:bg-opacity-100 hover:opacity-100 focus:outline-none transition ease-in-out duration-150 ml-2">
                                 <span class="font-semibold text-sm">
@@ -56,7 +56,7 @@
                         <template #items>
                             <div class="block px-4 py-2 text-xs text-gray-500">Manage Account</div>
                             <dropdown-link :href="route('user.show')">Profile</dropdown-link>
-                            <dropdown-link :href="route('api-tokens.index')">API token</dropdown-link>
+                            <dropdown-link v-if="$page.props.isAdmin" :href="route('api-tokens.index')">API token</dropdown-link>
                             <dropdown-link href="#" @clicked="logout">Sign out</dropdown-link>
                         </template>
                     </dropdown>
