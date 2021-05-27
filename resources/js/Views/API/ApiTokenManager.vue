@@ -13,7 +13,7 @@
                 <form @submit.prevent="createApiToken">
                     <div class="lg:grid lg:grid-cols-12 gap-6">
                         <div class="md:col-span-8">
-                            <app-input type="text" v-model="createApiTokenForm.name" :error="createApiTokenForm.errors.name" label="Full name" placeholder="Johnathan Doeford"></app-input>
+                            <app-input type="text" v-model="createApiTokenForm.name" :error="createApiTokenForm.errors.name" label="Token name" placeholder="Business Website"></app-input>
                         </div>
 
                         <div class="mt-6 lg:mt-0 col-span-6" v-if="availablePermissions.length > 0">

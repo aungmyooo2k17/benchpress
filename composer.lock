@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96093c6c201298af6afc0190a18f64ce",
+    "content-hash": "104610def6527647311e9c4fcb469e42",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -172,21 +172,77 @@
             "time": "2021-01-20T22:51:39+00:00"
         },
         {
-            "name": "cratespace/preflight",
-            "version": "v3.6.4",
+            "name": "cratespace/contracts",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cratespace/preflight.git",
-                "reference": "d89b8a5a4fc4fc65f9e37c8d7526d29d16f9b178"
+                "url": "https://github.com/cratespace/contracts.git",
+                "reference": "e2423787eb7bdd4563d663cbe93f06a0e5390462"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cratespace/preflight/zipball/d89b8a5a4fc4fc65f9e37c8d7526d29d16f9b178",
-                "reference": "d89b8a5a4fc4fc65f9e37c8d7526d29d16f9b178",
+                "url": "https://api.github.com/repos/cratespace/contracts/zipball/e2423787eb7bdd4563d663cbe93f06a0e5390462",
+                "reference": "e2423787eb7bdd4563d663cbe93f06a0e5390462",
                 "shasum": ""
             },
             "require": {
-                "cratespace/sentinel": "^3.1.4",
+                "ext-intl": "*",
+                "ext-json": "*",
+                "illuminate/contracts": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Cratespace\\Contracts\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thavarshan Thayananthajothy",
+                    "email": "tjthavarshan@gmail.com"
+                }
+            ],
+            "description": "Collection of essential object interfaces.",
+            "homepage": "https://github.com/cratespace/contracts",
+            "keywords": [
+                "PSR-11",
+                "contracts",
+                "interfaces",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/cratespace/contracts/issues",
+                "source": "https://github.com/cratespace/contracts"
+            },
+            "time": "2021-05-25T20:03:18+00:00"
+        },
+        {
+            "name": "cratespace/preflight",
+            "version": "v3.6.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cratespace/preflight.git",
+                "reference": "a2f3007829737798724c5a30b1bcdf7b9f33d27c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cratespace/preflight/zipball/a2f3007829737798724c5a30b1bcdf7b9f33d27c",
+                "reference": "a2f3007829737798724c5a30b1bcdf7b9f33d27c",
+                "shasum": ""
+            },
+            "require": {
+                "cratespace/contracts": "^1.1",
+                "cratespace/sentinel": "^3.1.5",
                 "ext-json": "*",
                 "hashids/hashids": "^4.1",
                 "illuminate/support": "^8.0",
@@ -238,24 +294,25 @@
                 "issues": "https://github.com/cratespace/preflight/issues",
                 "source": "https://github.com/cratespace/preflight"
             },
-            "time": "2021-05-23T19:16:32+00:00"
+            "time": "2021-05-25T20:20:13+00:00"
         },
         {
             "name": "cratespace/sentinel",
-            "version": "v3.1.4",
+            "version": "v3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cratespace/sentinel.git",
-                "reference": "024ff7aa279479255a33b6d2624ca208b8083125"
+                "reference": "3b819cc40e6b431401530157d871d55456f50468"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cratespace/sentinel/zipball/024ff7aa279479255a33b6d2624ca208b8083125",
-                "reference": "024ff7aa279479255a33b6d2624ca208b8083125",
+                "url": "https://api.github.com/repos/cratespace/sentinel/zipball/3b819cc40e6b431401530157d871d55456f50468",
+                "reference": "3b819cc40e6b431401530157d871d55456f50468",
                 "shasum": ""
             },
             "require": {
                 "bacon/bacon-qr-code": "^2.0",
+                "cratespace/contracts": "^1.1",
                 "ext-json": "*",
                 "illuminate/contracts": "^8.0",
                 "illuminate/database": "^8.0",
@@ -309,7 +366,7 @@
                 "issues": "https://github.com/cratespace/sentinel/issues",
                 "source": "https://github.com/cratespace/sentinel"
             },
-            "time": "2021-05-23T19:05:03+00:00"
+            "time": "2021-05-25T20:15:50+00:00"
         },
         {
             "name": "dasprid/enum",
@@ -1236,16 +1293,16 @@
         },
         {
             "name": "jaybizzle/crawler-detect",
-            "version": "v1.2.105",
+            "version": "v1.2.106",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JayBizzle/Crawler-Detect.git",
-                "reference": "719c1ed49224857800c3dc40838b6b761d046105"
+                "reference": "78bf6792cbf9c569dc0bf2465481978fd2ed0de9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/719c1ed49224857800c3dc40838b6b761d046105",
-                "reference": "719c1ed49224857800c3dc40838b6b761d046105",
+                "url": "https://api.github.com/repos/JayBizzle/Crawler-Detect/zipball/78bf6792cbf9c569dc0bf2465481978fd2ed0de9",
+                "reference": "78bf6792cbf9c569dc0bf2465481978fd2ed0de9",
                 "shasum": ""
             },
             "require": {
@@ -1282,9 +1339,9 @@
             ],
             "support": {
                 "issues": "https://github.com/JayBizzle/Crawler-Detect/issues",
-                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.105"
+                "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.106"
             },
-            "time": "2021-03-03T20:55:48+00:00"
+            "time": "2021-05-24T20:30:32+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -1371,16 +1428,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.42.1",
+            "version": "v8.43.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "41ec4897a70eb8729cf0ff34a8354413c54e42a6"
+                "reference": "3ec63771a07e251f4fb6c7ef2411a79a314bba65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/41ec4897a70eb8729cf0ff34a8354413c54e42a6",
-                "reference": "41ec4897a70eb8729cf0ff34a8354413c54e42a6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/3ec63771a07e251f4fb6c7ef2411a79a314bba65",
+                "reference": "3ec63771a07e251f4fb6c7ef2411a79a314bba65",
                 "shasum": ""
             },
             "require": {
@@ -1535,7 +1592,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2021-05-19T13:03:18+00:00"
+            "time": "2021-05-25T13:06:44+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -5256,16 +5313,16 @@
         },
         {
             "name": "tightenco/ziggy",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/ziggy.git",
-                "reference": "ac0833645f25b51acf9e3d523d6bf8633938f9c5"
+                "reference": "147804d5f3e98b897fc1ed15efc2807f1099cf83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/ac0833645f25b51acf9e3d523d6bf8633938f9c5",
-                "reference": "ac0833645f25b51acf9e3d523d6bf8633938f9c5",
+                "url": "https://api.github.com/repos/tighten/ziggy/zipball/147804d5f3e98b897fc1ed15efc2807f1099cf83",
+                "reference": "147804d5f3e98b897fc1ed15efc2807f1099cf83",
                 "shasum": ""
             },
             "require": {
@@ -5316,9 +5373,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-                "source": "https://github.com/tighten/ziggy/tree/v1.1.0"
+                "source": "https://github.com/tighten/ziggy/tree/v1.2.0"
             },
-            "time": "2021-04-02T17:17:05+00:00"
+            "time": "2021-05-24T22:46:59+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -6134,16 +6191,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.6.0",
+            "version": "v1.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "5d23474cd411b07f46980d05f9c38e7dc0d17460"
+                "reference": "d1f703d73f782af5427697cdc5023395cd341963"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/5d23474cd411b07f46980d05f9c38e7dc0d17460",
-                "reference": "5d23474cd411b07f46980d05f9c38e7dc0d17460",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/d1f703d73f782af5427697cdc5023395cd341963",
+                "reference": "d1f703d73f782af5427697cdc5023395cd341963",
                 "shasum": ""
             },
             "require": {
@@ -6190,7 +6247,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2021-05-18T15:44:02+00:00"
+            "time": "2021-05-25T16:41:13+00:00"
         },
         {
             "name": "mockery/mockery",

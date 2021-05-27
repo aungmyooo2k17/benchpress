@@ -24,6 +24,8 @@ class TeamFactory extends Factory
     {
         return [
             'name' => $name = $this->faker->unique()->company(),
+            'email' => $name = $this->faker->unique()->email(),
+            'phone' => $name = $this->faker->unique()->phoneNumber(),
             'slug' => Str::slug($name),
             'description' => $name = $this->faker->paragraph(),
         ];

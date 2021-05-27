@@ -17,6 +17,10 @@ class CreateNewTeam implements CreatesNewResources
      */
     public function create(array $data, ?array $options = null)
     {
-        return Team::firstOrCreate(['name' => $data['team']]);
+        return Team::firstOrCreate([
+            'name' => $data['team'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+        ]);
     }
 }
