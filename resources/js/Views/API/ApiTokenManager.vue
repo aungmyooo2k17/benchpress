@@ -55,8 +55,8 @@
                     </template>
 
                     <template #content>
-                        <div class="space-y-4">
-                            <div class="rounded-lg bg-blue-50 px-4 py-5 px-6" v-for="token in tokens" :key="token.id">
+                        <div class="space-y-3">
+                            <div class="rounded-lg bg-gray-100 px-4 py-5 px-6" v-for="token in tokens" :key="token.id">
                                 <div class="flex items-center justify-between">
                                     <div class="leading-none">
                                         <div>
@@ -71,7 +71,7 @@
                                     </div>
 
                                     <div class="flex items-center">
-                                        <button class="cursor-pointer ml-6 text-sm text-blue-500" @click="manageApiTokenPermissions(token)" v-if="availablePermissions.length > 0">
+                                        <button class="cursor-pointer ml-6 text-sm text-emerald-500" @click="manageApiTokenPermissions(token)" v-if="availablePermissions.length > 0">
                                             Permissions
                                         </button>
 

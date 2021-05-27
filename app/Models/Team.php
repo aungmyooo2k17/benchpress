@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Cratespace\Preflight\Models\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
@@ -34,6 +35,7 @@ class Team extends Model
      */
     protected $appends = [
         'profile_photo_url',
+        'pending_invitations',
     ];
 
     /**
@@ -76,6 +78,16 @@ class Team extends Model
     public function invitations(): HasMany
     {
         return $this->hasMany(Invitation::class, 'team_id', 'id');
+    }
+
+    /**
+     * Get all pending invitations.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getPendingInvitationsAttribute(): Collection
+    {
+        return $this->invitations->whereNull('accepted_at');
     }
 
     /**

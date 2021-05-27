@@ -2,10 +2,10 @@
 
 namespace App\Http\Responses;
 
-use Illuminate\Contracts\Support\Responsable;
 use Cratespace\Sentinel\Http\Responses\Response;
+use Illuminate\Contracts\Support\Responsable;
 
-class TeamResponse extends Response implements Responsable
+class MemberResponse extends Response implements Responsable
 {
     /**
      * Create an HTTP response that represents the object.
@@ -16,8 +16,6 @@ class TeamResponse extends Response implements Responsable
      */
     public function toResponse($request)
     {
-        return $request->expectsJson()
-            ? $this->json($this->content, 200)
-            : $this->redirectToRoute('teams.show', ['team' => $this->content], 303);
+        return $request->expectsJson() ? $this->json() : $this->redirectTo('/');
     }
 }

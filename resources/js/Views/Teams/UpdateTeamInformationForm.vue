@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="mt-6 lg:mt-0 md:col-span-8">
-                        <app-input type="text" v-model="form.name" :error="form.errors.name" label="Full name" placeholder="Jolly Fitness Club"></app-input>
+                        <app-input type="text" v-model="form.name" :error="form.errors.name" label="Name" placeholder="Kardio Work"></app-input>
                     </div>
 
                     <div class="mt-6 lg:mt-0 md:col-span-6">

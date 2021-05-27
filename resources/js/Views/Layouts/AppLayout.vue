@@ -1,5 +1,7 @@
 <template>
     <div class="min-h-screen min-w-full overflow-x-hidden">
+        <banner></banner>
+
         <!-- Main Header Area -->
         <header>
             <navbar class="bg-blueGray-800">
@@ -85,11 +87,11 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Logo from '@/Views/Components/Logos/Logo';
 import Navbar from '@/Views/Components/Navbars/Navbar';
 import NavbarLink from '@/Views/Components/Navbars/NavbarLink';
 import Dropdown from '@/Views/Components/Dropdowns/Dropdown';
+import Banner from '@/Views/Components/Banners/Banner';
 import DropdownLink from '@/Views/Components/Dropdowns/DropdownLink';
 
 export default {
@@ -99,6 +101,7 @@ export default {
         NavbarLink,
         Dropdown,
         DropdownLink,
+        Banner,
     },
 
     data() {

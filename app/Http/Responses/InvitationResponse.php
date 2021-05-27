@@ -18,6 +18,8 @@ class InvitationResponse extends Response implements Responsable
     {
         return $request->expectsJson()
             ? $this->json($this->invitation, 201)
-            : $this->back(303);
+            : $this->back(303)->banner(
+                __('Great! You have invited a new staff member to the team.'),
+            );
     }
 }
