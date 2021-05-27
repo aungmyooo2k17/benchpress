@@ -110,10 +110,10 @@ class User extends Authenticatable
     /**
      * Get the name of the user's role.
      *
-     * @return string
+     * @return string|null
      */
-    public function getRoleAttribute(): string
+    public function getRoleAttribute(): ?string
     {
-        return $this->roles->first()->name;
+        return optional($this->roles->first())->name;
     }
 }
