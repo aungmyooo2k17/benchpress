@@ -9,7 +9,7 @@
         </template>
 
         <template #content>
-            <div v-if="team.invitations.length > 0" class="space-y-6">
+            <div v-if="team.invitations.length > 0" class="space-y-3">
                 <card class="shadow-none" :has-action="false" v-for="invitation in team.invitations" :key="invitation.id">
                     <template #content>
                         <div class="flex items-center justify-between">
@@ -55,8 +55,8 @@ export default {
     },
 
     methods: {
-        cancelTeamInvitation(invitation) {
-            this.$inertia.delete(this.route('invitations.destroy', invitation), {
+        cancelStaffInvitation(invitation) {
+            this.$inertia.delete(this.route('invitations.destroy', [this.team, invitation]), {
                 preserveScroll: true
             });
         },

@@ -9,7 +9,7 @@
         </template>
 
         <template #content>
-            <div class="space-y-6" v-if="team.members.length > 0">
+            <div class="space-y-3" v-if="team.members.length > 0">
                 <card class="shadow-none" :has-action="false" v-for="member in team.members" :key="member.id">
                     <template #content>
                         <div class="flex items-center justify-between">

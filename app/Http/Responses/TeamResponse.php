@@ -5,7 +5,7 @@ namespace App\Http\Responses;
 use Cratespace\Sentinel\Http\Responses\Response;
 use Illuminate\Contracts\Support\Responsable;
 
-class InviteStaffResponse extends Response implements Responsable
+class TeamResponse extends Response implements Responsable
 {
     /**
      * Create an HTTP response that represents the object.
@@ -16,6 +16,8 @@ class InviteStaffResponse extends Response implements Responsable
      */
     public function toResponse($request)
     {
-        return $request->expectsJson() ? $this->json() : $this->redirectTo('/');
+        return $request->expectsJson()
+            ? $this->json($this->content, 200)
+            : $this->back(303);
     }
 }

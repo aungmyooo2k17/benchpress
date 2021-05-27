@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Team;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
+use App\Http\Requests\TeamRequest;
+use App\Http\Responses\TeamResponse;
+use App\Actions\Team\UpdateTeamInformation;
 
 class TeamController extends Controller
 {
@@ -28,7 +30,10 @@ class TeamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(TeamRequest $request, Team $team, UpdateTeamInformation $updater)
     {
+        $updater->update($team, $request->validated());
+
+        return TeamResponse::dispatch($team->fresh());
     }
 }

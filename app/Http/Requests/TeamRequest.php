@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Cratespace\Sentinel\Http\Requests\Request;
 
-class InviteStaffRequest extends Request
+class TeamRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class InviteStaffRequest extends Request
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->isAllowed('manage', $this->route('team'), false);
     }
 
     /**
@@ -23,6 +23,16 @@ class InviteStaffRequest extends Request
      */
     public function rules(): array
     {
-        return [];
+        return $this->getRulesFor('team');
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->setErrorBag('updateTeamInformation');
     }
 }

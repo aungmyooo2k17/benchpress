@@ -15,5 +15,7 @@ Route::group([
     Route::get('/teams/{team}/staff', [StaffController::class, 'index'])->name('staff.index');
     Route::delete('/teams/{team}/staff/{user}', [StaffController::class, 'destroy'])->name('staff.destroy');
     Route::get('/teams/{team}', [TeamController::class, 'show'])->name('teams.show');
+    Route::put('/teams/{team}', [TeamController::class, 'update'])->name('teams.update');
+    Route::post('/teams/{team}/invitations', [InvitationController::class, 'store'])->name('invitations.store');
     Route::delete('/teams/{team}/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.destroy');
 });

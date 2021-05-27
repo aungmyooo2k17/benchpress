@@ -18725,11 +18725,11 @@ __webpack_require__.r(__webpack_exports__);
     inviteStaffMemeber: function inviteStaffMemeber() {
       var _this = this;
 
-      this.inviteStaffMemberForm.post(route('staff.store', this.team), {
+      this.inviteStaffMemberForm.post(this.route('invitations.store', this.team), {
         errorBag: 'inviteStaffMemeber',
         preserveScroll: true,
         onSuccess: function onSuccess() {
-          return _this.inviteStaffMemeberForm.reset();
+          return _this.inviteStaffMemberForm.reset();
         }
       });
     }
@@ -18858,8 +18858,8 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   methods: {
-    cancelTeamInvitation: function cancelTeamInvitation(invitation) {
-      this.$inertia["delete"](this.route('invitations.destroy', invitation), {
+    cancelStaffInvitation: function cancelStaffInvitation(invitation) {
+      this.$inertia["delete"](this.route('invitations.destroy', [this.team, invitation]), {
         preserveScroll: true
       });
     }
@@ -23839,7 +23839,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 
 var _hoisted_3 = {
   key: 0,
-  "class": "space-y-6"
+  "class": "space-y-3"
 };
 var _hoisted_4 = {
   "class": "flex items-center justify-between"
@@ -24032,7 +24032,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 
 var _hoisted_3 = {
   key: 0,
-  "class": "space-y-6"
+  "class": "space-y-3"
 };
 var _hoisted_4 = {
   "class": "flex items-center justify-between"
@@ -24078,7 +24078,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Cancel Team Invitation "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
               "class": "cursor-pointer ml-6 text-sm text-red-500 focus:outline-none",
               onClick: function onClick($event) {
-                return _ctx.cancelStaffInvitation(invitation);
+                return $options.cancelStaffInvitation(invitation);
               }
             }, " Cancel ", 8
             /* PROPS */

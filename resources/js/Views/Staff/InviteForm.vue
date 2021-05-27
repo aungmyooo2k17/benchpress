@@ -97,10 +97,10 @@ export default {
 
     methods: {
         inviteStaffMemeber() {
-            this.inviteStaffMemberForm.post(route('staff.store', this.team), {
+            this.inviteStaffMemberForm.post(this.route('invitations.store', this.team), {
                 errorBag: 'inviteStaffMemeber',
                 preserveScroll: true,
-                onSuccess: () => this.inviteStaffMemeberForm.reset(),
+                onSuccess: () => this.inviteStaffMemberForm.reset(),
             });
         },
     }
