@@ -41,7 +41,7 @@
 
                         <template #items>
                             <div class="block px-4 py-2 text-xs text-gray-500">Manage Team</div>
-                            <dropdown-link href="#">Staff</dropdown-link>
+                            <dropdown-link :href="route('staff.index', { 'team': $page.props.user.team.slug })">Staff</dropdown-link>
                             <dropdown-link :href="route('teams.show', { 'team': $page.props.user.team.slug })">Settings</dropdown-link>
                         </template>
                     </dropdown>

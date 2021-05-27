@@ -75,6 +75,7 @@ class User extends Authenticatable
         'profile_photo_url',
         'sessions',
         'two_factor_enabled',
+        'role',
     ];
 
     /**
@@ -104,5 +105,15 @@ class User extends Authenticatable
     public function belongsToTeam(Team $team): bool
     {
         return $this->team->is($team);
+    }
+
+    /**
+     * Get the name of the user's role.
+     *
+     * @return string
+     */
+    public function getRoleAttribute(): string
+    {
+        return $this->roles->first()->name;
     }
 }

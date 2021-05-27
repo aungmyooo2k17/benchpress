@@ -1,6 +1,6 @@
 <template>
     <div class="shadow overflow-hidden rounded-xl">
-        <div class="px-4 py-5 bg-white sm:px-6">
+        <div class="px-4 py-5 bg-gray-50 sm:px-6">
             <slot name="content"></slot>
         </div>
 
