@@ -7,10 +7,12 @@ use Illuminate\Support\Carbon;
 use Cratespace\Contracts\Orders\Order;
 use Illuminate\Database\Eloquent\Model;
 use Cratespace\Contracts\Billing\Payment;
+use Cratespace\Preflight\Models\Traits\Hashable;
 use Cratespace\Preflight\Models\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Cratespace\Contracts\Products\Product as ProductContract;
 
 class Product extends Model implements ProductContract
@@ -18,6 +20,7 @@ class Product extends Model implements ProductContract
     use HasFactory;
     use Sluggable;
     use HasProfilePhoto;
+    use Hashable;
 
     /**
      * The attributes that are mass assignable.
@@ -34,6 +37,10 @@ class Product extends Model implements ProductContract
         'dimensions',
         'metadata',
         'reserved_at',
+        'payment_type',
+        'billing_period',
+        'subscription_id',
+        'team_id',
     ];
 
     /**
@@ -54,7 +61,18 @@ class Product extends Model implements ProductContract
      */
     protected $appends = [
         'profile_photo_url',
+        'price',
     ];
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 
     /**
      * Get the team the product belongs to.
@@ -64,6 +82,26 @@ class Product extends Model implements ProductContract
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Get the subscription the product belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function subscription(): BelongsTo
+    {
+        return $this->belongsTo(Subscription::class);
+    }
+
+    /**
+     * Get all members who purchased this product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function members(): BelongsToMany
+    {
+        return $this->belongsToMany(Member::class);
     }
 
     /**
@@ -116,6 +154,16 @@ class Product extends Model implements ProductContract
     public function rawAmount(): int
     {
         return $this->price;
+    }
+
+    /**
+     * Get the presentable value of the price.
+     *
+     * @return string
+     */
+    public function getAmountAttribute(): string
+    {
+        return $this->amount();
     }
 
     /**

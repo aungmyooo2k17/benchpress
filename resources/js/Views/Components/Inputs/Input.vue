@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input-label :text="label">
+        <input-label :text="label" :optional="labelOptional">
             <input autocomplete :type="type" class="form-input px-4 py-2 mt-1 block w-full rounded-lg bg-white border border-gray-200 focus:outline-none focus:border-emerald-500 focus:ring focus:ring-emerald-500 focus:ring-opacity-50 placeholder-gray-400 transition ease-in-out duration-150" :value="modelValue" @input="$emit('update:modelValue', $event.target.value)" ref="input" :placeholder="placeholder ? placeholder : label">
         </input-label>
 
@@ -25,6 +25,10 @@ export default {
         },
 
         label: String,
+        labelOptional: {
+            type: Boolean,
+            default: false,
+        },
         placeholder: String,
     },
 

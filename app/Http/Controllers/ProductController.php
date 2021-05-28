@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use Inertia\Inertia;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -18,10 +17,7 @@ class ProductController extends Controller
     public function index(Team $team)
     {
         return Inertia::render('Products/Index', [
-            'products' => $team->products
-                ->whereNull('reserved_at')
-                ->latest()
-                ->paginate(),
+            'products' => Product::where('team_id', $team->id)->paginate(),
         ]);
     }
 

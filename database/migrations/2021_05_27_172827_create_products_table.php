@@ -18,11 +18,14 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('code')->unique()->nullable();
             $table->integer('price')->default(0);
+            $table->string('payment_type')->default('onetime');
+            $table->string('billing_period')->default('monthly');
             $table->text('description')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->json('dimensions')->nullable();
             $table->json('metadata')->nullable();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('subscription_id')->nullable();
             $table->string('slug')->unique();
             $table->datetime('reserved_at')->nullable();
             $table->timestamps();

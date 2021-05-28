@@ -21,10 +21,7 @@ class UpdateTeamInformation
     public function update(Team $team, array $data, ?array $options = null): void
     {
         $team->update(
-            $this->filterFillable(
-                array_merge($data, $options ?? []),
-                $team
-            )
+            $this->filterFillable(array_merge($data, $options ?? []), $team)
         );
     }
 }

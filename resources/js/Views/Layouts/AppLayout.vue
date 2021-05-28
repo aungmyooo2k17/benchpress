@@ -18,11 +18,7 @@
                         Members
                     </navbar-link>
 
-                    <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
-                        Subscriptions
-                    </navbar-link>
-
-                    <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
+                    <navbar-link :href="route('products.index')" :active="route().current('products.index')" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
                         Products
                     </navbar-link>
 
