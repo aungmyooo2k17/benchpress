@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gradient-to-br from-blueGray-900 to-blueGray-800 h-full p-10">
+    <div class="bg-blueGray-800 h-full p-10">
         <div>
             <logo :title="config('app.name')" classes="h-6 w-auto text-white"></logo>
         </div>
