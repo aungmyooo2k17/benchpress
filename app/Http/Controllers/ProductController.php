@@ -6,6 +6,8 @@ use App\Models\Team;
 use Inertia\Inertia;
 use App\Models\Product;
 use App\Http\Requests\ProductRequest;
+use App\Http\Responses\ProductResponse;
+use App\Actions\Product\CreateNewProduct;
 
 class ProductController extends Controller
 {
@@ -38,8 +40,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request, Team $team)
+    public function store(ProductRequest $request, Team $team, CreateNewProduct $creator)
     {
+        $product = $creator->create($request->validated(), compact('team'));
+
+        return ProductResponse::dispatch($product);
     }
 
     /**

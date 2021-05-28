@@ -60,7 +60,6 @@ class Product extends Model implements ProductContract
      */
     protected $appends = [
         'profile_photo_url',
-        'price',
     ];
 
     /**
@@ -251,5 +250,18 @@ class Product extends Model implements ProductContract
     public function isOnetime(): bool
     {
         return $this->payment_type === 'onetime';
+    }
+
+    /**
+     * Get the full url to the product page.
+     *
+     * @return string
+     */
+    public function path(): string
+    {
+        return route('products.show', [
+            'team' => $this->team->slug,
+            'product' => $this->slug,
+        ]);
     }
 }

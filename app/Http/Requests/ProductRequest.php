@@ -29,4 +29,14 @@ class ProductRequest extends Request
     {
         return $this->getRulesFor('product');
     }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->setErrorBag('manageProductInformation');
+    }
 }

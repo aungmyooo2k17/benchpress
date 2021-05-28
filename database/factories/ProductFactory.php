@@ -5,10 +5,13 @@ namespace Database\Factories;
 use App\Models\Team;
 use App\Models\Product;
 use Illuminate\Support\Str;
+use Tests\Concerns\DeterminesProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
 {
+    use DeterminesProductType;
+
     /**
      * The name of the factory's corresponding model.
      *
@@ -23,13 +26,7 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $paymentType = $this->faker->randomElement(['onetime', 'recurring']);
-
-        if ($paymentType === 'recurring') {
-            $billingPeriod = $this->faker->randomElement(['Daily', 'Weekly', 'Monthly', 'Yearly']);
-        } else {
-            $billingPeriod = null;
-        }
+        [$paymentType, $billingPeriod] = $this->getProductType();
 
         return [
             'name' => $this->faker->word(),

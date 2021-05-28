@@ -18308,10 +18308,13 @@ __webpack_require__.r(__webpack_exports__);
       return this.product.profile_photo_url;
     }
   },
+  created: function created() {
+    console.log(this.noProduct());
+  },
   data: function data() {
     return {
       form: this.$inertia.form({
-        _method: this.product ? 'PUT' : 'POST',
+        _method: this.noProduct() ? 'POST' : 'PUT',
         name: this.product.name,
         description: this.product.description,
         price: null,
@@ -18336,17 +18339,22 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    updateProfileInformation: function updateProfileInformation() {
+    saveDetails: function saveDetails() {
       var _this = this;
 
       if (this.$refs.photo) {
         this.form.photo = this.$refs.photo.files[0];
       }
 
-      this.form.post(this.route('teams.update', {
-        team: this.team
-      }), {
-        errorBag: 'updateTeamInformation',
+      var team = this.$page.props.user.team.slug;
+      var route = this.noProduct() ? this.route('products.store', {
+        team: team
+      }) : this.route('products.store', {
+        team: team,
+        product: this.product
+      });
+      this.form.post(route, {
+        errorBag: 'manageProductInformation',
         preserveScroll: true,
         onSuccess: function onSuccess() {
           return _this.clearPhotoFileInput();
@@ -18390,6 +18398,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     getFirstPaymentType: function getFirstPaymentType() {
       return this.payment_types[0].id;
+    },
+    noProduct: function noProduct() {
+      return this.product && Object.keys(this.product).length === 0 && this.product.constructor === Object;
     }
   }
 });
@@ -22571,7 +22582,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* STABLE */
 
       }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_navbar_link, {
-        href: _ctx.route('products.index'),
+        href: _ctx.route('products.index', {
+          'team': _ctx.$page.props.user.team.slug
+        }),
         active: _ctx.route().current('products.index'),
         "class": "text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900"
       }, {
@@ -22843,7 +22856,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_app_layout, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_app_button, {
-        href: _ctx.route('products.create'),
+        href: _ctx.route('products.create', {
+          'team': _ctx.$page.props.user.team.slug
+        }),
         link: true,
         mode: _ctx.primary
       }, {
@@ -22984,7 +22999,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("form", {
     onSubmit: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
-      return $options.updateProfileInformation && $options.updateProfileInformation.apply($options, arguments);
+      return $options.saveDetails && $options.saveDetails.apply($options, arguments);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_action_section, null, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {

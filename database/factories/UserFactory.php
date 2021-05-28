@@ -57,7 +57,10 @@ class UserFactory extends Factory
     public function withTeam()
     {
         return $this->forTeam([
-            'name' => $this->faker->company(),
+            'name' => $name = $this->faker->company(),
+            'email' => $this->faker->unique()->email(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'slug' => Str::slug($name . uniqid()),
             'description' => 'User\'s Team.',
         ]);
     }

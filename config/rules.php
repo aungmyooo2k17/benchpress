@@ -95,11 +95,19 @@ return [
     'product' => [
         'name' => ['required', 'string', 'max:255'],
         'code' => ['nullable', 'string', 'max:255', 'unique:products,code'],
-        'price' => ['required', 'numeric', 'max:255'],
+        'price' => ['required', 'numeric'],
         'description' => ['nullable', 'string'],
-        'dimensions' => ['nullable', 'array'],
-        'metadata' => ['nullable', 'array'],
+        'height' => ['nullable', 'numeric'],
+        'height' => ['nullable', 'numeric'],
+        'width' => ['nullable', 'numeric'],
+        'length' => ['nullable', 'numeric'],
         'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+        'payment_type' => ['required', 'string', Rule::in(['onetime', 'recurring'])],
+        'billing_period' => [
+            'required',
+            'string',
+            Rule::in(['Daily', 'Weekly', 'Monthly', 'Yearly']),
+        ],
     ],
 
     'member' => [

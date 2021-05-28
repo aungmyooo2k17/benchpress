@@ -30,7 +30,7 @@ Route::group([
         Route::post('/{team}/invitations', [InvitationController::class, 'store'])->name('invitations.store');
         Route::delete('/{team}/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.destroy');
 
-        Route::resource('products', ProductController::class);
+        Route::resource('/{team}/products', ProductController::class);
     });
 });
 

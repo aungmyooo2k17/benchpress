@@ -24,10 +24,10 @@ class TeamFactory extends Factory
     {
         return [
             'name' => $name = $this->faker->unique()->company(),
-            'email' => $name = $this->faker->unique()->email(),
-            'phone' => $name = $this->faker->unique()->phoneNumber(),
-            'slug' => Str::slug($name),
-            'description' => $name = $this->faker->paragraph(),
+            'slug' => Str::slug($name . uniqid()),
+            'email' => $this->faker->unique()->email(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'description' => $this->faker->paragraph(),
         ];
     }
 }

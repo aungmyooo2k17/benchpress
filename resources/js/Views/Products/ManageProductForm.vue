@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form @submit.prevent="updateProfileInformation">
+        <form @submit.prevent="saveDetails">
             <action-section>
                 <template #title>
                     Product Information
@@ -170,10 +170,14 @@ export default {
         }
     },
 
+    created() {
+        console.log(this.noProduct());
+    },
+
     data() {
         return {
             form: this.$inertia.form({
-                _method: this.product ? 'PUT' : 'POST',
+                _method: this.noProduct() ? 'POST' : 'PUT',
                 name: this.product.name,
                 description: this.product.description,
                 price: null,
@@ -210,13 +214,21 @@ export default {
     },
 
     methods: {
-        updateProfileInformation() {
+        saveDetails() {
             if (this.$refs.photo) {
                 this.form.photo = this.$refs.photo.files[0];
             }
 
-            this.form.post(this.route('teams.update', { team: this.team }), {
-                errorBag: 'updateTeamInformation',
+            const team = this.$page.props.user.team.slug;
+
+            let route = this.noProduct()
+                ? this.route('products.store', { team })
+                : this.route('products.store', {
+                    team, product: this.product
+                });
+
+            this.form.post(route, {
+                errorBag: 'manageProductInformation',
                 preserveScroll: true,
                 onSuccess: () => (this.clearPhotoFileInput()),
             });
@@ -256,6 +268,12 @@ export default {
 
         getFirstPaymentType() {
             return this.payment_types[0].id;
+        },
+
+        noProduct() {
+            return this.product &&
+                Object.keys(this.product).length === 0 &&
+                this.product.constructor === Object;
         }
     }
 }
