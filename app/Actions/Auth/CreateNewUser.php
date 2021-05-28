@@ -26,21 +26,41 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $data, ?array $options = null)
     {
-        return DB::transaction(function () use ($data) {
-            return with(Team::create([
-                'name' => $data['team'],
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-            ]), function (Team $team) use ($data) {
+        return DB::transaction(function () use ($data, $options) {
+            return with($this->createTeam(
+                array_merge($data, $options ?? [])
+            ), function (Team $team) use ($data) {
                 $user = $this->createUserForTeam($team, $data);
 
                 $user->assignRole(Role::firstOrCreate(
-                    $this->getDefaultConfig('admin_role')
+                    isset($data['role'])
+                        ? ['name' => $data['role']]
+                        : $this->getDefaultConfig('admin_role')
                 ));
 
                 return $user;
             });
         });
+    }
+
+    /**
+     * Create or find a team suing the given attributes.
+     *
+     * @param array $data
+     *
+     * @return \App\Modles\Team
+     */
+    public function createTeam(array $data): Team
+    {
+        if ($team = Team::whereName($data['team'])->first()) {
+            return $team;
+        }
+
+        return Team::create([
+            'name' => $data['team'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+        ]);
     }
 
     /**

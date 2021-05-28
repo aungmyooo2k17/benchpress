@@ -28,15 +28,15 @@
                             <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
                                 <button type="button" class="relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-none focus:border-emerald-300 focus:ring focus:ring-emerald-200"
                                     :class="{'border-t border-gray-200 rounded-t-none': i > 0, 'rounded-b-none': i != Object.keys(roles).length - 1}"
-                                    @click="inviteStaffMemberForm.role = role.id"
+                                    @click="inviteStaffMemberForm.role_id = role.id"
                                     v-for="(role, i) in roles"
                                     :key="role.id">
-                                    <div :class="{'opacity-50': inviteStaffMemberForm.role && inviteStaffMemberForm.role != role.id}">
+                                    <div :class="{'opacity-50': inviteStaffMemberForm.role_id && inviteStaffMemberForm.role_id != role.id}">
                                         <!-- Role Name -->
                                         <div class="flex items-center">
-                                            <div class="text-sm text-gray-600" :class="{'font-semibold': inviteStaffMemberForm.role == role.id}"> {{ role.name }}</div>
+                                            <div class="text-sm text-gray-600" :class="{'font-semibold': inviteStaffMemberForm.role_id == role.id}"> {{ role.name }}</div>
 
-                                            <svg v-if="inviteStaffMemberForm.role == role.id" class="ml-2 h-5 w-5 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            <svg v-if="inviteStaffMemberForm.role_id == role.id" class="ml-2 h-5 w-5 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                         </div>
 
                                         <!-- Role Description -->
@@ -90,7 +90,7 @@ export default {
         return {
             inviteStaffMemberForm: this.$inertia.form({
                 email: null,
-                role: null,
+                role_id: null,
             }),
         }
     },

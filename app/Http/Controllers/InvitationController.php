@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use Inertia\Inertia;
 use App\Models\Invitation;
 use Illuminate\Http\Request;
 use App\Actions\Team\InviteStaffMember;
@@ -35,6 +36,17 @@ class InvitationController extends Controller
      */
     public function update(Request $request, Team $team, Invitation $invitation)
     {
+        if ($request->route('status') === 'reject') {
+            $invitation->reject();
+
+            return $this->response()->redirectTo('/');
+        }
+
+        $invitation->accept();
+
+        return Inertia::render('Auth/Register', [
+            'invitation' => $invitation->load('team', 'role'),
+        ]);
     }
 
     /**

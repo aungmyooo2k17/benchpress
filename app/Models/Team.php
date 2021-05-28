@@ -89,6 +89,7 @@ class Team extends Model
     {
         return $this->invitations()->create([
             'email' => $data['email'],
+            'role_id' => $data['role_id'],
         ]);
     }
 

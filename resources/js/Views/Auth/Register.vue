@@ -22,8 +22,12 @@
 
                 <div class="mt-6">
                     <form @submit.prevent="register" class="w-full lg:grid lg:grid-cols-12 gap-6">
-                        <div class="mt-6 lg:mt-0 lg:col-span-8">
+                        <div class="mt-6 lg:mt-0 lg:col-span-6">
                             <app-input type="text" v-model="form.name" :error="form.errors.name" label="Full name" placeholder="Johnathan Doeford" required autofocus></app-input>
+                        </div>
+
+                        <div class="mt-6 lg:mt-0 lg:col-span-6">
+                            <app-input type="text" v-model="form.team" :error="form.errors.team" label="Business name" placeholder="Monster Fitness, Inc." required autofocus></app-input>
                         </div>
 
                         <div class="mt-6 lg:mt-0 lg:col-span-6">
@@ -76,7 +80,17 @@ import Logo from '@/Views/Components/Logos/Logo';
 import Advertisement from './Advertisement.vue';
 
 export default {
-    props: ['type'],
+    props: {
+        invitation: {
+            default: {
+                email: null,
+                team: {},
+                role: {},
+            },
+            required: false,
+            type: Object,
+        }
+    },
 
     components: {
         AuthLayout,
@@ -92,7 +106,9 @@ export default {
         return {
             form: this.$inertia.form({
                 name: null,
-                email: null,
+                team: this.invitation.team.name,
+                email: this.invitation.email,
+                role: this.invitation.role.name,
                 phone: null,
                 password: null,
                 password_confirmation: null,

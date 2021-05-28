@@ -9,8 +9,8 @@
         </template>
 
         <template #content>
-            <div class="space-y-3" v-if="team.members.length > 0">
-                <card class="shadow-none" bg-color="bg-gray-100" :has-action="false" v-for="member in team.members" :key="member.id">
+            <div class="space-y-3" v-if="team.staff.length > 0">
+                <card class="shadow-none" bg-color="bg-gray-100" :has-action="false" v-for="member in team.staff" :key="member.id">
                     <template #content>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">

@@ -19,6 +19,7 @@ Route::group([
     Route::put('/teams/{team}', [TeamController::class, 'update'])->name('teams.update');
     Route::post('/teams/{team}/invitations', [InvitationController::class, 'store'])->name('invitations.store');
     Route::delete('/teams/{team}/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.destroy');
-
     Route::resource('products', ProductController::class);
 });
+
+Route::middleware(['signed'])->get('/teams/{team}/invitations/{invitation}', [InvitationController::class, 'update'])->name('invitations.update');

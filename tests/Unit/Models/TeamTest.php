@@ -9,6 +9,7 @@ use App\Models\Member;
 use App\Models\Product;
 use App\Models\Invitation;
 use Tests\Concerns\CreatesRoles;
+use Cratespace\Preflight\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TeamTest extends TestCase
@@ -59,6 +60,7 @@ class TeamTest extends TestCase
     {
         $invitation = $this->user->team->inviteStaffMember([
             'email' => $email = $this->faker->unique()->email(),
+            'role_id' => Role::whereName('Administrator')->first()->id,
         ]);
 
         $this->assertInstanceOf(Invitation::class, $invitation);

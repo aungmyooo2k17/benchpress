@@ -5,7 +5,7 @@
 
             <section-border></section-border>
 
-            <pending-invitations-list :invitations="pendingInvitations"></pending-invitations-list>
+            <pending-invitations-list :invitations="invitations"></pending-invitations-list>
 
             <section-border></section-border>
 
@@ -22,7 +22,7 @@ import MembersList from './MembersList.vue';
 import PendingInvitationsList from './PendingInvitationsList.vue';
 
 export default {
-    props: ['team', 'roles', 'pendingInvitations'],
+    props: ['team', 'roles', 'invitations'],
 
     components: {
         AppLayout,

@@ -26,6 +26,7 @@ return [
     'register' => [
         'name' => ['required', 'string', 'max:255'],
         'team' => ['required', 'string'],
+        'role' => ['nullable', 'exists:roles,name'],
         'email' => [
             'required',
             'string',
@@ -88,7 +89,7 @@ return [
             'email',
             Rule::unique(Invitation::class),
         ],
-        'role' => ['required', 'exists:roles,id'],
+        'role_id' => ['required', 'exists:roles,id'],
     ],
 
     'product' => [

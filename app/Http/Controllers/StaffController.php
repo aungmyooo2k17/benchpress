@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Invitation;
+use App\Actions\Auth\DeleteUser;
 use Cratespace\Preflight\Models\Role;
 
 class StaffController extends Controller
@@ -18,10 +19,10 @@ class StaffController extends Controller
     public function index(Team $team)
     {
         return Inertia::render('Staff/Index', [
-            'team' => $team->load('members'),
+            'team' => $team->load('staff'),
             'roles' => Role::all(),
-            'pendingInvitations' => Invitation::where('team_id', $team->id)
-                ->whereNull('accepted_at')->latest(),
+            'invitations' => Invitation::where('team_id', $team->id)
+                ->whereNull('accepted_at')->latest()->get(),
         ]);
     }
 
@@ -32,10 +33,10 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team, User $user)
+    public function destroy(Team $team, User $user, DeleteUser $deleter)
     {
         if ($user->belongsToTeam($team)) {
-            $user->delete();
+            $deleter->delete($user);
         }
 
         return $this->response()->back(303);
