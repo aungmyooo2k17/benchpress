@@ -19,7 +19,6 @@ class Invitation extends Model implements BusinessInvitation
      */
     protected $fillable = [
         'email',
-        'user_id',
         'team_id',
         'accepted_at',
         'rejected_at',

@@ -45,7 +45,7 @@ class UserFactory extends Factory
             'profile_photo_path' => null,
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
-            'team_id' => null,
+            'team_id' => create(Team::class)->id,
         ];
     }
 

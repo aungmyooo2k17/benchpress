@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -84,8 +85,8 @@ class Member extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function subscription(): BelongsTo
+    public function subscription(): HasOne
     {
-        return $this->belongsTo(Subscription::class);
+        return $this->hasOne(Subscription::class);
     }
 }

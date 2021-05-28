@@ -9,8 +9,8 @@
         </template>
 
         <template #content>
-            <div v-if="team.pending_invitations.length > 0" class="space-y-3">
-                <card class="shadow-none" bg-color="bg-gray-100" :has-action="false" v-for="invitation in team.pending_invitations" :key="invitation.id">
+            <div v-if="invitations.length > 0" class="space-y-3">
+                <card class="shadow-none" bg-color="bg-gray-100" :has-action="false" v-for="invitation in invitations" :key="invitation.id">
                     <template #content>
                         <div class="flex items-center justify-between">
                             <div class="text-gray-600 font-medium">{{ invitation.email }}</div>
@@ -42,7 +42,7 @@ import AppLink from '@/Views/Components/Base/Link';
 import Card from '@/Views/Components/Cards/Card.vue';
 
 export default {
-    props: ['team'],
+    props: ['invitations'],
 
     components: {
         ActionSection,

@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Cratespace\Contracts\Support\Cancellable;
 use Cratespace\Preflight\Models\Traits\Hashable;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Subscription extends Model
+class Subscription extends Model implements Cancellable
 {
     use HasFactory;
     use Hashable;
@@ -23,7 +23,8 @@ class Subscription extends Model
         'code',
         'started_at',
         'cancelled_at',
-        'team_id',
+        'member_id',
+        'product_id',
     ];
 
     /**
@@ -47,32 +48,32 @@ class Subscription extends Model
     }
 
     /**
-     * Get the team the subscription belongs to.
+     * Get the product that belongs to the subscription.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function team(): BelongsTo
+    public function product(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
-    }
-
-    /**
-     * Get the product that belongs to the subscription.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function product(): HasOne
-    {
-        return $this->hasOne(Product::class);
+        return $this->belongsTo(Product::class);
     }
 
     /**
      * Get all memebrs that this subscription belong to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function members(): BelongsToMany
+    public function member(): BelongsTo
     {
-        return $this->belongsToMany(Subscription::class);
+        return $this->belongsTo(Member::class);
+    }
+
+    /**
+     * Cancel a course of action or a resource.
+     *
+     * @return void
+     */
+    public function cancel(): void
+    {
+        $this->forceFill(['cancelled_at' => Carbon::now()])->save();
     }
 }

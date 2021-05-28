@@ -17,9 +17,7 @@ class InviteStaffMember
      */
     public function invite(Team $team, array $data): Invitation
     {
-        $invitation = $team->invitations()->create(
-            array_merge($data, ['user_id' => $team->owner->id])
-        );
+        $invitation = $team->inviteStaffMember($data);
 
         return $invitation;
     }

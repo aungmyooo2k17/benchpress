@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 use Cratespace\Preflight\Models\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
@@ -35,7 +34,6 @@ class Team extends Model
      */
     protected $appends = [
         'profile_photo_url',
-        'pending_invitations',
     ];
 
     /**
@@ -53,21 +51,45 @@ class Team extends Model
      *
      * @return \App\Models\User|null
      */
-    public function getOwnerAttribute(): ?User
+    public function owner(): ?User
     {
-        return $this->members
-            ->filter(fn ($user) => $user->hasRole('Administrator'))
-            ->first();
+        return $this->staff->filter(
+            fn ($user) => $user->hasRole('Administrator')
+        )->first();
     }
 
     /**
-     * Get all the users that belong to this team.
+     * Get all staff users that belong to this team.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function members(): HasMany
+    public function staff(): HasMany
     {
         return $this->hasMany(User::class, 'team_id', 'id');
+    }
+
+    /**
+     * Get all customers that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function customers(): HasMany
+    {
+        return $this->hasMany(Member::class, 'team_id', 'id');
+    }
+
+    /**
+     * Invite a staff member to the team.
+     *
+     * @param array $data
+     *
+     * @return \App\Models\Invitation
+     */
+    public function inviteStaffMember(array $data): Invitation
+    {
+        return $this->invitations()->create([
+            'email' => $data['email'],
+        ]);
     }
 
     /**
@@ -78,16 +100,6 @@ class Team extends Model
     public function invitations(): HasMany
     {
         return $this->hasMany(Invitation::class, 'team_id', 'id');
-    }
-
-    /**
-     * Get all pending invitations.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function getPendingInvitationsAttribute(): Collection
-    {
-        return $this->invitations->whereNull('accepted_at');
     }
 
     /**
@@ -109,6 +121,6 @@ class Team extends Model
      */
     public function belongsToUser(User $user): bool
     {
-        return $this->members->contains(fn ($member) => $member->is($user));
+        return $this->staff->contains(fn ($member) => $member->is($user));
     }
 }

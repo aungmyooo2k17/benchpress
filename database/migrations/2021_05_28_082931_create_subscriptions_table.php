@@ -18,7 +18,8 @@ class CreateSubscriptionsTable extends Migration
             $table->string('code')->unique()->nullable();
             $table->datetime('started_at')->nullable();
             $table->datetime('cancelled_at')->nullable();
-            $table->foreignId('team_id')->constrained();
+            $table->foreignId('member_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained();
             $table->timestamps();
         });
     }

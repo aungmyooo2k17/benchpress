@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Team;
 use App\Models\Invitation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,10 @@ class InvitationFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'email' => $this->faker->unique()->email(),
+            'team_id' => create(Team::class)->id,
+            'accepted_at' => null,
+            'rejected_at' => null,
         ];
     }
 }

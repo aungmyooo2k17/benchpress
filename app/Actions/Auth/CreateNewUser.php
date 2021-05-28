@@ -44,7 +44,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createUserForTeam(Team $team, array $data): User
     {
-        return $team->members()->create([
+        return $team->staff()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],

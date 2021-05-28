@@ -39,7 +39,6 @@ class Product extends Model implements ProductContract
         'reserved_at',
         'payment_type',
         'billing_period',
-        'subscription_id',
         'team_id',
     ];
 

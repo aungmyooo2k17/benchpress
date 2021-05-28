@@ -15,12 +15,10 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('email')->unique();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->datetime('accepted_at')->nullable();
             $table->datetime('rejected_at')->nullable();
-            $table->unique(['user_id', 'email']);
             $table->timestamps();
         });
     }

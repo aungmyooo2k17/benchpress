@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Invitation;
 use Cratespace\Preflight\Models\Role;
 
 class StaffController extends Controller
@@ -17,8 +18,10 @@ class StaffController extends Controller
     public function index(Team $team)
     {
         return Inertia::render('Staff/Index', [
-            'team' => $team->load('invitations', 'members'),
+            'team' => $team->load('members'),
             'roles' => Role::all(),
+            'pendingInvitations' => Invitation::where('team_id', $team->id)
+                ->whereNull('accepted_at')->latest(),
         ]);
     }
 
