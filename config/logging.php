@@ -41,7 +41,7 @@ return [
         ],
 
         'single' => [
-            'driver' => 'single',
+            'driver' => 'errorlog',
             'path' => storage_path('logs/benchpress.log'),
             'level' => env('LOG_LEVEL', 'debug'),
         ],
