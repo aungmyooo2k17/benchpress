@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Actions\Team;
+namespace App\Actions\Subscription;
 
-use App\Models\Team;
 use Cratespace\Sentinel\Contracts\Actions\CreatesNewResources;
 
-class CreateNewTeam implements CreatesNewResources
+class CreateNewSubscription implements CreatesNewResources
 {
     /**
      * Create a new resource type.
@@ -17,6 +16,5 @@ class CreateNewTeam implements CreatesNewResources
      */
     public function create(array $data, ?array $options = null)
     {
-        return Team::firstOrCreate(['name' => $data['team']]);
     }
 }

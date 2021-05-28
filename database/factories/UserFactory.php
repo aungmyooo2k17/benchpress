@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Carbon\Carbon;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -44,6 +45,23 @@ class UserFactory extends Factory
             'profile_photo_path' => null,
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
+            'team_id' => create(Team::class)->id,
         ];
+    }
+
+    /**
+     * Indicate that the user should have a personal team.
+     *
+     * @return $this
+     */
+    public function withTeam()
+    {
+        return $this->forTeam([
+            'name' => $name = $this->faker->company(),
+            'email' => $this->faker->unique()->email(),
+            'phone' => $this->faker->unique()->phoneNumber(),
+            'slug' => Str::slug($name . uniqid()),
+            'description' => 'User\'s Team.',
+        ]);
     }
 }

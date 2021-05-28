@@ -1,13 +1,15 @@
 {
-    "name": "thavarshan/benchpress",
+    "name": "exogym/benchpress",
     "type": "project",
     "description": "Gym management system.",
     "keywords": ["gym", "benchpress"],
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
+        "cratespace/contracts": "^1.1",
         "cratespace/preflight": "^3.6",
-        "cratespace/sentinel": "^3.1.4",
+        "cratespace/sentinel": "^3.1",
+        "doctrine/inflector": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

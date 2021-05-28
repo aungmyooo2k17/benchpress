@@ -75,6 +75,7 @@ class User extends Authenticatable
         'profile_photo_url',
         'sessions',
         'two_factor_enabled',
+        'role',
     ];
 
     /**
@@ -92,5 +93,37 @@ class User extends Authenticatable
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Determine if the user belongs to the given team.
+     *
+     * @param \App\Models\Team $team
+     *
+     * @return bool
+     */
+    public function belongsToTeam(Team $team): bool
+    {
+        return $this->team->is($team);
+    }
+
+    /**
+     * Get the name of the user's role.
+     *
+     * @return string|null
+     */
+    public function getRoleAttribute(): ?string
+    {
+        return optional($this->roles->first())->name;
+    }
+
+    /**
+     * Determine if the user is an administrator.
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('Administrator');
     }
 }

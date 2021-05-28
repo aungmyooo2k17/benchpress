@@ -5,8 +5,8 @@ namespace App\Actions\Auth;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Actions\Team\CreateNewTeam;
 use Illuminate\Support\Facades\Hash;
+use Cratespace\Preflight\Models\Role;
 use Cratespace\Sentinel\Support\Util;
 use Cratespace\Sentinel\Support\Traits\Fillable;
 use Cratespace\Sentinel\Contracts\Actions\CreatesNewUsers;
@@ -27,11 +27,40 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $data, ?array $options = null)
     {
         return DB::transaction(function () use ($data, $options) {
-            return $this->createUserForTeam(
-                $this->resolve(CreateNewTeam::class)->create($data, $options),
-                $this->filterFillable($data, User::class)
-            );
+            return with($this->createTeam(
+                array_merge($data, $options ?? [])
+            ), function (Team $team) use ($data) {
+                $user = $this->createUserForTeam($team, $data);
+
+                $user->assignRole(Role::firstOrCreate(
+                    isset($data['role'])
+                        ? ['name' => $data['role']]
+                        : $this->getDefaultConfig('admin_role')
+                ));
+
+                return $user;
+            });
         });
+    }
+
+    /**
+     * Create or find a team suing the given attributes.
+     *
+     * @param array $data
+     *
+     * @return \App\Modles\Team
+     */
+    public function createTeam(array $data): Team
+    {
+        if ($team = Team::whereName($data['team'])->first()) {
+            return $team;
+        }
+
+        return Team::create([
+            'name' => $data['team'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
+        ]);
     }
 
     /**
@@ -44,7 +73,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createUserForTeam(Team $team, array $data): User
     {
-        return $team->users()->create([
+        return $team->staff()->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -62,6 +91,23 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function defaultSettings(): array
     {
-        return config('defaults.users.settings', []);
+        return $this->getDefaultConfig('settings', []);
+    }
+
+    /**
+     * Get default user configurations.
+     *
+     * @param string|null $key
+     * @param mixed|null  $default
+     *
+     * @return mixed
+     */
+    public function getDefaultConfig(?string $key = null, $default = null)
+    {
+        if (! is_null($key)) {
+            return config('defaults.users.' . $key, $default);
+        }
+
+        return config('defaults.users', $default);
     }
 }

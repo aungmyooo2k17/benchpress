@@ -16,7 +16,7 @@ class DefaultUserSeeder extends Seeder
     {
         $team = Team::factory()->create();
 
-        $user = $team->users()->create((config('defaults.users.credentials')));
+        $user = $team->staff()->create((config('defaults.users.credentials')));
 
         $user->assignRole('Administrator');
     }

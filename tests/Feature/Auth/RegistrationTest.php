@@ -22,6 +22,8 @@ class RegistrationTest extends TestCase implements Postable
 
     public function testNewUsersCanRegister()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->post('/register', $this->validParameters());
 
         $this->assertAuthenticated();
