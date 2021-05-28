@@ -23,7 +23,6 @@ class Invitation extends Model implements BusinessInvitation
         'role_id',
         'team_id',
         'accepted_at',
-        'rejected_at',
     ];
 
     /**
@@ -33,7 +32,6 @@ class Invitation extends Model implements BusinessInvitation
      */
     protected $casts = [
         'accepted_at' => 'datetime',
-        'rejected_at' => 'datetime',
     ];
 
     /**
@@ -89,10 +87,9 @@ class Invitation extends Model implements BusinessInvitation
      */
     public function reject(): bool
     {
-        return $this->forceFill([
-            'accepted_at' => null,
-            'rejected_at' => Carbon::now(),
-        ])->saveQuietly();
+        $this->cancel();
+
+        return true;
     }
 
     /**

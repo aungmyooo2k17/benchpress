@@ -19,7 +19,6 @@ class CreateInvitationsTable extends Migration
             $table->foreignId('role_id')->constrained();
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->datetime('accepted_at')->nullable();
-            $table->datetime('rejected_at')->nullable();
             $table->timestamps();
         });
     }

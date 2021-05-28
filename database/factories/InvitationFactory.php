@@ -30,7 +30,6 @@ class InvitationFactory extends Factory
             'role_id' => $role->id,
             'team_id' => create(Team::class)->id,
             'accepted_at' => null,
-            'rejected_at' => null,
         ];
     }
 }

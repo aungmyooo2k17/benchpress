@@ -36,12 +36,6 @@ class InvitationController extends Controller
      */
     public function update(Request $request, Team $team, Invitation $invitation)
     {
-        if ($request->route('status') === 'reject') {
-            $invitation->reject();
-
-            return $this->response()->redirectTo('/');
-        }
-
         $invitation->accept();
 
         return Inertia::render('Auth/Register', [

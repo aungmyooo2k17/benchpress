@@ -46,11 +46,6 @@ class TeamInvitation extends Mailable
                 'invitation' => $this->invitation,
                 'status' => 'accept',
             ]),
-            'rejectUrl' => URL::signedRoute('invitations.update', [
-                'team' => $this->invitation->team,
-                'invitation' => $this->invitation,
-                'status' => 'reject',
-            ]),
         ])
         ->subject(__($this->buildSubjectLine(
             $this->invitation->team
