@@ -66,7 +66,7 @@ return [
      */
     'stateful' => explode(',', env(
         'STATEFUL_DOMAINS',
-        'preflight.test,localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
+        'benchpress.test,localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
     )),
 
     /*
