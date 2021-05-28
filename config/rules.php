@@ -101,4 +101,19 @@ return [
         'metadata' => ['nullable', 'array'],
         'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
     ],
+
+    'member' => [
+        'name' => ['required', 'string', 'max:255'],
+        'team_id' => ['required', 'numeric', 'exists:teams,id'],
+        'email' => [
+            'required',
+            'string',
+            'email',
+            'max:255',
+            Rule::unique(User::class),
+        ],
+        'phone' => ['sometimes', 'string', 'regex:/(0)[0-9]{9}/'],
+        'product' => ['nullable', 'exists:products,id'],
+        'payment_method' => ['required', 'string'],
+    ],
 ];

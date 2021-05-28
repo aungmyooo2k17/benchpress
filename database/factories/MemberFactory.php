@@ -37,7 +37,8 @@ class MemberFactory extends Factory
             ],
             'locked' => false,
             'profile_photo_path' => null,
-            'team_id' => create(Team::class)->id
+            'team_id' => create(Team::class)->id,
+            'stripe_id' => null,
         ];
     }
 }

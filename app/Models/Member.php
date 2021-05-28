@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cratespace\Contracts\Business\Customer;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Member extends Model
+class Member extends Model implements Customer
 {
     use HasFactory;
     use HasProfilePhoto;
@@ -29,6 +30,7 @@ class Member extends Model
         'profile_photo_path',
         'team_id',
         'subscription_id',
+        'stripe_id',
     ];
 
     /**
@@ -88,5 +90,25 @@ class Member extends Model
     public function subscription(): HasOne
     {
         return $this->hasOne(Subscription::class);
+    }
+
+    /**
+     * Determine if the user is a customer.
+     *
+     * @return bool
+     */
+    public function isCustomer(): bool
+    {
+        return ! is_null($this->customerId());
+    }
+
+    /**
+     * Get the Stripe ID of the customer.
+     *
+     * @return string|null
+     */
+    public function customerId(): ?string
+    {
+        return $this->stripe_id;
     }
 }

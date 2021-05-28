@@ -13,7 +13,7 @@ class MemberRequest extends Request
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->isAuthenticated();
     }
 
     /**
@@ -23,6 +23,6 @@ class MemberRequest extends Request
      */
     public function rules(): array
     {
-        return [];
+        return $this->getRulesFor(['member', 'address']);
     }
 }

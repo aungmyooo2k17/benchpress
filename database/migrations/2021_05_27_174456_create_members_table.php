@@ -23,6 +23,7 @@ class CreateMembersTable extends Migration
             $table->foreignId('team_id')->constrained()->cascadeOnDelete();
             $table->foreignId('subscription_id')->nullable();
             $table->string('payment_method')->nullable();
+            $table->string('stripe_id')->nullable();
             $table->boolean('locked')->default(false);
             $table->json('address')->nullable();
             $table->timestamps();

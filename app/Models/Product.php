@@ -232,4 +232,24 @@ class Product extends Model implements ProductContract
 
         return false;
     }
+
+    /**
+     * Determine if the product payment type is recurring.
+     *
+     * @return bool
+     */
+    public function isRecurring(): bool
+    {
+        return $this->payment_type === 'recurring';
+    }
+
+    /**
+     * Determine if the product payment type is recurring.
+     *
+     * @return bool
+     */
+    public function isOnetime(): bool
+    {
+        return $this->payment_type === 'onetime';
+    }
 }
