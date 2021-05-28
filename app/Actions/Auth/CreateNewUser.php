@@ -5,8 +5,8 @@ namespace App\Actions\Auth;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use App\Actions\Team\CreateNewTeam;
 use Illuminate\Support\Facades\Hash;
+use Cratespace\Preflight\Models\Role;
 use Cratespace\Sentinel\Support\Util;
 use Cratespace\Sentinel\Support\Traits\Fillable;
 use Cratespace\Sentinel\Contracts\Actions\CreatesNewUsers;
@@ -26,11 +26,20 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $data, ?array $options = null)
     {
-        return DB::transaction(function () use ($data, $options) {
-            return $this->createUserForTeam(
-                $this->resolve(CreateNewTeam::class)->create($data, $options),
-                $this->filterFillable($data, User::class)
-            );
+        return DB::transaction(function () use ($data) {
+            return with(Team::create([
+                'name' => $data['team'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+            ]), function (Team $team) use ($data) {
+                $user = $this->createUserForTeam($team, $data);
+
+                $user->assignRole(Role::firstOrCreate(
+                    $this->getDefaultConfig('admin_role')
+                ));
+
+                return $user;
+            });
         });
     }
 
@@ -62,6 +71,23 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function defaultSettings(): array
     {
-        return config('defaults.users.settings', []);
+        return $this->getDefaultConfig('settings', []);
+    }
+
+    /**
+     * Get default user configurations.
+     *
+     * @param string|null $key
+     * @param mixed|null  $default
+     *
+     * @return mixed
+     */
+    public function getDefaultConfig(?string $key = null, $default = null)
+    {
+        if (! is_null($key)) {
+            return config('defaults.users.' . $key, $default);
+        }
+
+        return config('defaults.users', $default);
     }
 }
