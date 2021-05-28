@@ -228,21 +228,21 @@
         },
         {
             "name": "cratespace/preflight",
-            "version": "v3.6.5",
+            "version": "v3.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cratespace/preflight.git",
-                "reference": "a2f3007829737798724c5a30b1bcdf7b9f33d27c"
+                "reference": "bd71224e46ee3974cae8773fb00bce3948c494fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cratespace/preflight/zipball/a2f3007829737798724c5a30b1bcdf7b9f33d27c",
-                "reference": "a2f3007829737798724c5a30b1bcdf7b9f33d27c",
+                "url": "https://api.github.com/repos/cratespace/preflight/zipball/bd71224e46ee3974cae8773fb00bce3948c494fd",
+                "reference": "bd71224e46ee3974cae8773fb00bce3948c494fd",
                 "shasum": ""
             },
             "require": {
-                "cratespace/contracts": "^1.1",
-                "cratespace/sentinel": "^3.1.5",
+                "cratespace/contracts": "^1.1.1",
+                "cratespace/sentinel": "^3.1.6",
                 "ext-json": "*",
                 "hashids/hashids": "^4.1",
                 "illuminate/support": "^8.0",
@@ -294,7 +294,7 @@
                 "issues": "https://github.com/cratespace/preflight/issues",
                 "source": "https://github.com/cratespace/preflight"
             },
-            "time": "2021-05-25T20:20:13+00:00"
+            "time": "2021-05-28T21:21:42+00:00"
         },
         {
             "name": "cratespace/sentinel",
