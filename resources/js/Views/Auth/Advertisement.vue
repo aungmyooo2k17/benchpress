@@ -1,7 +1,7 @@
 <template>
     <div class="bg-blueGray-800 h-full p-10">
         <div>
-            <logo :title="config('app.name')" classes="h-6 w-auto text-white"></logo>
+            <logo :title="config('app.name')" classes="h-8 w-auto text-white"></logo>
         </div>
 
         <div class="mt-12 max-w-xs">

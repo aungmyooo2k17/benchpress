@@ -89,7 +89,7 @@
                                 </template>
 
                                 <template #items>
-                                    <dropdown-link :href="product.path">Edit product</dropdown-link>
+                                    <dropdown-link :href="route('products.edit', { 'team': $page.props.user.team.slug, product })">Edit product</dropdown-link>
                                     <dropdown-link class="text-red-500 hover:text-red-500" href="#">Delete product</dropdown-link>
                                 </template>
                             </dropdown>

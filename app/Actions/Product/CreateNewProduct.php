@@ -27,7 +27,9 @@ class CreateNewProduct implements CreatesNewResources
             ],
             'metadata' => [],
             'payment_type' => $data['payment_type'],
-            'billing_period' => $data['billing_period'],
+            'billing_period' => $data['payment_type'] === 'onetime'
+                ? null
+                : $data['billing_period'],
         ]);
     }
 }

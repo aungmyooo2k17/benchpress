@@ -4,13 +4,13 @@
             <div class="bg-blueGray-800 pt-16 pb-24">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="lg:grid lg:grid-cols-12 gap-6">
-                        <div class="lg:col-span-5 h-full flex flex-col justify-center">
-                            <div>
-                                <h3 class="font-bold text-4xl bg-clip-text text-transparent bg-gradient-to-br from-emerald-400 to-blue-300">
+                        <div class="md:col-span-4 lg:col-span-5 h-full flex flex-col justify-center">
+                            <div class="text-center lg:text-left">
+                                <h3 class="max-w-lg mx-auto lg:max-w-full font-bold text-2xl lg:text-2xl xl:text-4xl bg-clip-text text-transparent bg-gradient-to-br from-emerald-400 to-blue-300">
                                     Relaunch Your Fitness Business. Stronger and Safer than Ever.
                                 </h3>
 
-                                <p class="mt-6 text-xl leading-relaxed text-blueGray-100">
+                                <p class="mt-6 max-w-lg mx-auto lg:max-w-full text-normal xl:text-xl leading-relaxed text-blueGray-100">
                                     Start growing again with a contactless gym, quality live streaming, and our industry leading gym management software.
                                 </p>
 
@@ -26,9 +26,9 @@
                             </div>
                         </div>
 
-                        <div class="lg:col-start-7 lg:col-end-13 lg:col-span-6">
-                            <div class="rounded-xl overflow-hidden shadow-lg">
-                                <img class="w-full" src="/img/screenshot.png" :alt="config('app.name')">
+                        <div class="mt-6 hidden md:block lg:mt-0 md:col-span-6 lg:col-span-7">
+                            <div class="overflow-hidden">
+                                <img class="w-full" src="/img/screenshot-hero.png" :alt="config('app.name')">
                             </div>
                         </div>
                     </div>

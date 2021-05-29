@@ -6,7 +6,7 @@
         <header>
             <navbar class="bg-blueGray-800">
                 <template #logo>
-                    <logo classes="h-5 w-auto text-white" :title="config('app.name')"></logo>
+                    <logo classes="h-7 w-auto text-white" :title="config('app.name')"></logo>
                 </template>
 
                 <template #linksleft>

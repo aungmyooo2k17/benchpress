@@ -8,7 +8,7 @@
             <div class="max-w-sm">
                 <div>
                     <div class="mb-12 block lg:hidden">
-                        <logo :title="config('app.name')" classes="h-6 w-auto text-blueGray-800"></logo>
+                        <logo :title="config('app.name')" classes="h-8 w-auto text-blueGray-800"></logo>
                     </div>
 
                     <h4 class="mt-6 font-semibold text-xl text-gray-800">Confirm you login attempt</h4>

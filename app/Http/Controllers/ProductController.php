@@ -57,9 +57,20 @@ class ProductController extends Controller
     public function show(Team $team, Product $product)
     {
         return Inertia::render('Products/Show', [
-            'team' => $team,
-            'product' => $product,
+            'product' => $product->load('subscriptions'),
         ]);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param \App\Models\Product $product
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Team $team, Product $product)
+    {
+        return Inertia::render('Products/Edit', compact('product'));
     }
 
     /**
@@ -72,6 +83,9 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, Team $team, Product $product)
     {
+        $product->update($request->validated());
+
+        return ProductResponse::dispatch($product->fresh());
     }
 
     /**

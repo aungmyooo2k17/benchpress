@@ -6,7 +6,7 @@
         <header>
             <navbar class="bg-blueGray-800">
                 <template #logo>
-                    <logo classes="h-5 w-auto text-white" :title="config('app.name')"></logo>
+                    <logo classes="h-7 w-auto text-white" :title="config('app.name')"></logo>
                 </template>
 
                 <template #linksleft>
@@ -59,63 +59,61 @@
         <footer class="bg-blueGray-50 py-16">
             <div class="container mx-auto px-4 sm:px-6">
                 <div class="lg:grid lg:grid-cols-12 gap-6">
-                    <div class="col-span-4">
+                    <div class="sm:col-span-6 lg:col-span-4">
                         <div>
-                            <logo classes="h-5 w-auto text-blueGray-400" :title="config('app.name')"></logo>
+                            <logo classes="h-7 w-auto text-blueGray-400" :title="config('app.name')"></logo>
 
-                            <p class="mt-6 text-sm text-blueGray-400">
+                            <p class="mt-6 text-sm text-blueGray-400 sm:max-w-lg md:max-w-full">
                                 You achieve success and change lives when your members keep coming back. Glofox helps you understand the data so you can see who you need to contact and when you need to make that call.
                             </p>
                         </div>
                     </div>
 
-                    <div class="col-start-7 col-end-9 col-span-2">
-                        <div>
-                            <div>
-                                <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
-                                    Solutions
-                                </span>
+                    <div class="mt-10 lg:mt-0 sm:col-span-6 lg:col-start-7">
+                        <div class="grid grid-cols-12 gap-6">
+                            <div class="mt-6 md:mt-0 col-span-6 md:col-span-4">
+                                <div>
+                                    <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
+                                        Solutions
+                                    </span>
+                                </div>
+
+                                <div class="mt-4 space-y-3">
+                                    <app-link class="block text-blueGray-600" href="#">Marketing</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Analytics</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Commerce</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Insights</app-link>
+                                </div>
                             </div>
 
-                            <div class="mt-4 space-y-3">
-                                <app-link class="block text-blueGray-600" href="#">Marketing</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Analytics</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Commerce</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Insights</app-link>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="mt-6 md:mt-0 col-span-6 md:col-span-4">
+                                <div>
+                                    <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
+                                        Support
+                                    </span>
+                                </div>
 
-                    <div class="col-start-9 col-end-11 col-span-2">
-                        <div>
-                            <div>
-                                <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
-                                    Support
-                                </span>
+                                <div class="mt-4 space-y-3">
+                                    <app-link class="block text-blueGray-600" href="#">Pricing</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Documentation</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Guides</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Contact</app-link>
+                                </div>
                             </div>
 
-                            <div class="mt-4 space-y-3">
-                                <app-link class="block text-blueGray-600" href="#">Pricing</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Documentation</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Guides</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Contact</app-link>
-                            </div>
-                        </div>
-                    </div>
+                            <div class="mt-6 md:mt-0 col-span-6 md:col-span-4">
+                                <div>
+                                    <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
+                                        Company
+                                    </span>
+                                </div>
 
-                    <div class="col-start-11 col-end-13 col-span-2">
-                        <div>
-                            <div>
-                                <span class="uppercase font-semibold tracking-wide text-sm text-blueGray-400">
-                                    Company
-                                </span>
-                            </div>
-
-                            <div class="mt-4 space-y-3">
-                                <app-link class="block text-blueGray-600" href="#">About</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Blog</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Privacy</app-link>
-                                <app-link class="block text-blueGray-600" href="#">Terms</app-link>
+                                <div class="mt-4 space-y-3">
+                                    <app-link class="block text-blueGray-600" href="#">About</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Blog</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Privacy</app-link>
+                                    <app-link class="block text-blueGray-600" href="#">Terms</app-link>
+                                </div>
                             </div>
                         </div>
                     </div>

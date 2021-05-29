@@ -8,7 +8,7 @@
             <div>
                 <div>
                     <div class="mb-6 block lg:hidden">
-                        <logo :title="config('app.name')" classes="h-6 w-auto text-blueGray-800"></logo>
+                        <logo :title="config('app.name')" classes="h-8 w-auto text-blueGray-800"></logo>
                     </div>
 
                     <div>

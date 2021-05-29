@@ -174,22 +174,18 @@ export default {
         }
     },
 
-    created() {
-        console.log(this.noProduct());
-    },
-
     data() {
         return {
             form: this.$inertia.form({
                 _method: this.noProduct() ? 'POST' : 'PUT',
                 name: this.product.name,
                 description: this.product.description,
-                price: this.product.price / 100,
+                price: this.product.price ? this.product.price / 100 : null,
                 billing_period: this.product.billing_period || 'Monthly',
                 payment_type: this.product.payment_type || 'onetime',
-                height: this.product.height,
-                width: this.product.width,
-                length: this.product.length,
+                height: this.product.dimensions ? this.product.dimensions.height : null,
+                width: this.product.dimensions ? this.product.dimensions.width : null,
+                length: this.product.dimensions ? this.product.dimensions.length : null,
                 photo: null
             }),
 
@@ -227,7 +223,7 @@ export default {
 
             let route = this.noProduct()
                 ? this.route('products.store', { team })
-                : this.route('products.store', {
+                : this.route('products.update', {
                     team, product: this.product
                 });
 

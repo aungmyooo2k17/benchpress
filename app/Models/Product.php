@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cratespace\Contracts\Billing\Payment;
 use Cratespace\Preflight\Models\Traits\Hashable;
 use Cratespace\Preflight\Models\Traits\Sluggable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,11 +88,11 @@ class Product extends Model implements ProductContract
     /**
      * Get the subscription the product belongs to.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subscription(): BelongsTo
+    public function subscriptions(): HasMany
     {
-        return $this->belongsTo(Subscription::class);
+        return $this->hasMany(Subscription::class);
     }
 
     /**
