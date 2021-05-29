@@ -60,6 +60,8 @@ class Product extends Model implements ProductContract
      */
     protected $appends = [
         'profile_photo_url',
+        'amount',
+        'path',
     ];
 
     /**
@@ -257,7 +259,7 @@ class Product extends Model implements ProductContract
      *
      * @return string
      */
-    public function path(): string
+    public function getPathAttribute(): string
     {
         return route('products.show', [
             'team' => $this->team->slug,

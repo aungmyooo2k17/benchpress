@@ -117,13 +117,17 @@
 
             <section-border></section-border>
 
-            <div class="flex items-center justify-end mt-6">
-                <action-message :on="form.recentlySuccessful" class="mr-4">
+            <div class="flex items-center justify-end mt-6 space-x-4">
+                <action-message :on="form.recentlySuccessful">
                     Saved. <span class="ml-1">&check;</span>
                 </action-message>
 
                 <app-button type="submit" mode="primary" :class="{ 'opacity-25': form.processing }" :loading="form.processing">
                     Save product <span class="ml-1">&rarr;</span>
+                </app-button>
+
+                <app-button :link="true" :href="route('products.index', { 'team': $page.props.user.team.slug })" mode="secondary" :class="{ 'opacity-25': form.processing }" :loading="form.processing">
+                    Cancel
                 </app-button>
             </div>
         </form>
@@ -180,7 +184,7 @@ export default {
                 _method: this.noProduct() ? 'POST' : 'PUT',
                 name: this.product.name,
                 description: this.product.description,
-                price: null,
+                price: this.product.price / 100,
                 billing_period: this.product.billing_period || 'Monthly',
                 payment_type: this.product.payment_type || 'onetime',
                 height: this.product.height,

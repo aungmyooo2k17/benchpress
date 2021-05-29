@@ -18,6 +18,6 @@ class ProductResponse extends Response implements Responsable
     {
         return $request->expectsJson()
             ? $this->json($this->content, 201)
-            : $this->redirectTo($this->content->path(), 303);
+            : $this->redirectTo($this->content->path, 303);
     }
 }

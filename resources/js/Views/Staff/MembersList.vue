@@ -10,11 +10,11 @@
 
         <template #content>
             <div class="space-y-3" v-if="team.staff.length > 0">
-                <card class="shadow-none" bg-color="bg-gray-100" :has-action="false" v-for="member in team.staff" :key="member.id">
+                <card class="shadow-none" bg-color="bg-blueGray-50" :has-action="false" v-for="member in team.staff" :key="member.id">
                     <template #content>
                         <div class="flex items-center justify-between">
                             <div class="flex items-center">
-                                <img class="w-12 h-12 rounded-full" :src="member.profile_photo_url" :alt="member.name">
+                                <img class="w-12 h-12 rounded-xl" :src="member.profile_photo_url" :alt="member.name">
 
                                 <div class="ml-4">
                                     <div class="text-sm font-semibold">{{ member.name }}</div>

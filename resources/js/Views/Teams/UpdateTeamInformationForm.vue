@@ -16,7 +16,7 @@
 
                         <div class="flex items-center">
                             <div v-show="! photoPreview">
-                                <img :src="team.profile_photo_url" :alt="team.name" class="rounded-full h-20 w-20 object-cover">
+                                <img :src="team.profile_photo_url" :alt="team.name" class="rounded-xl h-20 w-20 object-cover">
                             </div>
 
                             <div class="mt-2" v-show="photoPreview">

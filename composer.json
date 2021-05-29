@@ -16,6 +16,7 @@
         "inertiajs/inertia-laravel": "^0.4.2",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "moneyphp/money": "^4.0",
         "tightenco/ziggy": "^1.1.0"
     },
     "require-dev": {
