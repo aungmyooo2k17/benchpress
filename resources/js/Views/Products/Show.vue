@@ -33,57 +33,57 @@
                         </div>
                     </div>
 
-                    <div class="mt-10">
+                    <div class="mt-10 rounded-xl overflow-hidden border border-blueGray-100">
                         <dl>
-                            <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-xs font-normal text-blueGray-400">
-                                    Name
+                            <div class="bg-blueGray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Product name
                                 </dt>
 
-                                <dd class="mt-1 text-sm text-blueGray-800 font-medium sm:mt-0 sm:col-span-2">
+                                <dd class="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
                                     {{ product.name }}
                                 </dd>
                             </div>
 
-                            <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-xs font-normal text-blueGray-400">
-                                    Description
+                            <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Product Code
                                 </dt>
 
-                                <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2 text-blueGray-500">
-                                    {{ product.description }}
-                                </dd>
-                            </div>
-
-                            <div class="bg-white px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-xs font-normal text-blueGray-400">
-                                    Code
-                                </dt>
-
-                                <dd class="mt-1 sm:mt-0 sm:col-span-2">
-                                    <span class="font-mono px-2 py-1 bg-blueGray-100 text-xs font-normal rounded-lg text-blueGray-800">
+                                <dd class="mt-1 text-xs sm:mt-0 sm:col-span-2">
+                                    <span class="px-3 py-1 font-mono rounded-lg text-emerald-300 bg-blueGray-700">
                                         {{ product.code }}
                                     </span>
                                 </dd>
                             </div>
 
-                            <div v-if="product.dimensions.length > 0" class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-xs font-normal text-blueGray-400">
-                                    Dimensions
-                                </dt>
-
-                                <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2 text-blueGray-500">
-                                    {{ product.dimensions.height }} x {{ product.dimensions.width }} x {{ product.dimensions.length }}
-                                </dd>
-                            </div>
-
-                            <div class="px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                                <dt class="text-xs font-normal text-blueGray-400">
+                            <div class="bg-blueGray-100 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
                                     Created
                                 </dt>
 
-                                <dd class="mt-1 text-sm sm:mt-0 sm:col-span-2 text-blueGray-500">
+                                <dd class="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
                                     {{ expanded(product.created_at) }}
+                                </dd>
+                            </div>
+
+                            <div v-if="product.dimensions.length > 0" class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Dimensions
+                                </dt>
+
+                                <dd class="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                                   {{ product.dimensions.height }} x {{ product.dimensions.width }} x {{ product.dimensions.length }}
+                                </dd>
+                            </div>
+
+                            <div :class="{ 'bg-blueGray-100' : product.dimensions.length > 0 }" class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                <dt class="text-sm font-medium text-gray-500">
+                                    Description
+                                </dt>
+
+                                <dd class="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                                    {{ product.description }}
                                 </dd>
                             </div>
                         </dl>
