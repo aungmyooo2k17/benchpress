@@ -19,14 +19,20 @@
 
                     <div class="mt-6">
                         <app-button :link="true" href="#" mode="primary">
-                            Next <span class="ml-1">&rarr;</span>
+                            Get started <span class="ml-1">&rarr;</span>
                         </app-button>
                     </div>
                 </div>
 
                 <div class="col-span-8">
-                    <div class="h-12 bg-emerald-100 rounded-lg">
-                        Hello
+                    <div class="rounded-lg">
+                        <v-frappe-chart
+                            type="line"
+                            :labels="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']"
+                            :data="[
+                                { values: [18, 40, 30, 35, 8, 52, 17, -4] }
+                            ]"
+                            :colors="['#10B981']" />
                     </div>
                 </div>
             </div>
@@ -141,6 +147,7 @@ import AppButton from '@/Views/Components/Buttons/Button';
 import AppLink from '@/Views/Components/Base/Link';
 import SectionBorder from '@/Views/Components/Sections/SectionBorder';
 import Card from '@/Views/Components/Cards/Card';
+import { VFrappeChart } from 'vue-frappe-chart';
 
 export default {
     components: {
@@ -149,6 +156,7 @@ export default {
         Card,
         AppLink,
         SectionBorder,
+        VFrappeChart,
     },
 
     methods: {
