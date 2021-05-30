@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-span-8">
-                    <div class="rounded-lg">
+                    <div>
                         <v-frappe-chart
                             type="line"
                             :labels="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']"

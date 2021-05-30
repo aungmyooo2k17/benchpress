@@ -3,9 +3,9 @@
         <div>
             <div class="flex items-center justify-between">
                 <div>
-                    <h4 class="text-gray-800 font-semibold text-2xl">Products</h4>
+                    <h4 class="text-gray-800 font-semibold text-2xl">Members</h4>
 
-                    <h6 class="text-sm text-gray-500">Showing a total of {{ products.data.length }} products on this page</h6>
+                    <h6 class="text-sm text-gray-500">Showing a total of {{ members.data.length }} members on this page</h6>
                 </div>
 
                 <div class="flex space-x-4 items-center">
@@ -28,30 +28,33 @@
                         </template>
                     </dropdown>
 
-                    <app-button :href="route('products.create', { 'team': $page.props.user.team.slug })" :link="true" mode="primary">
+                    <app-button :href="route('members.create', { 'team': $page.props.user.team.slug })" :link="true" mode="primary">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                         </svg>
 
-                        <span class="ml-1">Add product</span>
+                        <span class="ml-1">Add member</span>
                     </app-button>
                 </div>
             </div>
 
-            <!-- This example requires Tailwind CSS v2.0+ -->
-            <table v-if="products.data.length > 0" class="mt-6 table-fixed min-w-full divide-y divide-blueGray-200">
+            <table v-if="members.data.length > 0" class="mt-6 table-fixed min-w-full divide-y divide-blueGray-200">
                 <thead class="bg-white">
                     <tr>
-                        <th scope="col" class="w-2/3 px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Name
                         </th>
 
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Created
+                            Subscription
                         </th>
 
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Updated
+                            Status
+                        </th>
+
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Joined
                         </th>
 
                         <th scope="col" class="relative px-6 py-3">
@@ -61,31 +64,42 @@
                 </thead>
 
                 <tbody class="bg-white divide-y divide-gray-200">
-                    <tr class="hover:bg-blueGray-50" v-for="(product, id) in products.data" :key="id">
+                    <tr class="hover:bg-blueGray-50" v-for="(member, index) in members.data" :key="index">
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="flex items-center">
                                 <div class="flex-shrink-0 h-12 w-12">
-                                    <img class="h-12 w-12 rounded-xl" :src="product.profile_photo_url || '/img/product.svg'" :alt="product.name">
+                                    <img class="h-12 w-12 rounded-xl" :src="member.profile_photo_url" :alt="member.name">
                                 </div>
 
                                 <div class="ml-4">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <app-link class="text-blueGray-800" :href="product.path">{{ product.name }}</app-link>
+                                        {{ member.name }}
                                     </div>
 
-                                    <div class="mt-1 text-sm text-gray-500">
-                                        {{ pricingPlan(product) }}
+                                    <div class="text-sm text-gray-500">
+                                        {{ member.email }}
                                     </div>
                                 </div>
                             </div>
                         </td>
 
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ simple(product.created_at) }}
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm text-gray-900">Regional Paradigm Technician</div>
+                            <div class="text-sm text-gray-500">Optimization</div>
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span v-if="! member.locked" class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-emerald-100 text-emerald-800">
+                                Active
+                            </span>
+
+                            <span v-else class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                Inative
+                            </span>
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {{ simple(product.updated_at) }}
+                            {{ simple(member.created_at) }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -99,8 +113,8 @@
                                 </template>
 
                                 <template #items>
-                                    <dropdown-link :href="route('products.edit', { 'team': $page.props.user.team.slug, product })">Edit product</dropdown-link>
-                                    <dropdown-link class="text-red-500 hover:text-red-500" href="#">Delete product</dropdown-link>
+                                    <dropdown-link :href="route('members.edit', { 'team': $page.props.user.team.slug, member })">Edit details</dropdown-link>
+                                    <dropdown-link class="text-red-500 hover:text-red-500" href="#">Remove member</dropdown-link>
                                 </template>
                             </dropdown>
                         </td>
@@ -109,10 +123,10 @@
             </table>
 
             <div v-else class="mt-6">
-                <span class="text-sm text-blueGray-500">No products found.</span>
+                <span class="text-sm text-blueGray-500">No members found.</span>
             </div>
 
-            <pagination :links="products.links"></pagination>
+            <pagination :links="members.links"></pagination>
         </div>
     </app-layout>
 </template>
@@ -126,7 +140,7 @@ import Dropdown from '@/Views/Components/Dropdowns/Dropdown';
 import DropdownLink from '@/Views/Components/Dropdowns/DropdownLink';
 
 export default {
-    props: ['products'],
+    props: ['members'],
 
     components: {
         AppLayout,
@@ -138,13 +152,7 @@ export default {
     },
 
     methods: {
-        pricingPlan(product) {
-            if (product.payment_type === 'onetime') {
-                return 'US' + product.amount;
-            }
 
-            return 'US' + product.amount + ' | ' + product.billing_period;
-        }
     }
 }
 </script>

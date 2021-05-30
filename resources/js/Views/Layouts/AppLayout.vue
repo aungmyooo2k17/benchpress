@@ -14,12 +14,16 @@
                         Home
                     </navbar-link>
 
-                    <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
+                    <navbar-link :href="route('members.index', { 'team': team.slug })" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
                         Members
                     </navbar-link>
 
-                    <navbar-link :href="route('products.index', { 'team': $page.props.user.team.slug })" :active="route().current('products.index')" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
+                    <navbar-link :href="route('products.index', { 'team': team.slug })" :active="route().current('products.index')" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
                         Products
+                    </navbar-link>
+
+                    <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
+                        Cashier
                     </navbar-link>
 
                     <navbar-link href="#" :active="false" class="text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900">
@@ -32,7 +36,7 @@
                         <template #trigger>
                             <button class="inline-flex items-center px-3 py-2 rounded-xl opacity-75 bg-opacity-0 text-white bg-blueGray-900 hover:bg-blueGray-900 focus:bg-blueGray-900 hover:bg-opacity-75 focus:bg-opacity-100 hover:opacity-100 focus:outline-none transition ease-in-out duration-150">
                                 <span class="font-semibold text-sm">
-                                    {{ $page.props.user.team.name }}
+                                    {{ team.name }}
                                 </span>
 
                                 <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -43,8 +47,8 @@
 
                         <template #items>
                             <div class="block px-4 py-2 text-xs text-gray-500">Manage Team</div>
-                            <dropdown-link :href="route('staff.index', { 'team': $page.props.user.team.slug })">Staff</dropdown-link>
-                            <dropdown-link :href="route('teams.show', { 'team': $page.props.user.team.slug })">Settings</dropdown-link>
+                            <dropdown-link :href="route('staff.index', { 'team': team.slug })">Staff</dropdown-link>
+                            <dropdown-link :href="route('teams.show', { 'team': team.slug })">Settings</dropdown-link>
                         </template>
                     </dropdown>
 
@@ -106,6 +110,7 @@ export default {
 
     data() {
         return {
+            team: this.$page.props.user.team,
             copyright: `© ${new Date().getFullYear()} ${this.config('app.name')}. All rights reserved.`,
         };
     },

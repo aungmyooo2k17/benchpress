@@ -31,5 +31,8 @@
         "vue": "^3.0.11",
         "vue-frappe-chart": "^0.1.6",
         "vue-loader": "^16.2.0"
+    },
+    "dependencies": {
+        "@stripe/stripe-js": "^1.15.0"
     }
 }

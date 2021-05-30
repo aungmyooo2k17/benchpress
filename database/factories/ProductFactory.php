@@ -29,7 +29,7 @@ class ProductFactory extends Factory
         [$paymentType, $billingPeriod] = $this->getProductType();
 
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->company(),
             'code' => Str::random(24),
             'price' => 1000,
             'description' => $this->faker->paragraph(),

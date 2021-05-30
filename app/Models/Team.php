@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use Cratespace\Preflight\Models\Traits\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
@@ -111,6 +112,19 @@ class Team extends Model
     public function products(): HasMany
     {
         return $this->hasMany(Product::class, 'team_id', 'id');
+    }
+
+    /**
+     * Get all subscription type products.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function subscriptionProducts(): Collection
+    {
+        return $this->products()
+            ->where('payment_type', 'recurring')
+            ->latest()
+            ->get();
     }
 
     /**

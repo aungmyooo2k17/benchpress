@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
+use Inertia\Inertia;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use App\Http\Requests\MemberRequest;
@@ -15,8 +17,11 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Team $team)
     {
+        return Inertia::render('Members/Index', [
+            'members' => $team->customers()->latest()->paginate(),
+        ]);
     }
 
     /**
@@ -24,8 +29,11 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Team $team)
     {
+        return Inertia::render('Members/Create', [
+            'subscriptions' => $team->subscriptionProducts(),
+        ]);
     }
 
     /**
@@ -60,8 +68,12 @@ class MemberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Member $member)
+    public function edit(Team $team, Member $member)
     {
+        return Inertia::render('Members/Edit', [
+            'member' => $member,
+            'subscriptions' => $team->subscriptionProducts(),
+        ]);
     }
 
     /**
