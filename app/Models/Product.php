@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Cratespace\Contracts\Billing\Payment;
 use Cratespace\Preflight\Models\Traits\Hashable;
 use Cratespace\Preflight\Models\Traits\Sluggable;
+use Cratespace\Preflight\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Cratespace\Sentinel\Models\Traits\HasProfilePhoto;
@@ -22,6 +23,7 @@ class Product extends Model implements ProductContract
     use Sluggable;
     use HasProfilePhoto;
     use Hashable;
+    use Filterable;
 
     /**
      * The attributes that are mass assignable.

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use Inertia\Inertia;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use App\Filters\ProductFilter;
 use App\Http\Requests\ProductRequest;
 use App\Http\Responses\ProductResponse;
 use App\Actions\Product\CreateNewProduct;
@@ -16,10 +18,18 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Team $team)
+    public function index(Request $request, ProductFilter $filters, Team $team)
     {
+        $products = $team->products()->filter($filters)->latest();
+
+        if ($request->expectsJson()) {
+            return $this->response()->json([
+                'data' => $products->get(),
+            ], 200);
+        }
+
         return Inertia::render('Products/Index', [
-            'products' => Product::where('team_id', $team->id)->paginate(),
+            'products' => $products->paginate(),
         ]);
     }
 
