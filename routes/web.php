@@ -19,6 +19,7 @@ Route::group([
         Route::put('/{team}/address', [TeamAddressController::class, '__invoke'])->name('teams-address.update');
 
         Route::post('/{team}/invitations', [InvitationController::class, 'store'])->name('invitations.store');
+        Route::delete('/{team}/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.destroy');
     });
 });
 

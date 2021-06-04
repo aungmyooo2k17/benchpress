@@ -41,10 +41,13 @@ class InvitationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Invitation   $invitation
+     * @param \App\Http\Requests\InvitationRequest $request
+     * @param \App\Models\Team                     $team
+     * @param \App\Models\Invitation               $invitation
      *
      * @return \Illuminate\Http\Response
+     *
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(InvitationRequest $request, Team $team, Invitation $invitation)
     {
@@ -60,11 +63,12 @@ class InvitationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \App\Models\Team       $team
      * @param \App\Models\Invitation $invitation
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Invitation $invitation)
+    public function destroy(Team $team, Invitation $invitation)
     {
         $this->authorize('destroy', $invitation);
 
