@@ -3,11 +3,9 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
-use App\Models\Team;
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Cratespace\Preflight\Testing\Contracts\Postable;
+use Emberfuse\Blaze\Testing\Contracts\Postable;
 
 class RegistrationTest extends TestCase implements Postable
 {
@@ -22,15 +20,10 @@ class RegistrationTest extends TestCase implements Postable
 
     public function testNewUsersCanRegister()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->post('/register', $this->validParameters());
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
-
-        $this->assertCount(1, User::all());
-        $this->assertCount(1, Team::all());
     }
 
     public function testNewUsersCanRegisterThrougJsonRequest()
@@ -39,9 +32,6 @@ class RegistrationTest extends TestCase implements Postable
 
         $this->assertAuthenticated();
         $response->assertStatus(201);
-
-        $this->assertCount(1, User::all());
-        $this->assertCount(1, Team::all());
     }
 
     public function testValidNameIsRequired()
@@ -53,17 +43,6 @@ class RegistrationTest extends TestCase implements Postable
         $this->assertGuest();
         $response->assertStatus(302);
         $response->assertSessionHasErrors('name');
-    }
-
-    public function testValidTeamNameIsRequired()
-    {
-        $response = $this->post('/register', $this->validParameters([
-            'team' => '',
-        ]));
-
-        $this->assertGuest();
-        $response->assertStatus(302);
-        $response->assertSessionHasErrors('team');
     }
 
     public function testValidEmailIsRequired()
@@ -110,7 +89,6 @@ class RegistrationTest extends TestCase implements Postable
     {
         return array_merge([
             'name' => 'Test User',
-            'team' => 'Exogym',
             'email' => 'test@example.com',
             'phone' => '0712345678',
             'password' => 'password',

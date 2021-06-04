@@ -8,26 +8,22 @@
             <div>
                 <div>
                     <div class="mb-6 block lg:hidden">
-                        <logo :title="config('app.name')" classes="h-8 w-auto text-blueGray-800"></logo>
+                        <logo :title="config('app.name')" classes="h-20 w-20"></logo>
                     </div>
 
                     <div>
                         <h4 class="font-semibold text-xl text-gray-800">Create your {{ config('app.name') }} account</h4>
 
                         <p class="mt-3 font-normal text-base text-gray-500 max-w-md">
-                            If you are a business and wish to sell your freight spaces on Cratespace, you will have to request for an invite and cannot create an account directly.
+                            If you are a business and wish to sell your freight spaces on Emberfuse, you will have to request for an invite and cannot create an account directly.
                         </p>
                     </div>
                 </div>
 
                 <div class="mt-6">
                     <form @submit.prevent="register" class="w-full lg:grid lg:grid-cols-12 gap-6">
-                        <div class="mt-6 lg:mt-0 lg:col-span-6">
+                        <div class="mt-6 lg:mt-0 lg:col-span-8">
                             <app-input type="text" v-model="form.name" :error="form.errors.name" label="Full name" placeholder="Johnathan Doeford" required autofocus></app-input>
-                        </div>
-
-                        <div class="mt-6 lg:mt-0 lg:col-span-6">
-                            <app-input type="text" v-model="form.team" :error="form.errors.team" label="Business name" placeholder="Monster Fitness, Inc." required autofocus></app-input>
                         </div>
 
                         <div class="mt-6 lg:mt-0 lg:col-span-6">
@@ -48,7 +44,7 @@
 
                         <div class="mt-6 lg:mt-0 col-span-12">
                             <p class="font-normal text-xs text-gray-400 max-w-sm">
-                                By clicking "Create account", you agree to Cratespace's <app-link href="#">Terms of Use</app-link> and acknowledge you have read the <app-link href="#">Privacy Policy</app-link>.
+                                By clicking "Create account", you agree to Emberfuse's <app-link href="#">Terms of Use</app-link> and acknowledge you have read the <app-link href="#">Privacy Policy</app-link>.
                             </p>
                         </div>
 
@@ -80,17 +76,7 @@ import Logo from '@/Views/Components/Logos/Logo';
 import Advertisement from './Advertisement.vue';
 
 export default {
-    props: {
-        invitation: {
-            default: {
-                email: null,
-                team: {},
-                role: {},
-            },
-            required: false,
-            type: Object,
-        }
-    },
+    props: ['type'],
 
     components: {
         AuthLayout,
@@ -106,9 +92,7 @@ export default {
         return {
             form: this.$inertia.form({
                 name: null,
-                team: this.invitation.team.name,
-                email: this.invitation.email,
-                role: this.invitation.role.name,
+                email: null,
                 phone: null,
                 password: null,
                 password_confirmation: null,

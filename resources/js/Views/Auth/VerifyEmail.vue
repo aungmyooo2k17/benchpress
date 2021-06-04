@@ -7,8 +7,8 @@
         <template #right>
             <div class="max-w-sm">
                 <div>
-                    <div class="mb-12 block lg:hidden">
-                        <logo :title="config('app.name')" classes="h-8 w-auto text-blueGray-800"></logo>
+                    <div class="mb-6 block lg:hidden">
+                        <logo :title="config('app.name')" classes="h-20 w-20"></logo>
                     </div>
 
                     <h4 class="mt-6 font-semibold text-xl text-gray-800">Verify your email address</h4>

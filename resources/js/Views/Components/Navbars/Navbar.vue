@@ -7,8 +7,8 @@
                     <slot name="logo"></slot>
                 </div>
 
-                <div class="ml-8 flex flex-1 items-center justify-between">
-                    <div class="hidden lg:flex items-center mr-auto space-x-4">
+                <div class="ml-8 flex flex-1 items-center">
+                    <div class="hidden md:flex items-center mr-auto space-x-4">
                         <!-- Links Left -->
                         <slot name="linksleft"></slot>
                     </div>

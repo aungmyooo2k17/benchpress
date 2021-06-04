@@ -2,20 +2,16 @@
 
 namespace App\Actions\Auth;
 
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Cratespace\Preflight\Models\Role;
-use Cratespace\Sentinel\Support\Util;
-use Cratespace\Sentinel\Support\Traits\Fillable;
-use Cratespace\Sentinel\Contracts\Actions\CreatesNewUsers;
-use Cratespace\Sentinel\Support\Concerns\InteractsWithContainer;
+use Emberfuse\Scorch\Support\Util;
+use Emberfuse\Scorch\Support\Traits\Fillable;
+use Emberfuse\Scorch\Contracts\Actions\CreatesNewUsers;
 
 class CreateNewUser implements CreatesNewUsers
 {
     use Fillable;
-    use InteractsWithContainer;
 
     /**
      * Create a newly registered user.
@@ -26,61 +22,29 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $data, ?array $options = null)
     {
-        return DB::transaction(function () use ($data, $options) {
-            return with($this->createTeam(
-                array_merge($data, $options ?? [])
-            ), function (Team $team) use ($data) {
-                $user = $this->createUserForTeam($team, $data);
-
-                $user->assignRole(Role::firstOrCreate(
-                    isset($data['role'])
-                        ? ['name' => $data['role']]
-                        : $this->getDefaultConfig('admin_role')
-                ));
-
-                return $user;
-            });
+        return DB::transaction(function () use ($data) {
+            return $this->createUser(
+                $this->filterFillable($data, User::class)
+            );
         });
-    }
-
-    /**
-     * Create or find a team suing the given attributes.
-     *
-     * @param array $data
-     *
-     * @return \App\Modles\Team
-     */
-    public function createTeam(array $data): Team
-    {
-        if ($team = Team::whereName($data['team'])->first()) {
-            return $team;
-        }
-
-        return Team::create([
-            'name' => $data['team'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-        ]);
     }
 
     /**
      * Create new user profile.
      *
-     * @param \App\Models\Team $team
-     * @param array            $data
+     * @param array $data
      *
      * @return \App\Models\User
      */
-    protected function createUserForTeam(Team $team, array $data): User
+    protected function createUser(array $data): User
     {
-        return $team->staff()->create([
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
             'username' => Util::makeUsername($data['name']),
             'password' => Hash::make($data['password']),
-            'settings' => $this->defaultSettings(),
-            'address' => [],
+            'settings' => $this->setDefaultSettings(),
         ]);
     }
 
@@ -89,25 +53,8 @@ class CreateNewUser implements CreatesNewUsers
      *
      * @return array
      */
-    protected function defaultSettings(): array
+    protected function setDefaultSettings(): array
     {
-        return $this->getDefaultConfig('settings', []);
-    }
-
-    /**
-     * Get default user configurations.
-     *
-     * @param string|null $key
-     * @param mixed|null  $default
-     *
-     * @return mixed
-     */
-    public function getDefaultConfig(?string $key = null, $default = null)
-    {
-        if (! is_null($key)) {
-            return config('defaults.users.' . $key, $default);
-        }
-
-        return config('defaults.users', $default);
+        return config('defaults.users.settings', []);
     }
 }

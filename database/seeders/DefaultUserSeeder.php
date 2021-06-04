@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Team;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DefaultUserSeeder extends Seeder
@@ -14,10 +14,6 @@ class DefaultUserSeeder extends Seeder
      */
     public function run()
     {
-        $team = Team::factory()->create();
-
-        $user = $team->staff()->create((config('defaults.users.credentials')));
-
-        $user->assignRole('Administrator');
+        User::create(config('defaults.users.credentials'));
     }
 }

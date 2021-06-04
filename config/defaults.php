@@ -11,7 +11,7 @@ return [
         'credentials' => [
             'name' => 'Administrator',
             'username' => 'administrator',
-            'email' => 'admin@preflight.test',
+            'email' => 'admin@blaze.test',
             'phone' => '0112345678',
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'email_verified_at' => Carbon::now(),
@@ -34,23 +34,6 @@ return [
 
         'settings' => [
             'notifications' => ['mail', 'database', 'sms'],
-        ],
-
-        'admin_role' => $adminRole = [
-            'name' => 'Administrator',
-            'slug' => 'administrator',
-            'description' => 'An administrator can do anything.',
-        ],
-
-        'roles' => [
-            array_merge($adminRole, ['permissions' => ['*']]),
-
-            [
-                'name' => 'Staff',
-                'slug' => 'staff',
-                'description' => 'A staff can only update details.',
-                'permissions' => ['update'],
-            ],
         ],
     ],
 

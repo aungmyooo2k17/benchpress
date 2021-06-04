@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Unit\Models;
+namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-class ProductTest extends TestCase
+class ExampleTest extends TestCase
 {
     /**
-     * A basic unit test example.
+     * A basic test example.
      *
      * @return void
      */

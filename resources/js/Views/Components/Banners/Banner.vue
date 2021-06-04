@@ -47,11 +47,11 @@
 
         computed: {
             style() {
-                return this.$page.props.preflight.flash?.bannerStyle || 'success'
+                return this.$page.props.blaze.flash?.bannerStyle || 'success'
             },
 
             message() {
-                return this.$page.props.preflight.flash?.banner || ''
+                return this.$page.props.blaze.flash?.banner || ''
             },
         }
     }

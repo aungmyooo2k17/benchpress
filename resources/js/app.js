@@ -8,7 +8,6 @@ import {
 
 import { diffForHumans, simple, expanded } from './Plugins/moment';
 import { InertiaProgress } from '@inertiajs/progress';
-import Chart from 'vue-frappe-chart';
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -36,12 +35,11 @@ createApp({
         }
     })
     .use(InertiaPlugin)
-    .use(Chart)
     .mount(app);
 
 InertiaProgress.init({
     delay: 250,
-    color: '#10B981',
+    color: '#F97316',
     includeCSS: true,
     showSpinner: false,
 });

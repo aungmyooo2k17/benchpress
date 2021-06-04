@@ -1,3 +1,0 @@
-# Benchpress
-
-Work in progress.

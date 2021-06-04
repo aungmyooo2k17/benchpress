@@ -1,40 +1,28 @@
 {
-    "name": "exogym/benchpress",
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "Gym management system.",
-    "keywords": ["gym", "benchpress"],
+    "description": "The Laravel Framework.",
+    "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0",
-        "ext-bcmath": "*",
-        "ext-gmp": "*",
-        "ext-intl": "*",
-        "ext-json": "*",
-        "ext-zip": "*",
-        "ext-xml": "*",
-        "cratespace/contracts": "^1.1",
-        "cratespace/preflight": "^3.6",
-        "cratespace/sentinel": "^3.1",
-        "doctrine/inflector": "^2.0",
+        "php": "^7.3|^8.0",
+        "emberfuse/blaze": "^1.0",
+        "emberfuse/scorch": "^1.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "inertiajs/inertia-laravel": "^0.4.2",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
-        "moneyphp/money": "^3.3",
-        "stripe/stripe-php": "^7.80",
-        "symfony/intl": "^5.2",
-        "tightenco/ziggy": "^1.1.0"
+        "tightenco/ziggy": "^1.2"
     },
     "require-dev": {
-        "brianium/paratest": "^6.3",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.3.3"
     },
     "autoload": {
         "psr-4": {
