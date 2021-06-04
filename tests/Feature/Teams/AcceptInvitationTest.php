@@ -14,8 +14,6 @@ class AcceptInvitationTest extends TestCase
 
     public function testUserCanAcceptInvitation()
     {
-        $this->withoutExceptionHandling();
-
         $role = Role::create(['name' => 'Staff', 'slug' => 'staff']);
         $team = create(Team::class);
         $invitation = $team->invitations()->create([
