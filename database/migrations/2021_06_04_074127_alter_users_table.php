@@ -16,6 +16,7 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('owner')->default(false);
             $table->foreignId('team_id')
+                ->nullable()
                 ->constrained('teams', 'id')
                 ->cascadeOnDelete();
         });
