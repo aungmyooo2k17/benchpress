@@ -2,20 +2,17 @@
 
 namespace Database\Factories;
 
-use Carbon\Carbon;
 use App\Models\Team;
-use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class UserFactory extends Factory
+class TeamFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = User::class;
+    protected $model = Team::class;
 
     /**
      * Define the model's default state.
@@ -25,14 +22,9 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
-            'username' => $this->faker->unique()->userName(),
+            'name' => $this->faker->company(),
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->unique()->phoneNumber(),
-            'email_verified_at' => Carbon::now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-            'settings' => [],
             'address' => [
                 'line1' => $this->faker->streetName(),
                 'line2' => null,
@@ -41,12 +33,6 @@ class UserFactory extends Factory
                 'country' => $this->faker->country(),
                 'postal_code' => $this->faker->postcode(),
             ],
-            'team_id' => create(Team::class)->id,
-            'locked' => false,
-            'owner' => false,
-            'profile_photo_path' => null,
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
         ];
     }
 }

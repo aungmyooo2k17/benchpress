@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Emberfuse\Scorch\Models\Traits\HasApiTokens;
 use Emberfuse\Scorch\Models\Traits\HasProfilePhoto;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Emberfuse\Scorch\Models\Concerns\InteractsWithSessions;
@@ -36,6 +37,8 @@ class User extends Authenticatable
         'profile_photo_path',
         'two_factor_secret',
         'two_factor_recovery_codes',
+        'owner',
+        'team_id',
     ];
 
     /**
@@ -72,4 +75,24 @@ class User extends Authenticatable
         'sessions',
         'two_factor_enabled',
     ];
+
+    /**
+     * Get the team the user belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
+    }
+
+    /**
+     * Determine if the user is a team owner.
+     *
+     * @return bool
+     */
+    public function isOwner(): bool
+    {
+        return (bool) $this->owner;
+    }
 }
