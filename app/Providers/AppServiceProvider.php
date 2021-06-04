@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Actions\Teams\InviteMember;
 use Illuminate\Support\ServiceProvider;
+use App\Contracts\Actions\InvitesMember;
 use App\Actions\Teams\UpdateTeamInformation;
 use App\Contracts\Actions\UpdatesTeamInformation;
 use Emberfuse\Scorch\Providers\Traits\HasActions;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     protected $actions = [
         UpdatesTeamInformation::class => UpdateTeamInformation::class,
+        InvitesMember::class => InviteMember::class,
     ];
 
     /**

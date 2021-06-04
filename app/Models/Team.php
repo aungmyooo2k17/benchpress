@@ -33,7 +33,7 @@ class Team extends Model
      * @var array
      */
     protected $casts = [
-        'address' => 'array',
+        'address' => 'object',
     ];
 
     /**
@@ -57,6 +57,16 @@ class Team extends Model
     }
 
     /**
+     * Get all the invitations that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invitations(): HasMany
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
+    /**
      * Get the owner of the team.
      *
      * @return \App\Models\User|null
@@ -69,14 +79,30 @@ class Team extends Model
     }
 
     /**
-     * Determine if the given user belongs to this team.
+     * Determine if the given user is the owner of this team.
      *
      * @param \App\Models\User $user
      *
      * @return bool
      */
-    public function hasUser(User $user): bool
+    public function ownerIs(User $user): bool
     {
+        return $this->owner()->is($user);
+    }
+
+    /**
+     * Determine if the given user belongs to this team.
+     *
+     * @param \App\Models\User|string $user
+     *
+     * @return bool
+     */
+    public function hasMember($user): bool
+    {
+        if (is_string($user)) {
+            $user = User::whereEmail($user)->first();
+        }
+
         return $this->members->contains(
             fn (User $member): bool => $member->is($user)
         );

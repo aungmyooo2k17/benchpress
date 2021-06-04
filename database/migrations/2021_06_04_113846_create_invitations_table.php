@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateInvitationsTable extends Migration
 {
@@ -15,6 +15,10 @@ class CreateInvitationsTable extends Migration
     {
         Schema::create('invitations', function (Blueprint $table) {
             $table->id();
+            $table->string('email')->unique();
+            $table->datetime('accepted_at')->nullable();
+            $table->foreignId('role_id')->constrained();
+            $table->foreignId('team_id')->constrained();
             $table->timestamps();
         });
     }

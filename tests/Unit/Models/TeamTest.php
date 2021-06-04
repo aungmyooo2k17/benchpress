@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Models;
 
+use stdClass;
 use Tests\TestCase;
 use App\Models\Team;
 use App\Models\User;
@@ -36,6 +37,24 @@ class TeamTest extends TestCase
         $team = create(Team::class);
         $user = create(User::class, ['team_id' => $team->id]);
 
-        $this->assertTrue($team->hasUser($user));
+        $this->assertTrue($team->hasMember($user));
+    }
+
+    public function testCanIdentifyOwner()
+    {
+        $team = create(Team::class);
+        $user = create(User::class, [
+            'team_id' => $team->id,
+            'owner' => true,
+        ]);
+
+        $this->assertTrue($team->ownerIs($user));
+    }
+
+    public function testTeamHasAddress()
+    {
+        $team = create(Team::class);
+
+        $this->assertInstanceOf(stdClass::class, $team->address);
     }
 }

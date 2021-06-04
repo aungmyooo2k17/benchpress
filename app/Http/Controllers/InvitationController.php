@@ -2,84 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
+use Inertia\Inertia;
 use App\Models\Invitation;
 use Illuminate\Http\Request;
+use App\Contracts\Actions\InvitesMember;
+use App\Http\Requests\InvitationRequest;
+use App\Http\Responses\InvitationResponse;
 
 class InvitationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Team $team)
     {
-        //
+        return Inertia::render('Invitations/Create', compact('team'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * @param \App\Http\Requests\InvitationRequest $request
+     * @param \App\Models\Team                     $team
+     * @param \App\Contracts\Actions\InvitesMember $inviter
      *
-     * @param  \App\Models\Invitation  $invitation
      * @return \Illuminate\Http\Response
      */
-    public function show(Invitation $invitation)
+    public function store(InvitationRequest $request, Team $team, InvitesMember $inviter)
     {
-        //
-    }
+        $invitation = $inviter->invite($team, $request->validated());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Invitation  $invitation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Invitation $invitation)
-    {
-        //
+        return InvitationResponse::dispatch($invitation);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Invitation  $invitation
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Invitation   $invitation
+     *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Invitation $invitation)
+    public function update(Request $request, Team $team, Invitation $invitation)
     {
-        //
+        $invitation->accept();
+
+        return Inertia::render('Auth/Register', compact('invitation'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Invitation  $invitation
+     * @param \App\Models\Invitation $invitation
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Invitation $invitation)
     {
-        //
     }
 }

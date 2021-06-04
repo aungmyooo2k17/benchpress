@@ -20,6 +20,6 @@ class TeamPolicy
      */
     public function manage(User $user, Team $team)
     {
-        return $team->hasUser($user) && $team->owner()->is($user);
+        return $team->hasMember($user) && $team->owner()->is($user);
     }
 }

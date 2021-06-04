@@ -80,4 +80,9 @@ return [
         'description' => ['nullable', 'string'],
         'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
     ],
+
+    'invitation' => [
+        'email' => ['required', 'string', 'email', 'unique:invitations,email'],
+        'role_id' => ['required', 'numeric', 'exists:roles,id'],
+    ],
 ];
