@@ -4,8 +4,8 @@ namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Emberfuse\Blaze\Testing\Contracts\Postable;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrationTest extends TestCase implements Postable
 {
@@ -20,6 +20,7 @@ class RegistrationTest extends TestCase implements Postable
 
     public function testNewUsersCanRegister()
     {
+        $this->withoutExceptionHandling();
         $response = $this->post('/register', $this->validParameters());
 
         $this->assertAuthenticated();
@@ -89,6 +90,7 @@ class RegistrationTest extends TestCase implements Postable
     {
         return array_merge([
             'name' => 'Test User',
+            'team' => 'Test Team',
             'email' => 'test@example.com',
             'phone' => '0712345678',
             'password' => 'password',

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Team;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TeamFactory extends Factory
@@ -22,7 +23,8 @@ class TeamFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->company(),
+            'name' => $name = $this->faker->company(),
+            'slug' => Str::slug($name),
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->unique()->phoneNumber(),
             'address' => [
