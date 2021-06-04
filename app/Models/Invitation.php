@@ -44,6 +44,16 @@ class Invitation extends Model
     }
 
     /**
+     * Determine if the invitation has been accepted.
+     *
+     * @return bool
+     */
+    public function accepted(): bool
+    {
+        return ! is_null($this->accepted_at);
+    }
+
+    /**
      * Cancel the invitation.
      *
      * @return void

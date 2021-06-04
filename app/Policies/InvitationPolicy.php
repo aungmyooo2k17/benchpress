@@ -32,7 +32,7 @@ class InvitationPolicy
      */
     public function update(?User $user = null, Invitation $invitation)
     {
-        return is_null($invitation->accepted_at);
+        return $invitation->accepted();
     }
 
     /**
