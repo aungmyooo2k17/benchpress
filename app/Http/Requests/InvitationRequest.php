@@ -28,6 +28,10 @@ class InvitationRequest extends Request
      */
     public function rules(): array
     {
+        if ($this->method() === 'PUT') {
+            return [];
+        }
+
         return $this->getRulesFor('invitation');
     }
 }

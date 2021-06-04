@@ -22,6 +22,6 @@ Route::group([
     });
 });
 
-Route::put('/{team}/invitations/{invitation}', [InvitationController::class, 'update'])
+Route::put('/teams/{team}/invitations/{invitation}', [InvitationController::class, 'update'])
     ->middleware(['signed'])
     ->name('invitations.update');
