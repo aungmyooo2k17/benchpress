@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use Tests\TestCase;
+use App\Models\Team;
 use App\Providers\RouteServiceProvider;
 use Emberfuse\Blaze\Testing\Contracts\Postable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,11 +21,23 @@ class RegistrationTest extends TestCase implements Postable
 
     public function testNewUsersCanRegister()
     {
-        $this->withoutExceptionHandling();
         $response = $this->post('/register', $this->validParameters());
 
         $this->assertAuthenticated();
         $response->assertRedirect(RouteServiceProvider::HOME);
+        $this->assertTrue(auth()->user()->isOwner());
+    }
+
+    public function testNewUsersCanRegisterToExistingTeam()
+    {
+        create(Team::class, ['name' => 'A-Team']);
+        $response = $this->post('/register', $this->validParameters([
+            'team' => 'A-Team',
+        ]));
+
+        $this->assertAuthenticated();
+        $response->assertRedirect(RouteServiceProvider::HOME);
+        $this->assertFalse(auth()->user()->isOwner());
     }
 
     public function testNewUsersCanRegisterThrougJsonRequest()
