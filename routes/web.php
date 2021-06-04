@@ -11,5 +11,10 @@ Route::group([
 ], function (): void {
     Route::get('/home', fn () => Inertia::render('Dashboard/Home'))->name('home');
 
-    Route::put('/teams/{team}', [TeamController::class, 'update'])->name('teams.update');
+    Route::group([
+        'prefix' => 'teams',
+    ], function () {
+        Route::put('/{team}', [TeamController::class, 'update'])->name('teams.update');
+        Route::put('/{team}/address', [TeamAddressController::class, '__invoke'])->name('teams-address.update');
+    });
 });
