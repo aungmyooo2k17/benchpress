@@ -14,7 +14,11 @@ class InvitationRequest extends Request
      */
     public function authorize(): bool
     {
-        return $this->isAllowed('create', Invitation::class, false);
+        if (! is_null($this->invitation)) {
+            return $this->isAllowed('update', $this->invitation);
+        }
+
+        return $this->isAllowed('create', new Invitation(), false);
     }
 
     /**

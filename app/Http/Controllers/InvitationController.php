@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Team;
 use Inertia\Inertia;
 use App\Models\Invitation;
-use Illuminate\Http\Request;
 use App\Contracts\Actions\InvitesMember;
 use App\Http\Requests\InvitationRequest;
 use App\Http\Responses\InvitationResponse;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class InvitationController extends Controller
 {
@@ -46,8 +46,12 @@ class InvitationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team, Invitation $invitation)
+    public function update(InvitationRequest $request, Team $team, Invitation $invitation)
     {
+        if (! $invitation->team->is($team)) {
+            throw new AuthorizationException('Permission denied.');
+        }
+
         $invitation->accept();
 
         return Inertia::render('Auth/Register', compact('invitation'));
@@ -62,5 +66,10 @@ class InvitationController extends Controller
      */
     public function destroy(Invitation $invitation)
     {
+        $this->authorize('destroy', $invitation);
+
+        $invitation->cancel();
+
+        return $this->response()->back(303);
     }
 }

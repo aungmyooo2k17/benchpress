@@ -30,7 +30,21 @@ class InvitationPolicy
      *
      * @return mixed
      */
-    public function update(User $user, Invitation $invitation)
+    public function update(?User $user = null, Invitation $invitation)
     {
+        return is_null($invitation->accepted_at);
+    }
+
+    /**
+     * Determine whether the user can destroy the model.
+     *
+     * @param \App\Models\User       $user
+     * @param \App\Models\Invitation $invitation
+     *
+     * @return mixed
+     */
+    public function destroy(User $user, Invitation $invitation)
+    {
+        return $user->isOwner() && $user->team->is($invitation->team);
     }
 }
