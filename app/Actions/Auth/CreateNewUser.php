@@ -17,8 +17,6 @@ class CreateNewUser implements CreatesNewUsers
     use Fillable;
     use InteractsWithContainer;
 
-    protected $team;
-
     /**
      * Create a newly registered user.
      *
@@ -59,8 +57,6 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function createUserWithTeam(Team $team, array $data): User
     {
-        $owner = $team->wasRecentlyCreated ?: false;
-
         return $team->members()->create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -68,7 +64,7 @@ class CreateNewUser implements CreatesNewUsers
             'username' => Util::makeUsername($data['name']),
             'password' => Hash::make($data['password']),
             'settings' => $this->setDefaultSettings(),
-            'owner' => $owner,
+            'owner' => $team->wasRecentlyCreated,
         ]);
     }
 
