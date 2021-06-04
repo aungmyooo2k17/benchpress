@@ -72,4 +72,12 @@ return [
             'different:current_password',
         ],
     ],
+
+    'team' => [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email'],
+        'phone' => ['nullable', 'string'],
+        'description' => ['nullable', 'string'],
+        'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+    ],
 ];

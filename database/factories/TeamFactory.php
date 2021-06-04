@@ -27,6 +27,7 @@ class TeamFactory extends Factory
             'slug' => Str::slug($name),
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->unique()->phoneNumber(),
+            'description' => $this->faker->paragraph(),
             'address' => [
                 'line1' => $this->faker->streetName(),
                 'line2' => null,

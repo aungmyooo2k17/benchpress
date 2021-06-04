@@ -20,6 +20,7 @@ class CreateTeamsTable extends Migration
             $table->string('email');
             $table->string('phone')->nullable();
             $table->text('profile_photo_path')->nullable();
+            $table->text('description')->nullable();
             $table->json('address')->nullable();
             $table->timestamps();
         });

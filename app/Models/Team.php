@@ -37,6 +37,16 @@ class Team extends Model
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * Get all the users that belong to this team.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -56,5 +66,19 @@ class Team extends Model
         return $this->members
             ->filter(fn ($user) => $user->isOwner())
             ->first();
+    }
+
+    /**
+     * Determine if the given user belongs to this team.
+     *
+     * @param \App\Models\User $user
+     *
+     * @return bool
+     */
+    public function hasUser(User $user): bool
+    {
+        return $this->members->contains(
+            fn (User $member): bool => $member->is($user)
+        );
     }
 }
