@@ -89,6 +89,9 @@ jobs:
           DB_USERNAME: root
         run: php artisan test --parallel
 
+      - name: 🔬 Run JavaScript tests
+        run: npm run test
+
       - name: 📚 Upload artifacts
         uses: actions/upload-artifact@master
         if: failure()
@@ -159,6 +162,9 @@ jobs:
           DB_CONNECTION: sqlite
           DB_DATABASE: ':memory:'
         run: php artisan test --parallel
+
+      - name: 🔬 Run JavaScript tests
+        run: npm run test
 
       - name: 📚 Upload artifacts
         uses: actions/upload-artifact@master
