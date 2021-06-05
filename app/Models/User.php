@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use App\Contracts\Teams\Team as TeamContract;
 use Emberfuse\Scorch\Models\Traits\HasApiTokens;
+use App\Contracts\Teams\Member as MemberContract;
 use Emberfuse\Scorch\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Emberfuse\Scorch\Models\Concerns\InteractsWithSessions;
 use Emberfuse\Scorch\Models\Traits\TwoFactorAuthenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MemberContract
 {
     use HasFactory;
     use Notifiable;
@@ -94,5 +96,17 @@ class User extends Authenticatable
     public function isOwner(): bool
     {
         return (bool) $this->owner;
+    }
+
+    /**
+     * Determine if the user belongs to the given team.
+     *
+     * @param \App\Contracts\Teams\Team $team
+     *
+     * @return bool
+     */
+    public function belongsToTeam(TeamContract $team): bool
+    {
+        return $this->team->is($team);
     }
 }

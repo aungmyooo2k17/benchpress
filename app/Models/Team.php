@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use App\Contracts\Teams\Member;
 use Illuminate\Database\Eloquent\Model;
 use Emberfuse\Blaze\Models\Traits\Sluggable;
+use App\Contracts\Teams\Team as TeamContract;
 use Emberfuse\Scorch\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Team extends Model
+class Team extends Model implements TeamContract
 {
     use HasFactory;
     use Sluggable;
@@ -69,9 +71,9 @@ class Team extends Model
     /**
      * Get the owner of the team.
      *
-     * @return \App\Models\User|null
+     * @return \App\Contracts\Teams\Member|null
      */
-    public function owner(): ?User
+    public function owner(): ?Member
     {
         return $this->members
             ->filter(fn ($user) => $user->isOwner())
@@ -81,11 +83,11 @@ class Team extends Model
     /**
      * Determine if the given user is the owner of this team.
      *
-     * @param \App\Models\User $user
+     * @param mixed $user
      *
      * @return bool
      */
-    public function ownerIs(User $user): bool
+    public function ownerIs($user): bool
     {
         return $this->owner()->is($user);
     }
@@ -93,7 +95,7 @@ class Team extends Model
     /**
      * Determine if the given user belongs to this team.
      *
-     * @param \App\Models\User|string $user
+     * @param mixed $user
      *
      * @return bool
      */

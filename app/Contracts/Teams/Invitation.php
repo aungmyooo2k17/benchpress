@@ -2,7 +2,9 @@
 
 namespace App\Contracts\Teams;
 
-interface invitation
+use App\Contracts\Support\Cancellable;
+
+interface invitation extends Cancellable
 {
     /**
      * Accept this invitation.

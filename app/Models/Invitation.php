@@ -7,7 +7,7 @@ use Emberfuse\Blaze\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Contracts\Team\Invitation as InvitationContract;
+use App\Contracts\Teams\Invitation as InvitationContract;
 
 class Invitation extends Model implements InvitationContract
 {
