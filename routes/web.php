@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvitationController;
 
 Route::get('/', fn () => Inertia::render('Welcome/Show'))->name('welcome');
@@ -20,6 +21,8 @@ Route::group([
 
         Route::post('/{team}/invitations', [InvitationController::class, 'store'])->name('invitations.store');
         Route::delete('/{team}/invitations/{invitation}', [InvitationController::class, 'destroy'])->name('invitations.destroy');
+
+        Route::resource('products', ProductController::class);
     });
 });
 
