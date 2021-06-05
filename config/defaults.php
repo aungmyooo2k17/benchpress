@@ -36,6 +36,23 @@ return [
         'settings' => [
             'notifications' => ['mail', 'database', 'sms'],
         ],
+
+        'admin_role' => $adminRole = [
+            'name' => 'Administrator',
+            'slug' => 'administrator',
+            'description' => 'An administrator can do anything.',
+        ],
+
+        'roles' => [
+            array_merge($adminRole, ['permissions' => ['*']]),
+
+            [
+                'name' => 'Staff',
+                'slug' => 'staff',
+                'description' => 'A staff can only update details.',
+                'permissions' => ['update'],
+            ],
+        ],
     ],
 
     /*

@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Contracts\Teams\Team as TeamContract;
 use Emberfuse\Scorch\Models\Traits\HasApiTokens;
 use App\Contracts\Teams\Member as MemberContract;
+use Emberfuse\Blaze\Models\Concerns\ManagesRoles;
 use Emberfuse\Scorch\Models\Traits\HasProfilePhoto;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -21,6 +22,7 @@ class User extends Authenticatable implements MemberContract
     use HasProfilePhoto;
     use InteractsWithSessions;
     use TwoFactorAuthenticatable;
+    use ManagesRoles;
 
     /**
      * The attributes that are mass assignable.
