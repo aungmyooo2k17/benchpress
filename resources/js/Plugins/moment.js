@@ -29,6 +29,6 @@ export function simple(timestamp) {
  *
  * @return {String}
  */
- export function expanded(timestamp) {
+export function expanded(timestamp) {
     return moment(timestamp).format('dddd, MMMM Do YYYY');
 }

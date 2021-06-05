@@ -31,8 +31,8 @@ createApp({
             config,
             diffForHumans,
             simple,
-            expanded
-        }
+            expanded,
+        },
     })
     .use(InertiaPlugin)
     .mount(app);
