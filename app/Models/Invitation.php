@@ -61,6 +61,10 @@ class Invitation extends Model implements InvitationContract
      */
     public function cancel(): void
     {
+        if ($this->accepted()) {
+            return;
+        }
+
         $this->delete();
     }
 

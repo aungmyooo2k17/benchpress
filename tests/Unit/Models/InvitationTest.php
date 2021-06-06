@@ -33,4 +33,24 @@ class InvitationTest extends TestCase
 
         $this->assertTrue($invitation->accepted());
     }
+
+    public function testCancellation()
+    {
+        $invitation = create(Invitation::class);
+
+        $invitation->cancel();
+
+        $this->assertNull($invitation->fresh());
+    }
+
+    public function testaCannotCancelIfAccepted()
+    {
+        $invitation = create(Invitation::class);
+
+        $invitation->accept();
+
+        $invitation->cancel();
+
+        $this->assertNotNull($invitation->fresh());
+    }
 }
