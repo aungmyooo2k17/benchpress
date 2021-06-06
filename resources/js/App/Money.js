@@ -1,17 +1,16 @@
+import config from '../Config';
+
 class Money {
     /**
      * Create new money untilities helper instance.
      *
      * @return  {void}
      */
-    constructor() {
-        this.formatter = new Intl.NumberFormat(
-            config('billing.currency_locale'),
-            {
-                style: 'currency',
-                currency: config('billing.currency'),
-            }
-        );
+    constructor(currency = 'usd', locale = 'en') {
+        this.formatter = new Intl.NumberFormat(locale || config('billing.currency_locale'), {
+            style: 'currency',
+            currency: currency || config('billing.currency'),
+        });
     }
 
     /**
@@ -22,7 +21,7 @@ class Money {
      * @return  {String}
      */
     format(amount) {
-        return this.formatter.format(amount);
+        return this.formatter.format(amount / 100);
     }
 }
 

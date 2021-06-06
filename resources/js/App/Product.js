@@ -9,7 +9,7 @@ class Product {
      * @return  {void}
      */
     constructor(attributes = {}) {
-        this.attributes = {};
+        this.attributes = attributes;
     }
 
     /**
@@ -17,12 +17,27 @@ class Product {
      *
      * @return  {String}
      */
-    price() {
+    presentablePrice() {
         if (this.attributes.hasOwnProperty('amount')) {
-            return this.attributes.amount;
+            const amount = this.attributes.amount;
+
+            return typeof amount !== 'string' ? amount : this.format(amount);
         }
 
-        return new Money().format(this.attributes.price);
+        return this.format(this.attributes.price);
+    }
+
+    /**
+     * Format the given integer amount to a presentable currency format.
+     *
+     * @param   {Integer}  amount
+     *
+     * @return  {String}
+     */
+    format(amount) {
+        const money = new Money();
+
+        return money.format(amount);
     }
 }
 

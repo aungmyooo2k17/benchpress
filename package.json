@@ -6,7 +6,7 @@
         "hot": "mix watch --hot",
         "prod": "npm run production",
         "production": "mix --production",
-        "test": "jest --verbose ./resources/js/Tests",
+        "test": "jest ./resources/js/Tests",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000"
     },
