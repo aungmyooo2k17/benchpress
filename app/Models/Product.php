@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Support\Money;
+use App\Events\OrderPlaced;
+use App\Models\Traits\Orderable;
 use App\Contracts\Products\Order;
 use App\Contracts\Billing\Payment;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +26,7 @@ class Product extends Model implements ProductContract
     use HasProfilePhoto;
     use Hashable;
     use Filterable;
+    use Orderable;
 
     /**
      * The attributes that are mass assignable.
@@ -176,7 +179,7 @@ class Product extends Model implements ProductContract
      */
     public function merchant()
     {
-        return $this->team->owner;
+        return $this->team->owner();
     }
 
     /**
@@ -204,11 +207,22 @@ class Product extends Model implements ProductContract
      *
      * @param \App\Contracts\Billing\Payment $payment
      *
-     * @return \App\Contracts\Orders\Order
+     * @return \App\Contracts\Products\Order
      */
     public function placeOrder(Payment $payment): Order
     {
-        return $this->name;
+        $this->reserve();
+
+        $order = $this->order()->create([
+            'team_id' => $this->team->id,
+            'customer_id' => Customer::findByStripeId($payment->customer)->id,
+            'amount' => $payment->rawAmount(),
+            'payment' => $payment->id,
+        ]);
+
+        OrderPlaced::dispatch($order);
+
+        return $order;
     }
 
     /**
@@ -218,7 +232,7 @@ class Product extends Model implements ProductContract
      */
     public function available(): bool
     {
-        return $this->name;
+        return is_null($this->reserved_at) && ! $this->order()->exists();
     }
 
     /**

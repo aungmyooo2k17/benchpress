@@ -21,6 +21,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         InvitationSent::class => [],
+
+        OrderPlaced::class => [],
     ];
 
     /**
