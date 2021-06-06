@@ -22,7 +22,7 @@ class Stripe {
      */
     async initialize(apiKey = null) {
         if (apiKey === null) {
-            apiKey = config('billing.services.stripe.key', '');
+            apiKey = config('billing.services.stripe.key', 'pk_123');
         }
 
         this.core = await loadStripe(apiKey);

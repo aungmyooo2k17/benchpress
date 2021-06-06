@@ -40,7 +40,7 @@ class Money
      */
     public static function preferredCurrency(): string
     {
-        return config('billing.currency');
+        return config('billing.currency', 'usd');
     }
 
     /**
@@ -50,6 +50,6 @@ class Money
      */
     public static function preferredCurrencyLocale(): string
     {
-        return config('billing.currency_locale');
+        return config('billing.currency_locale', 'en');
     }
 }
