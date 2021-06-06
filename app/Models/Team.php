@@ -59,6 +59,16 @@ class Team extends Model implements TeamContract
     }
 
     /**
+     * Get all the products that belong to this team.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
      * Get all the invitations that belong to this team.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

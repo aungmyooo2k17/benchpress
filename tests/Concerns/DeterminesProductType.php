@@ -2,8 +2,12 @@
 
 namespace Tests\Concerns;
 
+use Illuminate\Foundation\Testing\WithFaker;
+
 trait DeterminesProductType
 {
+    use WithFaker;
+
     /**
      * Dynamically determine product type.
      *

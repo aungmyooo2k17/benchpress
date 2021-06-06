@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Throwable;
 use Carbon\Carbon;
 use App\Support\Money;
 use App\Events\OrderPlaced;
@@ -274,13 +275,17 @@ class Product extends Model implements ProductContract
     /**
      * Get the full url to the product page.
      *
-     * @return string
+     * @return string|null
      */
-    public function getPathAttribute(): string
+    public function getPathAttribute(): ?string
     {
-        return route('products.show', [
-            'team' => $this->team->slug,
-            'product' => $this->slug,
-        ]);
+        try {
+            return route('products.show', [
+                'team' => $this->team->slug,
+                'product' => $this->slug,
+            ]);
+        } catch (Throwable $e) {
+            return null;
+        }
     }
 }
