@@ -15,15 +15,19 @@ class Repository {
      * @return {Any}
      */
     get(key, defaultValue = null) {
-        const value = key.split('.').reduce((object, item) => {
-            return object[item];
-        }, this.items);
+        try {
+            const value = key.split('.').reduce((object, item) => {
+                return object[item];
+            }, this.items);
 
-        if (value === undefined) {
+            if (value === undefined) {
+                return defaultValue;
+            }
+
+            return value;
+        } catch (error) {
             return defaultValue;
         }
-
-        return value;
     }
 
     /**

@@ -55,7 +55,7 @@
             "@php artisan key:generate --ansi"
         ],
         "tests": [
-            "@php artisan test && npm run test"
+            "@php artisan test --parallel && npm run test"
         ]
     },
     "extra": {
