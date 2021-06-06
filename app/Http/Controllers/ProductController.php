@@ -7,7 +7,9 @@ use Inertia\Inertia;
 use App\Models\Product;
 use App\Filters\ProductFilter;
 use App\Http\Requests\ProductRequest;
+use App\Actions\Products\UpdateProduct;
 use App\Http\Responses\ProductResponse;
+use App\Actions\Products\CreateNewProduct;
 
 class ProductController extends Controller
 {
@@ -43,9 +45,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ProductRequest $request, Team $team)
+    public function store(ProductRequest $request, Team $team, CreateNewProduct $creator)
     {
-        return ProductResponse::dispatch();
+        $product = $creator->create($request->validated(), [
+            'team_id' => $team->id,
+        ]);
+
+        return ProductResponse::dispatch($product);
     }
 
     /**
@@ -80,8 +86,14 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductRequest $request, Team $team, Product $product)
-    {
+    public function update(
+        ProductRequest $request,
+        Team $team,
+        Product $product,
+        UpdateProduct $updater
+    ) {
+        $updater->update($product, $request->validated());
+
         return ProductResponse::dispatch($product->fresh());
     }
 
