@@ -56,6 +56,14 @@ return [
     ],
 
     /*
+     * Default Product Related Details...
+     */
+    'products' => [
+        'payment_types' => ['onetime', 'recurring'],
+        'billing_periods' => ['Daily', 'Weekly', 'Monthly', 'Yearly'],
+    ],
+
+    /*
      * Default API Related Details...
      */
     'api' => [

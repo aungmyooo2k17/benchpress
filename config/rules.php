@@ -85,4 +85,26 @@ return [
         'email' => ['required', 'string', 'email', 'unique:invitations,email'],
         'role_id' => ['required', 'numeric', 'exists:roles,id'],
     ],
+
+    'product' => [
+        'name' => ['required', 'string', 'max:255'],
+        'code' => ['nullable', 'string', 'max:255', 'unique:products,code'],
+        'price' => ['required', 'numeric'],
+        'description' => ['nullable', 'string'],
+        'height' => ['nullable', 'numeric'],
+        'height' => ['nullable', 'numeric'],
+        'width' => ['nullable', 'numeric'],
+        'length' => ['nullable', 'numeric'],
+        'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:1024'],
+        'payment_type' => [
+            'required',
+            'string',
+            Rule::in(config('defaults.products.payment_types')),
+        ],
+        'billing_period' => [
+            'required',
+            'string',
+            Rule::in(config('defaults.products.billing_periods')),
+        ],
+    ],
 ];

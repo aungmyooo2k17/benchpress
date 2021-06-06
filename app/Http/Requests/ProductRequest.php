@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Product;
 use Emberfuse\Scorch\Http\Requests\Request;
 
 class ProductRequest extends Request
@@ -13,7 +14,11 @@ class ProductRequest extends Request
      */
     public function authorize(): bool
     {
-        return false;
+        return $this->isAllowed(
+            'create',
+            $this->product ?? new Product(),
+            false
+        );
     }
 
     /**
@@ -23,6 +28,6 @@ class ProductRequest extends Request
      */
     public function rules(): array
     {
-        return [];
+        return $this->getRulesFor('product');
     }
 }
