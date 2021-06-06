@@ -92,4 +92,42 @@ class ProductTest extends TestCase
 
         $this->assertNull($product->fresh()->reserved_at);
     }
+
+    public function testDetermineAvailability()
+    {
+        $product = create(Product::class);
+
+        $this->assertTrue($product->available());
+
+        $product->reserve();
+
+        $this->assertFalse($product->available());
+    }
+
+    public function testMatchIdentity()
+    {
+        $product = create(Product::class);
+
+        $productClone = clone $product;
+
+        $this->assertEquals($product, $productClone->match($product->getCode()));
+    }
+
+    public function testDeterminePaymentType()
+    {
+        $product = create(Product::class, ['payment_type' => 'recurring']);
+
+        $this->assertFalse($product->isOnetime());
+        $this->assertTrue($product->isRecurring());
+    }
+
+    public function testGetFullUrlToProductPage()
+    {
+        $product = create(Product::class);
+
+        $this->assertEquals(route('products.show', [
+            'team' => $product->team->slug,
+            'product' => $product->slug,
+        ]), $product->path);
+    }
 }
