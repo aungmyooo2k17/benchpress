@@ -1,10 +1,7 @@
 import config from './Config';
 import axios from 'axios';
 import { createApp, h } from 'vue';
-import {
-    App as InertiaApp,
-    plugin as InertiaPlugin,
-} from '@inertiajs/inertia-vue3';
+import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
 
 import { diffForHumans, simple, expanded } from './Plugins/moment';
 import { InertiaProgress } from '@inertiajs/progress';
@@ -15,8 +12,7 @@ const app = document.getElementById('app');
 
 createApp({
     metaInfo: {
-        titleTemplate: (title) =>
-            title ? `${title} - ${config('app.name')}` : config('app.name'),
+        titleTemplate: (title) => (title ? `${title} - ${config('app.name')}` : config('app.name')),
     },
 
     render: () =>

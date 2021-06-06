@@ -29,6 +29,33 @@ class Stripe {
     }
 
     /**
+     * Create a credit card Stripe element.
+     *
+     * @param   {String}  elementId
+     * @param   {Object}  config
+     *
+     * @return  {void}
+     */
+    createCardElement(elementId, config = {}) {
+        this.card = this.elements().create('card', config);
+
+        this.card.addEventListener('change', (event) => {
+            this.cardError = event.error ? event.error.message : null;
+        });
+
+        this.card.mount(elementId);
+    }
+
+    /**
+     * Get the card error message element.
+     *
+     * @return  {Element}
+     */
+    cardErrorMessage() {
+        return this.cardError;
+    }
+
+    /**
      * Get the Stripe elements instance.
      *
      * @return  {Element}
